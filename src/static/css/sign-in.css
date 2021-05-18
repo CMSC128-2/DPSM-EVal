@@ -38,12 +38,12 @@ header.masthead {
   padding-bottom: calc(10rem - 56px);
   background-position: center;
   background-size: cover;
-  background-image: url('../../assets/img/oble.png');
+  background-image: url('../img/oble.png');
   height: 100vh;
 }
 
 .logo-cas {
-  background-image: url(../../assets/img/logo-cas.png);
+  background-image: url(../img/logo-cas.png);
   height: 100px;
   width: 100px;
   background-repeat: no-repeat;
@@ -51,7 +51,7 @@ header.masthead {
 }
 
 .logo-upm {
-  background-image: url(../../assets/img/logo-upm.png);
+  background-image: url(../img/logo-upm.png);
   height: 124px;
   width: 124px;
   background-repeat: no-repeat;
@@ -60,7 +60,7 @@ header.masthead {
 }
 
 .logo-dpsm {
-  background-image: url(../../assets/img/logo-dpsm.png);
+  background-image: url(../img/logo-dpsm.png);
   height: 140px;
   width: 140px;
   background-repeat: no-repeat;

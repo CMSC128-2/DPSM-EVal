@@ -5,7 +5,7 @@ sample_blueprint = Blueprint('sample_blueprint', __name__)
 
 @sample_blueprint.route('/')
 def index():
-	return render_template('main.html')
+	return render_template('login.html')
 
 @sample_blueprint.route('/About')
 def about():
