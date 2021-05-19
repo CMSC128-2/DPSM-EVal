@@ -72,6 +72,11 @@ def callback():
 def dashboard():
 	return render_template('user-faculty/dashboard.html')
 
+@dpsm_eval_blueprint.route('/faculty_list')
+#@login_required
+def faculty_list():
+	return render_template('user-faculty/user-faculty-list.html')
+
 @dpsm_eval_blueprint.route('/About')
 def about():
 	return render_template('about.html')
