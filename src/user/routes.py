@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, session, redirect, abort, request
+from flask import Blueprint, render_template, session, redirect, abort, request, url_for
+from pyasn1.type.univ import Null
 import requests
 import flask
 from flask.globals import request
@@ -47,8 +48,8 @@ def login():
 def callback():
 	flow.fetch_token(authorization_response=request.url)
 
-	if not session["state"] == request.args["state"]:
-		abort(500)
+	#if not session["state"] == request.args["state"]:
+		#abort(500)
 		
 	credentials = flow.credentials
 	request_session = requests.Session()
@@ -69,10 +70,13 @@ def callback():
 	
 	user = UserAccounts.query.filter_by(email=id_info.get("email")).first()
 	login_user(user)
-	if user.is_admin == False:
-		return redirect('/user-dashboard')
+	if user is not None:
+		if user.is_admin == False:
+			return redirect('/user-dashboard')
+		else:
+			return redirect('/admin-dashboard')
 	else:
-		return redirect('/admin-dashboard')
+		return "Faculty Account Does not Exist in Database"
 
 @dpsm_eval_blueprint.route('/user-dashboard')
 #@login_required
@@ -87,3 +91,8 @@ def faculty_list():
 @dpsm_eval_blueprint.route('/admin-dashboard')
 def about():
 	return render_template('admin/dashboard.html')
+
+@dpsm_eval_blueprint.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('dpsm_eval_blueprint.index'))
