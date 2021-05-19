@@ -9,7 +9,7 @@
                     <li class="nav-item">
                         <div class="card user-info">
                             <div class="card-body user-info-body"><img class="account-img" src="assets/img/logo-cas.png">
-                                <h4 class="card-title faculty-name">{{ user_name }}</h4>
+                                <h4 class="card-title faculty-name">{{current_user.first_name}} {{current_user.middle_name}} {{current_user.last_name}}</h4>
                                 <h6 class="text-muted card-subtitle faculty-position mb-2">Associate Professor</h6>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                     <li class="nav-item">
                         <div class="card user-info">
                             <div class="card-body text-center user-info-body"><img class="account-img" src="assets/img/logo-cas.png">
-                                <h4 class="card-title faculty-name">{{ user_name }}</h4>
+                                <h4 class="card-title faculty-name">{{current_user.first_name}} {{current_user.middle_name}} {{current_user.last_name}}</h4>
                                 <h6 class="text-muted card-subtitle faculty-position mb-2">Associate Professor</h6>
                             </div>
                         </div>

@@ -19,3 +19,15 @@ class UserAccounts(UserMixin, db.Model):
     is_unit_apc = db.Column(db.Boolean, default=False)
     is_dept_head = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
+
+    def __init__(self,id, first_name, middle_name, last_name, email, password, is_unit_head, is_admin, is_unit_apc, is_dept_head):
+        self.id = id
+        self.first_name       = first_name
+        self.middle_name      = middle_name
+        self.last_name        = last_name
+        self.email            = email
+        self.password         = password
+        self.is_unit_head     = is_unit_head
+        self.is_unit_apc      = is_unit_apc
+        self.is_dept_head     = is_dept_head
+        self.is_admin         = is_admin

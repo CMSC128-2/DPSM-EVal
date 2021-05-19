@@ -66,9 +66,9 @@ def callback():
 	session["name"] = id_info.get("name")
 	session["email"] = id_info.get("email")
 	#email = id_info.get("email")
-
+	
 	user = UserAccounts.query.filter_by(email=id_info.get("email")).first()
-
+	login_user(user)
 	if user.is_admin == False:
 		return redirect('/user-dashboard')
 	else:
@@ -77,15 +77,7 @@ def callback():
 @dpsm_eval_blueprint.route('/user-dashboard')
 #@login_required
 def dashboard():
-	user = UserAccounts.query.filter_by(email=session["email"]).first()
-	user_name = ""
-
-	user_name += user.first_name
-	user_name += " " + user.middle_name
-	user_name += " " + user.last_name
-	print(user_name)
-
-	return render_template('user-faculty/dashboard.html', user_name = user_name)
+	return render_template('user-faculty/dashboard.html')
 
 @dpsm_eval_blueprint.route('/faculty_list')
 #@login_required
