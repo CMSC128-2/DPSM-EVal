@@ -78,9 +78,14 @@ def callback():
 #@login_required
 def dashboard():
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
+	user_name = ""
 
-	
-	return render_template('user-faculty/dashboard.html')
+	user_name += user.first_name
+	user_name += " " + user.middle_name
+	user_name += " " + user.last_name
+	print(user_name)
+
+	return render_template('user-faculty/dashboard.html', user_name = user_name)
 
 @dpsm_eval_blueprint.route('/faculty_list')
 #@login_required
