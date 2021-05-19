@@ -19,6 +19,7 @@ class UserAccounts(UserMixin, db.Model):
     is_unit_apc = db.Column(db.Boolean, default=False)
     is_dept_head = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
+    is_evaluated_id = db.Column(ARRAY(Integer))
 
     def __init__(self,id, first_name, middle_name, last_name, work_title, email, password, is_unit_head, is_admin, is_unit_apc, is_dept_head):
         self.id = id
@@ -32,3 +33,10 @@ class UserAccounts(UserMixin, db.Model):
         self.is_unit_apc      = is_unit_apc
         self.is_dept_head     = is_dept_head
         self.is_admin         = is_admin
+
+class to_evaluate(UserMixin, db.Model):
+    to_eval_id = db.Column(db.Integer, primary_key=True)
+    to_eval_first_name = db.Column(db.String(59), nullable=True)
+    to_eval_middle_name = db.Column(db.String(59), nullable=True)
+    to_eval_last_name = db.Column(db.String(59), nullable=True)
+    to_eval_position = db.Column(db.String(59), nullable=True)

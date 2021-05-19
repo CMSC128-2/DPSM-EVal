@@ -55,31 +55,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for (name, pos) in not_evaluated: %}
+                            	{% if name in evaluated %}
                                 <tr>
-                                    <td>Berwin Yu</td>
-                                    <td>Lecturer (part-time)</td>
-                                    <td><a class="click-to-eval" href="user-peer-1.html">Click to evaluate</a></td>
+                                    <td>{{ name }}</td>
+                                    <td>{{ pos }}</td>
+                                    <td><a class="completed-cell" href="user-peer-1.html">Completed</a></td>
                                 </tr>
+                                {% else %}
                                 <tr>
-                                    <td>Faculty Member Name</td>
-                                    <td>temporary (full-time)</td>
-                                    <td class="completed-cell">Completed<i class="fa fa-check-circle ml-1"></i></td>
+                                    <td>{{ name }}</td>
+                                    <td>{{ pos }}</td>
+                                    <td><a class="click-to-eval">Click here to evaluate</a><i class="fa fa-check-circle ml-1"></i></td>
                                 </tr>
-                                <tr>
-                                    <td>Faculty Member Name</td>
-                                    <td>temporary (full-time)</td>
-                                    <td class="completed-cell">Completed<i class="fa fa-check-circle ml-1"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>Faculty Member Name</td>
-                                    <td>temporary (full-time)</td>
-                                    <td class="completed-cell">Completed<i class="fa fa-check-circle ml-1"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>Faculty Member Name</td>
-                                    <td>temporary (full-time)</td>
-                                    <td class="completed-cell">Completed<i class="fa fa-check-circle ml-1"></i></td>
-                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                                
                             </tbody>
                         </table>
                     </div>
