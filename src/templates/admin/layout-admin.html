@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Dashboard - Brand</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/material-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome5-overrides.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.cs') }}s">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/overrides.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-in.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body id="page-top">
+    <nav class="navbar navbar-light navbar-dark" style="position: fixed;z-index: 1030;left: 0;right: 0;background-color: #131313;">
+        <div class="container-fluid"><a href="user-home.html">
+                <div class="site-logo"></div>
+            </a><button data-toggle="collapse" class="navbar-toggler" data-target="#side-to-top" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse side-to-top" id="side-to-top">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div class="card user-info">
+                            <div class="card-body user-info-body"><img class="account-img" src="assets/img/logo-cas.png">
+                                <h4 class="card-title faculty-name">&lt;{{current_user.first_name}} {{current_user.middle_name}} {{current_user.last_name}}&gt;</h4>
+                                <h6 class="text-muted card-subtitle faculty-position mb-2">{{current_user.work_title}}</h6>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="user-home.html"><i class="fas fa-table"></i><span>Home</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="user-home.html"><i class="fas fa-table"></i><span>Users</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="user-home.html"><i class="fas fa-table"></i><span>Forms</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% block dashboard %} {% endblock %}
+
+<footer class="footer-basic text-light">
+    <p class="text-center">Department of Physical Science and Mathematics<br>College of Arts and Sciences<br>University of the Philippines Manila<br></p>
+    <p class="copyright">E-Val System © 2021</p>
+</footer>
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+
+</html>
