@@ -7,7 +7,7 @@ from google import auth
 import google
 from google.auth import credentials
 from werkzeug.utils import cached_property
-from .models import UserAccounts
+from .models import UserAccounts, to_evaluate
 from src import login_manager
 from google_auth_oauthlib.flow import Flow
 import google.oauth2.id_token as id_token
@@ -85,8 +85,31 @@ def dashboard():
 @dpsm_eval_blueprint.route('/faculty_list')
 #@login_required
 def faculty_list():
-	return render_template('user-faculty/user-faculty-list.html')
+	user = UserAccounts.query.filter_by(email=session["email"]).first()
+	evaluated = user.is_evaluated_id
+	need_to_be_evaluated = to_evaluate.query.all()
+	need_to_be_evaluated_names = []
+	need_to_be_evaluated_pos = []
+	evaluated_names = []
+	evaluated_pos = []
 
+	for j in need_to_be_evaluated:
+		if j.to_eval_id in evaluated:
+			evaluated_names.append(build_name(j.to_eval_first_name, j.to_eval_middle_name, j.to_eval_last_name))
+			evaluated_pos.append(j.to_eval_position)
+
+	for j in need_to_be_evaluated:
+		need_to_be_evaluated_names.append(build_name(j.to_eval_first_name, j.to_eval_middle_name, j.to_eval_last_name))
+		need_to_be_evaluated_pos.append(j.to_eval_position)
+
+	return render_template('user-faculty/user-faculty-list.html', evaluated= zip(evaluated_names, evaluated_pos), not_evaluated= zip(need_to_be_evaluated_names,need_to_be_evaluated_pos))
 @dpsm_eval_blueprint.route('/admin-dashboard')
 def about():
 	return render_template('admin/dashboard.html')
+
+def build_name(first_name, middle_name, last_name):
+	name = ''
+	name += first_name
+	name += ' ' + middle_name
+	name += ' ' + last_name
+	return name

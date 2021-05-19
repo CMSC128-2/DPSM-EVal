@@ -19,3 +19,11 @@ class UserAccounts(UserMixin, db.Model):
     is_unit_apc = db.Column(db.Boolean, default=False)
     is_dept_head = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
+    is_evaluated_id = db.Column(ARRAY(Integer))
+
+class to_evaluate(UserMixin, db.Model):
+    to_eval_id = db.Column(db.Integer, primary_key=True)
+    to_eval_first_name = db.Column(db.String(59), nullable=True)
+    to_eval_middle_name = db.Column(db.String(59), nullable=True)
+    to_eval_last_name = db.Column(db.String(59), nullable=True)
+    to_eval_position = db.Column(db.String(59), nullable=True)
