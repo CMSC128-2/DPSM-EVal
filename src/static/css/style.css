@@ -82,6 +82,8 @@
 
 .account-img {
   height: 60px;
+  border-radius: 100%;
+  margin-bottom: 5%;
 }
 
 .card-title.faculty-name {
