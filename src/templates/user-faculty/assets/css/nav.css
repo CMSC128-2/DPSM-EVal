@@ -1,0 +1,54 @@
+.site-logo {
+  background-image: url("data:image/svg+xml,%3Csvg width='114' height='29' viewBox='0 0 114 29' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17.7969 16.6758H6.54688V24.293H19.75V29H0.6875V0.5625H19.7109V5.30859H6.54688V12.0859H17.7969V16.6758ZM53.6172 21.9492L60.0625 0.5625H66.5859L56.6836 29H50.5703L40.707 0.5625H47.2109L53.6172 21.9492ZM83.8516 23.1406H73.5781L71.625 29H65.3945L75.9805 0.5625H81.4102L92.0547 29H85.8242L83.8516 23.1406ZM75.1602 18.3945H82.2695L78.6953 7.75L75.1602 18.3945ZM100.57 24.293H113.012V29H94.7109V0.5625H100.57V24.293Z' fill='white'/%3E%3Ccircle cx='32.5' cy='15.5' r='6' fill='%23751518' stroke='white' stroke-width='3'/%3E%3C/svg%3E%0A");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 20px;
+  width: 75px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar-dark .nav-item .nav-link i {
+  color: #751518;
+}
+
+.sidebar-dark .nav-item .nav-link.active, .sidebar-dark .nav-item .nav-link.active i, .sidebar-dark .nav-item .nav-link:active, .sidebar-dark .nav-item .nav-link:active i, .sidebar-dark .nav-item .nav-link:focus, .sidebar-dark .nav-item .nav-link:focus i, .sidebar-dark .nav-item .nav-link:hover, .sidebar-dark .nav-item .nav-link:hover i {
+  color: #440b0d;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+@media (min-width:768px) {
+  .sidebar .nav-item .nav-link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+    font-size: .85rem;
+    text-align: center;
+    padding: .75rem 1rem;
+    width: 10rem;
+    font-size: .85rem;
+  }
+}
+
+.nav-link span {
+  color: black;
+  font-size: 16px;
+}
+
+.nav-link span {
+  color: black;
+  font-size: 16px;
+}
+
+@media (min-width:768px) {
+  .sidebar {
+    width: 10rem!important;
+  }
+}
+
