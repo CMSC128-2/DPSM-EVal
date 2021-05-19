@@ -41,6 +41,7 @@ def index():
 @dpsm_eval_blueprint.route('/login')
 def login():
 	authorization_url, state = flow.authorization_url()
+	
 	session["state"] = state
 	return redirect(authorization_url)
 
@@ -62,12 +63,15 @@ def callback():
 		audience = GOOGLE_CLIENT_ID
 	)
 	#return id_info
-
+	
 	session["google_id"] = id_info.get("sub")
 	session["name"] = id_info.get("name")
 	session["email"] = id_info.get("email")
+	session["picture"] = id_info.get("picture")
 	#email = id_info.get("email")
 	
+
+	print(session["picture"])
 	user = UserAccounts.query.filter_by(email=id_info.get("email")).first()
 	login_user(user)
 	if user is not None:
@@ -89,8 +93,12 @@ def faculty_list():
 	return render_template('user-faculty/user-faculty-list.html')
 
 @dpsm_eval_blueprint.route('/admin-dashboard')
-def about():
+def admin_dashboard():
 	return render_template('admin/dashboard.html')
+
+@dpsm_eval_blueprint.route('/admin/user-list')
+def admin_user_list():
+	return render_template('admin/users.html')
 
 @dpsm_eval_blueprint.route('/logout')
 def logout():
