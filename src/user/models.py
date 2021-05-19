@@ -17,5 +17,5 @@ class UserAccounts(UserMixin, db.Model):
     work_title = db.Column(db.String(59), nullable=True)
     is_unit_head = db.Column(db.Boolean, default=False)
     is_unit_apc = db.Column(db.Boolean, default=False)
-    is_department_head = db.Column(db.Boolean, default=False)
+    is_dept_head = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
