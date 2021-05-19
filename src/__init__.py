@@ -9,7 +9,7 @@ bcrypt = Bcrypt()
 login_manager = LoginManager()
 
 # Import Blueprints Here
-from src.user.routes import sample_blueprint
+from src.user.routes import dpsm_eval_blueprint
 
 
 def create_app(config_filename=None):
@@ -21,7 +21,7 @@ def create_app(config_filename=None):
 
     # Initialize app 
     db.init_app(app)
-  
-    app.register_blueprint(sample_blueprint)
+    login_manager.init_app(app)
+    app.register_blueprint(dpsm_eval_blueprint)
 
     return app
