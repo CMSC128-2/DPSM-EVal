@@ -49,6 +49,7 @@ def callback():
 
 	if not session["state"] == request.args["state"]:
 		abort(500)
+		
 	credentials = flow.credentials
 	request_session = requests.Session()
 	cached_session = cacheControl.CacheControl(request_session)
