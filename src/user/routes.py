@@ -45,6 +45,11 @@ def login():
 	session["state"] = state
 	return redirect(authorization_url)
 
+@dpsm_eval_blueprint.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('dpsm_eval_blueprint.index'))
+
 @dpsm_eval_blueprint.route('/callback')
 def callback():
 	flow.fetch_token(authorization_response=request.url)
@@ -96,6 +101,55 @@ def faculty_list():
 	
 	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated, not_evaluated=need_to_be_evaluated)
 
+###############################################################################################
+#USER TEMPLATES
+
+#PEER EVAL PAGES
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-1<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
+def peer_eval_page_1(evaluated_email):
+	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-1.html', evaluated=evaluated)
+
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-2')
+def peer_eval_page_2():
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-2.html')
+
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-3')
+def peer_eval_page_3():
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-3.html')
+
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-4')
+def peer_eval_page_4():
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-4.html')
+
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-5')
+def peer_eval_page_5():
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-5.html')
+
+#SELF EVAL PAGES
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-1')
+def self_eval_page_1():
+	return render_template('user-faculty/self-eval-pages/user-self-eval-1.html')
+
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-2')
+def self_eval_page_2():
+	return render_template('user-faculty/self-eval-pages/user-self-eval-2.html')
+
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-3')
+def self_eval_page_3():
+	return render_template('user-faculty/self-eval-pages/user-self-eval-3.html')
+
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-4')
+def self_eval_page_4():
+	return render_template('user-faculty/self-eval-pages/user-self-eval-4.html')
+
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-5')
+def self_eval_page_5():
+	return render_template('user-faculty/self-eval-pages/user-self-eval-5.html')
+
+###############################################################################################
+
+#ADMIN TEMPLATES
 @dpsm_eval_blueprint.route('/admin-dashboard')
 def admin_dashboard():
 	return render_template('admin/dashboard.html')
@@ -104,20 +158,12 @@ def admin_dashboard():
 def admin_user_list():
 	return render_template('admin/users.html')
 
-@dpsm_eval_blueprint.route('/user/user_peer_1/<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
-def user_peer_1(evaluated_email):
-	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
-	return render_template('user-faculty/user-peer-1.html', evaluated=evaluated)
-	
+
+
+#FUNCTIONS
 def build_name(first_name, middle_name, last_name):
 	name = ''
 	name += first_name
 	name += ' ' + middle_name
 	name += ' ' + last_name
 	return name
-
-@dpsm_eval_blueprint.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('dpsm_eval_blueprint.index'))
-
