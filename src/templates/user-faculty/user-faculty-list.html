@@ -55,18 +55,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for (name, pos) in not_evaluated: %}
-                            	{% if name in evaluated %}
+                                {% for record in not_evaluated: %}
+                                {{ record.to_eval_email }}
+                            	{% if record.to_eval_email in evaluated %}
                                 <tr>
-                                    <td>{{ name }}</td>
-                                    <td>{{ pos }}</td>
-                                    <td><a class="completed-cell" href="user-peer-1.html">Completed</a></td>
+                                    <td>{{ record.to_eval_first_name }}{{ record.to_eval_middle_name }}{{ record.to_eval_last_name }}</td>
+                                    <td>{{ record.to_eval_position }}</td>
+                                    <td><a class="completed-cell">Completed</a></td>
                                 </tr>
                                 {% else %}
                                 <tr>
-                                    <td>{{ name }}</td>
-                                    <td>{{ pos }}</td>
-                                    <td><a class="click-to-eval">Click here to evaluate</a><i class="fa fa-check-circle ml-1"></i></td>
+                                    <td>{{ record.to_eval_first_name }}{{ record.to_eval_middle_name }}{{ record.to_eval_last_name }}</td>
+                                    <td>{{ record.to_eval_position }}</td>
+                                    <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.user_peer_1', evaluated_email = record.to_eval_email) }}">Click here to evaluate</a><i class="fa fa-check-circle ml-1"></i></td>
                                 </tr>
                                 {% endif %}
                                 {% endfor %}

@@ -91,21 +91,10 @@ def dashboard():
 #@login_required
 def faculty_list():
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
-	evaluated = user.is_evaluated_id
+	evaluated = user.is_evaluated_email
 	need_to_be_evaluated = to_evaluate.query.all()
-	need_to_be_evaluated_names = []
-	need_to_be_evaluated_pos = []
-	evaluated_names = []
-
-	for j in need_to_be_evaluated:
-		if j.to_eval_id in evaluated:
-			evaluated_names.append(build_name(j.to_eval_first_name, j.to_eval_middle_name, j.to_eval_last_name))
-
-	for j in need_to_be_evaluated:
-		need_to_be_evaluated_names.append(build_name(j.to_eval_first_name, j.to_eval_middle_name, j.to_eval_last_name))
-		need_to_be_evaluated_pos.append(j.to_eval_position)
-
-	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated_names, not_evaluated= zip(need_to_be_evaluated_names,need_to_be_evaluated_pos))
+	
+	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated, not_evaluated=need_to_be_evaluated)
 
 @dpsm_eval_blueprint.route('/admin-dashboard')
 def admin_dashboard():
@@ -114,6 +103,11 @@ def admin_dashboard():
 @dpsm_eval_blueprint.route('/admin/user-list')
 def admin_user_list():
 	return render_template('admin/users.html')
+
+@dpsm_eval_blueprint.route('/user/user_peer_1/<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
+def user_peer_1(evaluated_email):
+	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
+	return render_template('user-faculty/user-peer-1.html', evaluated=evaluated)
 	
 def build_name(first_name, middle_name, last_name):
 	name = ''

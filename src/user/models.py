@@ -12,6 +12,16 @@ class to_evaluate(UserMixin, db.Model):
     to_eval_middle_name = db.Column(db.String(59), nullable=True)
     to_eval_last_name = db.Column(db.String(59), nullable=True)
     to_eval_position = db.Column(db.String(59), nullable=True)
+    to_eval_email = db.Column(db.String(59), nullable=True)
+
+class evaluation_peer_eval(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    evaluator = db.Column(db.Integer, nullable=False)
+    evaluated = db.Column(db.Integer, nullable=False)
+    evaluation_numeric = db.Column(ARRAY(Integer))
+    evaluation_text = db.Column(db.String(59), nullable=True) 
+    to_eval_email = db.Column(db.String(59), nullable=True) 
+
 
 class UserAccounts(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -26,7 +36,7 @@ class UserAccounts(UserMixin, db.Model):
     is_unit_apc = db.Column(db.Boolean, default=False)
     is_dept_head = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
-    is_evaluated_id = db.Column(ARRAY(Integer))
+    is_evaluated_email = db.Column(ARRAY(String))
 
     def __init__(self,id, first_name, middle_name, last_name, work_title, email, password, is_unit_head, is_admin, is_unit_apc, is_dept_head):
         self.id = id
