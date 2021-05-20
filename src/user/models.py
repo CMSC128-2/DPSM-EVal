@@ -26,7 +26,7 @@ class UserAccounts(UserMixin, db.Model):
     is_unit_apc = db.Column(db.Boolean, default=False)
     is_dept_head = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
-    is_evaluated_id = db.Column(ARRAY(Integer))
+    is_evaluated_email = db.Column(ARRAY(Integer))
 
     def __init__(self,id, first_name, middle_name, last_name, work_title, email, password, is_unit_head, is_admin, is_unit_apc, is_dept_head):
         self.id = id

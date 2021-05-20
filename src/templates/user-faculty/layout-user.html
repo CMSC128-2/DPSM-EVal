@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='fonts/font-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome5-overrides.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='fonts/material-icons.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/overrides.css') }}">
@@ -18,14 +19,64 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
 
-    <body>
+    <body id="page-top">
+        <nav class="navbar navbar-light navbar-dark" style="position: fixed;z-index: 1030;left: 0;right: 0;background-color: #131313;">
+            <div class="container-fluid"><a href="user-home.html">
+                    <div class="site-logo"></div>
+                </a><button data-toggle="collapse" class="navbar-toggler" data-target="#side-to-top" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse side-to-top" id="side-to-top">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <div class="card user-info">
+                                <div class="card-body user-info-body"><img class="account-img" src="{{ url_for('static', filename='img/logo-cas.png') }}">
+                                    <h4 class="card-title faculty-name">{{ current_user.first_name }} {{ current_user.middle_name }} {{ current_user.last_name }}</h4>
+                                    <h6 class="text-muted card-subtitle faculty-position mb-2">{{ current_user.work_title }}</h6>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link active" href="user-home.html"><i class="fas fa-table"></i><span>Home</span></a></li>
+                        <li class="nav-item"></li>
+                        <li class="nav-item"></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="wrapper" class="user-wrapper">
+            <nav class="navbar navbar-light align-items-start sidebar sidebar-dark accordion p-0" style="background-color: #ececec;">
+                <div class="container-fluid d-flex flex-column p-0">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <div class="card user-info">
+                                <div class="card-body text-center user-info-body"><img class="account-img" src="{{ url_for('static', filename='img/logo-cas.png') }}">
+                                    <h4 class="card-title faculty-name">{{ current_user.first_name }} {{ current_user.middle_name }} {{ current_user.last_name }}</h4>
+                                    <h6 class="text-muted card-subtitle faculty-position mb-2">{{ current_user.work_title }}</h6>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link text-left active" href="user-home.html"><i class="material-icons">home</i><span>Home</span></a></li>
+                        <li class="nav-item"><a class="nav-link text-left" href="/logout"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
+                    </ul>
+                </div>
+            </nav>
         {% block dashboard %} {% endblock %}
         {% block faculty_list %} {% endblock %}
+        {% block peer_eval_1 %} {% endblock %}
+        {% block peer_eval_2 %} {% endblock %}
+        {% block peer_eval_3 %} {% endblock %}
+        {% block peer_eval_4 %} {% endblock %}
+        {% block peer_eval_5 %} {% endblock %}
+        </div>
+        <footer class="footer-basic text-light">
+            <p class="text-center">Department of Physical Science and Mathematics<br>College of Arts and Sciences<br>University of the Philippines Manila<br></p>
+            <p class="copyright">E-Val System © 2021</p>
+        </footer>
 
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
         <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+        
     </body>
     
 </html> 

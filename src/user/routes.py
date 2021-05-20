@@ -45,6 +45,11 @@ def login():
 	session["state"] = state
 	return redirect(authorization_url)
 
+@dpsm_eval_blueprint.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('dpsm_eval_blueprint.index'))
+
 @dpsm_eval_blueprint.route('/callback')
 def callback():
 	flow.fetch_token(authorization_response=request.url)
@@ -107,6 +112,30 @@ def faculty_list():
 
 	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated_names, not_evaluated= zip(need_to_be_evaluated_names,need_to_be_evaluated_pos))
 
+#USER TEMPLATES
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-1')
+def peer_eval_page_1():
+	return render_template('user-faculty/user-peer-eval-1.html')
+
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-2')
+def peer_eval_page_2():
+	return render_template('user-faculty/user-peer-eval-2.html')
+
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-3')
+def peer_eval_page_3():
+	return render_template('user-faculty/user-peer-eval-3.html')
+
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-4')
+def peer_eval_page_4():
+	return render_template('user-faculty/user-peer-eval-4.html')
+
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-5')
+def peer_eval_page_5():
+	return render_template('user-faculty/user-peer-eval-5.html')
+
+###############################################################################################
+
+#ADMIN TEMPLATES
 @dpsm_eval_blueprint.route('/admin-dashboard')
 def admin_dashboard():
 	return render_template('admin/dashboard.html')
@@ -114,16 +143,18 @@ def admin_dashboard():
 @dpsm_eval_blueprint.route('/admin/user-list')
 def admin_user_list():
 	return render_template('admin/users.html')
+
+
+
 	
+
+
+
+
+#FUNCTIONS
 def build_name(first_name, middle_name, last_name):
 	name = ''
 	name += first_name
 	name += ' ' + middle_name
 	name += ' ' + last_name
 	return name
-
-@dpsm_eval_blueprint.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('dpsm_eval_blueprint.index'))
-
