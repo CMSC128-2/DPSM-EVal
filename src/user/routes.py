@@ -232,8 +232,8 @@ def delete_user(id):
 		return 'Problem deleting user'
 
 @dpsm_eval_blueprint.route('/admin/add-form')
-def add_forms():
-	return render_template('admin/forms/add-forms.html')
+def open_form():
+	return render_template('admin/forms/open-form.html')
 
 
 
