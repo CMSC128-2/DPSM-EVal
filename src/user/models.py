@@ -39,7 +39,8 @@ class UserAccounts(UserMixin, db.Model):
     is_evaluated_email = db.Column(ARRAY(String))
 
 
-    def __init__(self, first_name, middle_name, last_name, work_title,unit, status, email, is_unit_head, is_unit_apc, is_dept_head):
+    def __init__(self, id,first_name, middle_name, last_name, work_title,unit, status, email, is_unit_head, is_unit_apc, is_dept_head):
+        self.id               = id 
         self.first_name       = first_name
         self.middle_name      = middle_name
         self.last_name        = last_name
