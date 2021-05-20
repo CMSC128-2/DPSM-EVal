@@ -112,7 +112,10 @@ def faculty_list():
 
 	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated_names, not_evaluated= zip(need_to_be_evaluated_names,need_to_be_evaluated_pos))
 
+###############################################################################################
 #USER TEMPLATES
+
+#PEER EVAL PAGES
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-1')
 def peer_eval_page_1():
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-1.html')
@@ -132,6 +135,27 @@ def peer_eval_page_4():
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-5')
 def peer_eval_page_5():
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-5.html')
+
+#SELF EVAL PAGES
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-1')
+def self_eval_page_1():
+	return render_template('user-faculty/self-eval-pages/user-self-eval-1.html')
+
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-2')
+def self_eval_page_2():
+	return render_template('user-faculty/self-eval-pages/user-self-eval-2.html')
+
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-3')
+def self_eval_page_3():
+	return render_template('user-faculty/self-eval-pages/user-self-eval-3.html')
+
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-4')
+def self_eval_page_4():
+	return render_template('user-faculty/self-eval-pages/user-self-eval-4.html')
+
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-5')
+def self_eval_page_5():
+	return render_template('user-faculty/self-eval-pages/user-self-eval-5.html')
 
 ###############################################################################################
 
