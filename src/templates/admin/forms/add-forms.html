@@ -1,0 +1,37 @@
+{% extends "admin/layout-admin.html" %} {% block add_forms %}
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content" style="margin-top: 2rem;">
+                <div class="container-fluid mb-5">
+                    <h3>Forms</h3>
+                    <div class="row">
+                        <div class="col-xl-5" style="padding: 20px;"><a href="admin_edit_category.html">
+                                <div class="card shadow border-left-primary py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col mr-2">
+                                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span></span></div>
+                                                <div class="text-dark font-weight-bold h5 mb-0"><span>Create New Form</span></div>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-edit fa-2x text-gray-300"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a></div>
+                        <div class="col-xl-5" style="padding: 20px;"><a href="new_form.html">
+                                <div class="card shadow border-left-success py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col mr-2">
+                                                <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span></span></div>
+                                                <div class="text-dark font-weight-bold h5 mb-0"><span>For Renewal and Tenurial</span></div>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-street-view fa-2x text-gray-300"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a></div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+{% endblock %}

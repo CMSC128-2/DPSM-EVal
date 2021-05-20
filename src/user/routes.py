@@ -156,8 +156,18 @@ def admin_dashboard():
 
 @dpsm_eval_blueprint.route('/admin/user-list')
 def admin_user_list():
-	return render_template('admin/users.html')
+	user_list = UserAccounts.query.all()
+	for x in user_list:
+		print(x.first_name)
+	return render_template('admin/user/user-list.html', users = user_list)
 
+@dpsm_eval_blueprint.route('/admin/add-user')
+def add_user():
+	return render_template('admin/user/add-user.html')
+
+@dpsm_eval_blueprint.route('/admin/add-form')
+def add_forms():
+	return render_template('admin/forms/add-forms.html')
 
 
 #FUNCTIONS
