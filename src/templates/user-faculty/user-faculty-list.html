@@ -67,7 +67,7 @@
                                 <tr>
                                     <td>{{ record.to_eval_first_name }}{{ record.to_eval_middle_name }}{{ record.to_eval_last_name }}</td>
                                     <td>{{ record.to_eval_position }}</td>
-                                    <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.user_peer_1', evaluated_email = record.to_eval_email) }}">Click here to evaluate</a><i class="fa fa-check-circle ml-1"></i></td>
+                                    <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_1', evaluated_email = record.to_eval_email) }}">Click here to evaluate</a><i class="fa fa-check-circle ml-1"></i></td>
                                 </tr>
                                 {% endif %}
                                 {% endfor %}

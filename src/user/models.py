@@ -36,11 +36,8 @@ class UserAccounts(UserMixin, db.Model):
     is_unit_apc = db.Column(db.Boolean, default=False)
     is_dept_head = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
-<<<<<<< HEAD
     is_evaluated_email = db.Column(ARRAY(String))
-=======
-    is_evaluated_email = db.Column(ARRAY(Integer))
->>>>>>> 68e520b3788dd8bb515d9fb6071d763ef4ce7b61
+
 
     def __init__(self,id, first_name, middle_name, last_name, work_title, email, password, is_unit_head, is_admin, is_unit_apc, is_dept_head):
         self.id = id
