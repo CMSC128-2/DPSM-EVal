@@ -1,131 +1,94 @@
 {% extends "admin/layout-admin.html" %} {% block add_user %}
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <div class="container-fluid mt-5" style="margin-bottom: 50px;">
-                    <h3 class="text-dark mb-4" style="color: rgb(90, 92, 105);">Profile</h3>
-                    <div class="row mb-3">
-                        <div class="col-lg-4 text-center" style="margin: 20px 0px;">
-                            <div class="card mb-3">
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="dogs/image2.jpeg" width="160" height="160"></div>
-                            </div>
+<div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+        <div class="container-fluid mt-5" style="margin-bottom: 50px;">
+            <h3 class="text-dark mb-4" style="color: rgb(90, 92, 105);">Profile</h3>
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold" id="user_settings">Personal Information</p>
                         </div>
-                        <div class="col-lg-8">
-                            <div class="row mb-3 d-none">
-                                <div class="col">
-                                    <div class="card text-white bg-primary shadow">
-                                        <div class="card-body">
-                                            <div class="row mb-2">
-                                                <div class="col">
-                                                    <p class="m-0">Peformance</p>
-                                                    <p class="m-0"><strong>65.2%</strong></p>
-                                                </div>
-                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                            </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                        </div>
+                        <form method="POST" action="/admin/add-user">
+
+                        
+                        <div class="card-body">
+                            
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="first_name"><strong>Email Address</strong><br /></label><input type="text" class="form-control" id="email" placeholder="@up.edu.ph" name="email" /></div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="card text-white bg-success shadow">
-                                        <div class="card-body">
-                                            <div class="row mb-2">
-                                                <div class="col">
-                                                    <p class="m-0">Peformance</p>
-                                                    <p class="m-0"><strong>65.2%</strong></p>
-                                                </div>
-                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                            </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                        </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="first_name"><strong>First Name</strong></label><input type="text" class="form-control" id="first_name" placeholder="Juan" name="first_name" /></div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card shadow mb-3">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 font-weight-bold" id="user_settings">Personal Information</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="first_name"><strong>Email Address</strong><br></label><input class="form-control" type="text" id="email" placeholder="@up.edu.ph" name="first_name"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="first_name"><strong>First Name</strong></label><input class="form-control" type="text" id="first_name" placeholder="Juan" name="first_name"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="username"><strong>Middle Initial</strong></label><input class="form-control" type="text" id="middle_initial" placeholder="S." name="middle_initial"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="first_name"><strong>Last Name</strong></label><input class="form-control" type="text" id="lastname" placeholder="Dela Cruz" name="last_name"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group text-right"><button class="btn btn-primary btn-sm" type="submit" style="border-color: rgb(0, 0, 0);border-top-color: rgb(0,;border-right-color: 0,;border-bottom-color: 0);border-left-color: 0,;background: rgb(128,0,0);color: rgb(255,255,255);border-radius: 10px;">Save</button></div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="card shadow">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 font-weight-bold" style="/*color: rgb(0,0,0);*/">Work Information</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="city"><strong>Unit</strong></label><select class="form-control">
-                                                                <optgroup label="This is a group">
-                                                                    <option value="mcsu" selected="" id="mcsu">This is item 1</option>
-                                                                    <option value="chem" id="chem">This is item 2</option>
-                                                                    <option value="pgu" id="pgu">This is item 3</option>
-                                                                </optgroup>
-                                                            </select></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="city"><strong>Status</strong></label><select class="form-control">
-                                                                <optgroup label="This is a group">
-                                                                    <option value="permanent" selected="" id="permanent">This is item 1</option>
-                                                                    <option value="temporary" id="temporary">This is item 2</option>
-                                                                    <option value="lecturer" id="lecturer">This is item 3</option>
-                                                                </optgroup>
-                                                            </select></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="country"><strong>Position</strong></label><select class="form-control">
-                                                                <optgroup label="This is a group">
-                                                                    <option value="dept_head" selected="" id="dept_head">This is item 1</option>
-                                                                    <option value="unit_head" id="unit_head">This is item 2</option>
-                                                                    <option value="none" id="none">This is item 3</option>
-                                                                </optgroup>
-                                                            </select></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="country"><strong>Work Title</strong></label><input class="form-control" type="text" id="work_title" value="e.g. Assistant Professor"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group text-right"><button class="btn btn-primary btn-sm" type="submit" style="color: rgb(255,255,255);background: rgb(128,0,0);border-radius: 10px;">Save</button></div>
-                                            </form>
-                                        </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="username"><strong>Middle Name</strong></label><input type="text" class="form-control" id="middle_name" placeholder="Salazar" name="middle_name" /></div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="first_name"><strong>Last Name</strong></label><input type="text" class="form-control" id="lastname" placeholder="Dela Cruz" name="last_name" /></div>
+                                    </div>
+                                </div>
+                            
                         </div>
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold" style="/*color: rgb(0,0,0);*/">Work Information</p>
+                        </div>
+                        <div class="card-body">
+                           
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="city"><strong>Unit</strong></label><select class="form-control" name = "unit">
+                                                <optgroup label="unit" >
+                                                    <option value="Mathematics and Computing Sciences Unit" selected id="mcsu">Mathematics and Computing Sciences Unit</option>
+                                                    <option value="Chemistry Unity" id="chem">Chemistry Unity</option>
+                                                    <option value="Physics and Geology Unity" id="pgu">Physics and Geology Unity</option>
+                                                </optgroup>
+                                            </select></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="city"><strong>Status</strong></label>
+                                            <select class="form-control" name = "status">
+                                            <optgroup label="status" >
+                                                <option value="Permanent" selected id="permanent">Permanent</option>
+                                                <option value="Temporary" id="temporary">Temporary</option>
+                                                <option value="Lecturer" id="lecturer">Lecturer</option>
+                                            </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="country"><strong>Position</strong></label><select class="form-control" name = "position">
+                                            <optgroup label="position" >
+                                                <option value="Department Head" selected id="dept_head">Department Head</option>
+                                                <option value="Unit Head" id="unit_head">Unit Head</option>
+                                                <option value="none" id="none">This is item 3</option>
+                                            </optgroup>
+                                            </select></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="country"><strong>Work Title</strong></label><input type="text" class="form-control" id="work_title"  name="work_title"value="Assistant Professor" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-group text-right"><button class="btn btn-primary btn-sm" type="submit" style="color: rgb(255,255,255);background: rgb(128,0,0);border-radius: 10px;">Add User</button></div>
+                            
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
     </div>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     {% endblock %}
