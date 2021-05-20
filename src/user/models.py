@@ -39,15 +39,14 @@ class UserAccounts(UserMixin, db.Model):
     is_evaluated_email = db.Column(ARRAY(String))
 
 
-    def __init__(self,id, first_name, middle_name, last_name, work_title, email, password, is_unit_head, is_admin, is_unit_apc, is_dept_head):
-        self.id = id
+    def __init__(self, first_name, middle_name, last_name, work_title,unit, status, email, is_unit_head, is_unit_apc, is_dept_head):
         self.first_name       = first_name
         self.middle_name      = middle_name
         self.last_name        = last_name
         self.work_title       = work_title
+        self.status           = status
         self.email            = email
-        self.password         = password
+        self.unit             = unit
         self.is_unit_head     = is_unit_head
         self.is_unit_apc      = is_unit_apc
         self.is_dept_head     = is_dept_head
-        self.is_admin         = is_admin
