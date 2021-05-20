@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, session, redirect, abort, request, url_for
+from flask import Blueprint, render_template, session, redirect, abort, request, url_for, flash
+from sqlalchemy.sql.expression import true
 from pyasn1.type.univ import Null
 import requests
 import flask
@@ -9,7 +10,7 @@ import google
 from google.auth import credentials
 from werkzeug.utils import cached_property
 from .models import UserAccounts, to_evaluate
-from src import login_manager
+from src import login_manager,db
 from google_auth_oauthlib.flow import Flow
 import google.oauth2.id_token as id_token
 import os
@@ -97,12 +98,11 @@ def dashboard():
 def faculty_list():
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	evaluated = user.is_evaluated_email
-	need_to_be_evaluated = to_evaluate.query.all()
+	need_to_be_evaluated_1 = UserAccounts.query.filter_by(status='Temporary').all()  
+	need_to_be_evaluated_2 = UserAccounts.query.filter_by(status='Lecturer').all()
+	need_to_be_evaluated = need_to_be_evaluated_1 + need_to_be_evaluated_2
 
-	# for faculty in need_to_be_evaluated:
-	# 	if faculty.is_admin == True:
-	# 		need_to_be_evaluated.pop(faculty)
-
+	
 	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated, not_evaluated=need_to_be_evaluated)
 
 ###############################################################################################
@@ -160,8 +160,65 @@ def admin_dashboard():
 
 @dpsm_eval_blueprint.route('/admin/user-list')
 def admin_user_list():
-	return render_template('admin/users.html')
+	user_list = UserAccounts.query.all()
+	for x in user_list:
+		print(x.first_name)
+	return render_template('admin/user/user-list.html', users = user_list)
 
+@dpsm_eval_blueprint.route('/admin/add-user', methods=['GET', 'POST'])
+def add_user():
+
+	email = request.form.get('email')
+	first_name = request.form.get('first_name')
+	middle_name = request.form.get('middle_name')
+	last_name = request.form.get('last_name')
+	unit = request.form.get('unit')
+	status = request.form.get('status')
+	position = request.form.get('position')
+	work_title = request.form.get('work_title')
+
+	
+	user = UserAccounts.query.filter_by(email=email).first()
+
+	if user:
+		# If user exists then handle here.
+		flash('User already exists.')
+		return redirect(url_for('dpsm_eval_blueprint.add_user'))
+	
+	if position == 'Department Head':
+		is_dept_head = True
+	else: 
+		is_dept_head = False
+
+	if position == 'Unit Head':
+		is_unit_head = True
+	else: 
+		is_unit_head = False
+
+	if position == 'Unit APC':
+		is_unit_apc = True
+	else: 
+		is_unit_apc = False
+
+	if request.method == 'POST':
+		new_user = UserAccounts(email=email, first_name=first_name,
+		middle_name=middle_name,
+		last_name=last_name,
+		is_dept_head=is_dept_head,
+		is_unit_apc = is_unit_apc,
+		is_unit_head=is_unit_head,
+		status=status,
+		work_title=work_title, 
+		unit = unit)
+		
+		db.session.add(new_user)
+		db.session.commit()
+
+	return render_template('admin/user/add-user.html')
+
+@dpsm_eval_blueprint.route('/admin/add-form')
+def add_forms():
+	return render_template('admin/forms/add-forms.html')
 
 
 #FUNCTIONS

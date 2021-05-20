@@ -1,0 +1,94 @@
+{% extends "admin/layout-admin.html" %} {% block add_user %}
+<div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+        <div class="container-fluid mt-5" style="margin-bottom: 50px;">
+            <h3 class="text-dark mb-4" style="color: rgb(90, 92, 105);">Profile</h3>
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold" id="user_settings">Personal Information</p>
+                        </div>
+                        <form method="POST" action="/admin/add-user">
+
+                        
+                        <div class="card-body">
+                            
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="first_name"><strong>Email Address</strong><br /></label><input type="text" class="form-control" id="email" placeholder="@up.edu.ph" name="email" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="first_name"><strong>First Name</strong></label><input type="text" class="form-control" id="first_name" placeholder="Juan" name="first_name" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="username"><strong>Middle Name</strong></label><input type="text" class="form-control" id="middle_name" placeholder="Salazar" name="middle_name" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="first_name"><strong>Last Name</strong></label><input type="text" class="form-control" id="lastname" placeholder="Dela Cruz" name="last_name" /></div>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold" style="/*color: rgb(0,0,0);*/">Work Information</p>
+                        </div>
+                        <div class="card-body">
+                           
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="city"><strong>Unit</strong></label><select class="form-control" name = "unit">
+                                                <optgroup label="unit" >
+                                                    <option value="Mathematics and Computing Sciences Unit" selected id="mcsu">Mathematics and Computing Sciences Unit</option>
+                                                    <option value="Chemistry Unity" id="chem">Chemistry Unity</option>
+                                                    <option value="Physics and Geology Unity" id="pgu">Physics and Geology Unity</option>
+                                                </optgroup>
+                                            </select></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="city"><strong>Status</strong></label>
+                                            <select class="form-control" name = "status">
+                                            <optgroup label="status" >
+                                                <option value="Permanent" selected id="permanent">Permanent</option>
+                                                <option value="Temporary" id="temporary">Temporary</option>
+                                                <option value="Lecturer" id="lecturer">Lecturer</option>
+                                            </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="country"><strong>Position</strong></label><select class="form-control" name = "position">
+                                            <optgroup label="position" >
+                                                <option value="Department Head" selected id="dept_head">Department Head</option>
+                                                <option value="Unit Head" id="unit_head">Unit Head</option>
+                                                <option value="none" id="none">This is item 3</option>
+                                            </optgroup>
+                                            </select></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="country"><strong>Work Title</strong></label><input type="text" class="form-control" id="work_title"  name="work_title"value="Assistant Professor" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-group text-right"><button class="btn btn-primary btn-sm" type="submit" style="color: rgb(255,255,255);background: rgb(128,0,0);border-radius: 10px;">Add User</button></div>
+                            
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    {% endblock %}
