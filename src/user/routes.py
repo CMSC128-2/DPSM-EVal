@@ -98,7 +98,11 @@ def faculty_list():
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	evaluated = user.is_evaluated_email
 	need_to_be_evaluated = to_evaluate.query.all()
-	
+
+	# for faculty in need_to_be_evaluated:
+	# 	if faculty.is_admin == True:
+	# 		need_to_be_evaluated.pop(faculty)
+
 	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated, not_evaluated=need_to_be_evaluated)
 
 ###############################################################################################

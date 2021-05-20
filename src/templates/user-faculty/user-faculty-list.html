@@ -1,95 +1,41 @@
 {% extends "user-faculty/layout-user.html" %} {% block faculty_list %}
-
-<body id="page-top">
-    <nav class="navbar navbar-light navbar-dark" style="position: fixed;z-index: 1030;left: 0;right: 0;background-color: #131313;">
-        <div class="container-fluid"><a href="user-home.html">
-                <div class="site-logo"></div>
-            </a><button data-toggle="collapse" class="navbar-toggler" data-target="#side-to-top" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse side-to-top" id="side-to-top">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <div class="card user-info">
-                            <div class="card-body user-info-body"><img class="account-img" src="{{ url_for('static', filename='img/logo-cas.png') }}">
-                                <h4 class="card-title faculty-name">Maria Josephine M. De Luna</h4>
-                                <h6 class="text-muted card-subtitle faculty-position mb-2">Associate Professor</h6>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="user-home.html"><i class="fas fa-table"></i><span>Home</span></a></li>
-                    <li class="nav-item"></li>
-                    <li class="nav-item"></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
-                </ul>
+<div class="d-flex flex-column" id="content-wrapper">
+    <div class="user-layout">
+        <div class="container-fluid mb-5">
+            <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
+            <h4>Choose faculty to evaluate</h4>
+            <div class="table-responsive text-center">
+                <table class="table table-sm fac-table">
+                    <thead>
+                        <tr>
+                            <th>Faculty Member Name</th>
+                            <th>Status</th>
+                            <th>Evaluation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in not_evaluated: %}
+                        {{ record.to_eval_email }}
+                        {% if record.to_eval_email in evaluated %}
+                        <tr>
+                            <td>{{ record.to_eval_first_name }}{{ record.to_eval_middle_name }}{{ record.to_eval_last_name }}</td>
+                            <td>{{ record.to_eval_position }}</td>
+                            <td><a class="completed-cell">Completed</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td>{{ record.to_eval_first_name }}{{ record.to_eval_middle_name }}{{ record.to_eval_last_name }}</td>
+                            <td>{{ record.to_eval_position }}</td>
+                            <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_1', evaluated_email = record.to_eval_email) }}">Click here to evaluate</a><i class="fa fa-check-circle ml-1"></i></td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
-    </nav>
-    <div id="wrapper" class="user-wrapper">
-        <nav class="navbar navbar-light align-items-start sidebar sidebar-dark accordion p-0" style="background-color: #ececec;">
-            <div class="container-fluid d-flex flex-column p-0">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <div class="card user-info">
-                            <div class="card-body text-center user-info-body"><img class="account-img" src="assets/img/logo-cas.png">
-                                <h4 class="card-title faculty-name">Maria Josephine M. De Luna</h4>
-                                <h6 class="text-muted card-subtitle faculty-position mb-2">Associate Professor</h6>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item"><a class="nav-link text-left" href="user-home.html"><i class="material-icons"></i><span>Home</span></a></li>
-                    <li class="nav-item"><a class="nav-link text-left" href="login.html"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
-                </ul>
-            </div>
-        </nav>
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div class="user-layout">
-                <div class="container-fluid mb-5">
-                    <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
-                    <h4>Choose faculty to evaluate</h4>
-                    <div class="table-responsive text-center">
-                        <table class="table table-sm fac-table">
-                            <thead>
-                                <tr>
-                                    <th>Faculty Member Name</th>
-                                    <th>Status</th>
-                                    <th>Evaluation</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for record in not_evaluated: %}
-                                {{ record.to_eval_email }}
-                            	{% if record.to_eval_email in evaluated %}
-                                <tr>
-                                    <td>{{ record.to_eval_first_name }}{{ record.to_eval_middle_name }}{{ record.to_eval_last_name }}</td>
-                                    <td>{{ record.to_eval_position }}</td>
-                                    <td><a class="completed-cell">Completed</a></td>
-                                </tr>
-                                {% else %}
-                                <tr>
-                                    <td>{{ record.to_eval_first_name }}{{ record.to_eval_middle_name }}{{ record.to_eval_last_name }}</td>
-                                    <td>{{ record.to_eval_position }}</td>
-                                    <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_1', evaluated_email = record.to_eval_email) }}">Click here to evaluate</a><i class="fa fa-check-circle ml-1"></i></td>
-                                </tr>
-                                {% endif %}
-                                {% endfor %}
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div></div>
-            </div>
-        </div>
+        <div></div>
     </div>
-    <footer class="footer-basic text-light">
-        <p class="text-center">Department of Physical Science and Mathematics<br>College of Arts and Sciences<br>University of the Philippines Manila<br></p>
-        <p class="copyright">E-Val System © 2021</p>
-    </footer>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="assets/js/theme.js"></script>
-</body>
-
-</html>
-
+</div>
 {% endblock %}
