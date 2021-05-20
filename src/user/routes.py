@@ -115,23 +115,23 @@ def faculty_list():
 #USER TEMPLATES
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-1')
 def peer_eval_page_1():
-	return render_template('user-faculty/user-peer-eval-1.html')
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-1.html')
 
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-2')
 def peer_eval_page_2():
-	return render_template('user-faculty/user-peer-eval-2.html')
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-2.html')
 
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-3')
 def peer_eval_page_3():
-	return render_template('user-faculty/user-peer-eval-3.html')
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-3.html')
 
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-4')
 def peer_eval_page_4():
-	return render_template('user-faculty/user-peer-eval-4.html')
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-4.html')
 
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-5')
 def peer_eval_page_5():
-	return render_template('user-faculty/user-peer-eval-5.html')
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-5.html')
 
 ###############################################################################################
 
