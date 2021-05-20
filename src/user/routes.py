@@ -79,14 +79,15 @@ def callback():
 
 	print(session["picture"])
 	user = UserAccounts.query.filter_by(email=id_info.get("email")).first()
-	login_user(user)
+	
 	if user is not None:
+		login_user(user)
 		if user.is_admin == False:
 			return redirect('/user-dashboard')
 		else:
 			return redirect('/admin-dashboard')
 	else:
-		return "Faculty Account Does not Exist in Database"
+		return "Account Does not Exist in Database. Please contact the administrator."
 
 @dpsm_eval_blueprint.route('/user-dashboard')
 #@login_required
