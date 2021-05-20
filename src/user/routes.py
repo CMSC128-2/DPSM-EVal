@@ -97,7 +97,10 @@ def dashboard():
 def faculty_list():
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	evaluated = user.is_evaluated_email
-	need_to_be_evaluated = to_evaluate.query.all()
+	need_to_be_evaluated_1 = UserAccounts.query.filter_by(status='Temporary').all()  
+	need_to_be_evaluated_2 = UserAccounts.query.filter_by(status='Lecturer').all()
+	need_to_be_evaluated = need_to_be_evaluated_1 + need_to_be_evaluated_2
+
 	
 	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated, not_evaluated=need_to_be_evaluated)
 
