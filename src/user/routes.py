@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, redirect, abort, request, url_for, flash
+from flask import Blueprint, render_template, session, redirect, abort, request, url_for, flash,jsonify
 from sqlalchemy.sql.expression import true,func
 from pyasn1.type.univ import Null
 import requests
@@ -9,8 +9,8 @@ from google import auth
 import google
 from google.auth import credentials
 from werkzeug.utils import cached_property
-from .models import UserAccounts, to_evaluate
-from src import login_manager,db
+from .models import Evaluation, UserAccounts, to_evaluate
+from src import login_manager,db, mongo
 from google_auth_oauthlib.flow import Flow
 import google.oauth2.id_token as id_token
 import os
@@ -233,9 +233,7 @@ def delete_user(id):
 
 @dpsm_eval_blueprint.route('/admin/add-form')
 def open_form():
-	return render_template('admin/forms/open-form.html')
-
-
+	return render_template('admin/forms/renewal/open-form.html')
 
 
 #FUNCTIONS
@@ -245,3 +243,16 @@ def build_name(first_name, middle_name, last_name):
 	name += ' ' + middle_name
 	name += ' ' + last_name
 	return name
+
+@dpsm_eval_blueprint.route('/admin-dashboardt')
+def test():
+	# x = Evaluation()
+	# x.createRenewalEvaluation()
+
+	# eval = mongo.db.evaluation.find_one({"_id" : "6d36a0a55da54dfcbf9724ba5d9ce744"})
+	# print(eval["participants"]["userID1003"])
+
+	a = mongo.db.evaluation.find_one( { "participants": { "$elemMatch": { "user_id": "userID1003", "first_name" : "John"}   } })
+	#a["participants"][]
+	print(a)
+	return jsonify(a)
