@@ -112,21 +112,29 @@ def peer_eval_page_1(evaluated_email):
 	rubric = questions_peer_eval.query.filter_by(criteria='Professionalism and work ethics')
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-1.html', evaluated=evaluated, rubric=rubric)
 
-@dpsm_eval_blueprint.route('/faculty/peer-eval-page-2')
-def peer_eval_page_2():
-	return render_template('user-faculty/peer-eval-pages/user-peer-eval-2.html')
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-2<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
+def peer_eval_page_2(evaluated_email):
+	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
+	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards students')
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-2.html', evaluated=evaluated, rubric=rubric)
 
-@dpsm_eval_blueprint.route('/faculty/peer-eval-page-3')
-def peer_eval_page_3():
-	return render_template('user-faculty/peer-eval-pages/user-peer-eval-3.html')
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-3<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
+def peer_eval_page_3(evaluated_email):
+	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
+	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards peers')
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-3.html', evaluated=evaluated, rubric=rubric)
 
-@dpsm_eval_blueprint.route('/faculty/peer-eval-page-4')
-def peer_eval_page_4():
-	return render_template('user-faculty/peer-eval-pages/user-peer-eval-4.html')
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-4<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
+def peer_eval_page_4(evaluated_email):
+	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
+	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards the support staff')
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-4.html', evaluated=evaluated, rubric=rubric)
 
-@dpsm_eval_blueprint.route('/faculty/peer-eval-page-5')
-def peer_eval_page_5():
-	return render_template('user-faculty/peer-eval-pages/user-peer-eval-5.html')
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-5<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
+def peer_eval_page_5(evaluated_email):
+	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
+	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards University policies and regulations.')
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-5.html', evaluated=evaluated, rubric=rubric)
 
 #SELF EVAL PAGES
 @dpsm_eval_blueprint.route('/faculty/self-eval-page-1')
