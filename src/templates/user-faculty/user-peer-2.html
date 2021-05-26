@@ -49,8 +49,8 @@
                     <li class="nav-item">
                         <div class="card user-info">
                             <div class="card-body text-center user-info-body"><img class="account-img" src="assets/img/logo-cas.png">
-                                <h4 class="card-title faculty-name">Maria Josephine M. De Luna</h4>
-                                <h6 class="text-muted card-subtitle faculty-position mb-2">Associate Professor</h6>
+                                <h4 class="card-title faculty-name">{{evaluated.first_name}} {{evaluated.last_name}}</h4>
+                                <h6 class="text-muted card-subtitle faculty-position mb-2">{{evaluated.work_title}}</h6>
                             </div>
                         </div>
                     </li>
@@ -72,7 +72,7 @@
                                 <p class="card-text"></p>
                             </div>
                         </div>
-                    </div><strong class="text-center form-categ">Attitude towards peers<br></strong>
+                    </div><strong class="text-center form-categ">Attitude towards students<br></strong>
                     <div class="table-responsive text-center">
                         <table class="table table-sm eval-form-table">
                             <thead>
