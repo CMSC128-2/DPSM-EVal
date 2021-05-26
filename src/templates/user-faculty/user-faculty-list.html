@@ -17,17 +17,17 @@
                     <tbody>
                         {% for record in not_evaluated: %}
                         {{ record.to_eval_email }}
-                        {% if record.email in evaluated and record.email != current_user.email %}
+                        {% if record.email in evaluated  %}
                         <tr>
-                            <td>{{ record.first_name }} {{ record.middle_name }} {{ record.last_name }}</td>
-                            <td>{{ record.status }}</td>
+                            <td>{{ record.to_eval_first_name }} {{ record.to_eval_middle_name }} {{ record.to_eval_last_name }}</td>
+                            <td>{{ record.to_eval_position }}</td>
                             <td><a class="completed-cell">Completed</a></td>
                         </tr>
-                        {% elif record.email != current_user.email %}
+                        {% else %}
                         <tr>
-                            <td>{{ record.first_name }} {{ record.middle_name }} {{ record.last_name }}</td>
-                            <td>{{ record.status }}</td>
-                            <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_1', evaluated_email = record.email) }}">Click here to evaluate</a><i class="fa fa-check-circle ml-1"></i></td>
+                            <td>{{ record.to_eval_first_name }} {{ record.to_eval_middle_name }} {{ record.to_eval_last_name }}</td>
+                            <td>{{ record.to_eval_position }}</td>
+                            <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_1', evaluated_email = record.to_eval_email) }}">Click here to evaluate</a><i class="fa fa-check-circle ml-1"></i></td>
                         </tr>
                         {% endif %}
                         {% endfor %}

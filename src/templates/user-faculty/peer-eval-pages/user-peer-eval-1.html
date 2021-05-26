@@ -24,14 +24,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for i in rubric %}
                     <tr>
                         <td>#1</td>
-                        <td><label class="form-option"><input type="radio" name="p-1-1" value="1" checked="" style="filter: grayscale(82%) hue-rotate(148deg) saturate(200%);"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
-                        <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
-                        <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br></span></label></td>
-                        <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label><input type="text"></td>
+                        <td><label class="form-option"><input type="radio" name="p-1-1" value="1" checked="" style="filter: grayscale(82%) hue-rotate(148deg) saturate(200%);"><span><br>{{ i.excellent }}<br><br></span></label></td>
+                        <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span>{{ i.very_good}}<br><br><br></span></label></td>
+                        <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>{{ i.needs_improvement }}<br><br></span></label></td>
+                        <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>{{ i.poor }}<br><br></span></label><input type="text"></td>
                     </tr>
-                    <tr>
+                    {% endfor %}
+<!--                     <tr>
                         <td>#2</td>
                         <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
                         <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
@@ -58,7 +60,7 @@
                         <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
                         <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
                         <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>

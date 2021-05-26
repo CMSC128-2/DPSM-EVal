@@ -7,6 +7,15 @@ from sqlalchemy import *
 import uuid
 from datetime import datetime
 
+class questions_peer_eval(UserMixin, db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	question_id = db.Column(db.String(59), nullable=False)
+	criteria = db.Column(db.String(59), nullable=False)
+	excellent = db.Column(db.String(59), nullable=False)
+	very_good = db.Column(db.String(59), nullable=False)
+	needs_improvement = db.Column(db.String(59), nullable=False)
+	poor = db.Column(db.String(59), nullable=False)
+
 class to_evaluate(UserMixin, db.Model):
     to_eval_id = db.Column(db.Integer, primary_key=True)
     to_eval_first_name = db.Column(db.String(59), nullable=True)

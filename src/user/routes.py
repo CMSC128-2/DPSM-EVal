@@ -9,7 +9,7 @@ from google import auth
 import google
 from google.auth import credentials
 from werkzeug.utils import cached_property
-from .models import Evaluation, UserAccounts, to_evaluate
+from .models import Evaluation, UserAccounts, to_evaluate, questions_peer_eval
 from src import login_manager,db, mongo
 from google_auth_oauthlib.flow import Flow
 import google.oauth2.id_token as id_token
@@ -109,7 +109,8 @@ def faculty_list():
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-1<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
 def peer_eval_page_1(evaluated_email):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
-	return render_template('user-faculty/peer-eval-pages/user-peer-eval-1.html', evaluated=evaluated)
+	rubric = questions_peer_eval.query.filter_by(criteria='Professionalism and work ethics')
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-1.html', evaluated=evaluated, rubric=rubric)
 
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-2')
 def peer_eval_page_2():
