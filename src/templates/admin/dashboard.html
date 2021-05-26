@@ -34,7 +34,7 @@
                     <div class="col" style="margin-bottom: 20px;">
                         <h5 class="text-dark mb-0" style="padding-bottom: 10px;"><strong>Active Evaluation Forms</strong></h5>
                         <div class="row">
-                            {% for result in forms %}
+                            {% for result in active_forms %}
                             <div class="col-lg-6 col-xl-4 mb-4">
                                 <div class="card text-white bg-success shadow">
                                     <div class="card-body">
@@ -51,27 +51,18 @@
                     <div class="col" style="margin-bottom: 20px;">
                         <h5 class="text-dark mb-0" style="padding-bottom: 10px;"><strong>Recent Evaluations</strong></h5>
                         <div class="row">
+                            {% for result in inactive_forms %}
                             <div class="col-lg-6 col-xl-4 mb-4">
+                                
                                 <div class="card text-white bg-primary shadow">
                                     <div class="card-body">
-                                        <p class="m-0">Renewal (AY 2019-2020)</p>
+                                        <p class="m-0">{{result.title}}</p>
+                                        <p class="m-0">End date: {{result.end_date}}</p>
                                     </div>
                                 </div>
+                                
                             </div>
-                            <div class="col-lg-6 col-xl-4 mb-4">
-                                <div class="card text-white bg-primary shadow">
-                                    <div class="card-body">
-                                        <p class="m-0">Tenurial (AY 2019-2020)</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card text-white bg-primary shadow">
-                                    <div class="card-body">
-                                        <p class="m-0">Renewal (AY 2019-2020)</p>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

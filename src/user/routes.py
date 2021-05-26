@@ -154,19 +154,28 @@ def self_eval_page_5():
 @dpsm_eval_blueprint.route('/admin-dashboard')
 def admin_dashboard():
 	active_forms = []
-	data = mongo.db.evaluation.find({"is_active" : True})
-	
-	for document in data:
-		#print(document)
-		
+	inactive_forms = []
+
+	active_data = mongo.db.evaluation.find({"is_active" : True, "is_done" : False})
+	inactive_data = mongo.db.evaluation.find({"is_active" : False, "is_done" : True})
+
+	for document in active_data:	
 		active_forms.append(document)
+	for document in inactive_data:
+		inactive_forms.append(document)
+
 
 	print(active_forms)
-	return render_template('admin/dashboard.html', forms = active_forms )
+	return render_template('admin/dashboard.html', active_forms = active_forms, inactive_forms=inactive_forms )
 
+
+ROWS_PER_PAGE = 10
 @dpsm_eval_blueprint.route('/admin/user-list')
 def admin_user_list():
-	user_list = UserAccounts.query.all()
+	
+	page = request.args.get('page', 1, type=int)
+	#user_list = UserAccounts.query.all()
+	user_list = UserAccounts.query.paginate(page=page, per_page=ROWS_PER_PAGE)
 	return render_template('admin/user/user-list.html', users = user_list)
 
 @dpsm_eval_blueprint.route('/admin/add-user', methods=['GET', 'POST'])
