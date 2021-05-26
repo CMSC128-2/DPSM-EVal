@@ -15,7 +15,7 @@ from google_auth_oauthlib.flow import Flow
 import google.oauth2.id_token as id_token
 import os
 import pip._vendor.cachecontrol as cacheControl
-
+import uuid
 GOOGLE_CLIENT_ID = "509870006288-jrkbji4gr3bsu9qmk9990f39uop3545c.apps.googleusercontent.com"
 client_secrets_file = "src/user/google-oauth-creds.json"
 
@@ -77,7 +77,7 @@ def callback():
 	#email = id_info.get("email")
 	
 
-	print(session["picture"])
+	#print(session["picture"])
 	user = UserAccounts.query.filter_by(email=id_info.get("email")).first()
 	login_user(user)
 	if user is not None:
@@ -153,7 +153,16 @@ def self_eval_page_5():
 #ADMIN TEMPLATES
 @dpsm_eval_blueprint.route('/admin-dashboard')
 def admin_dashboard():
-	return render_template('admin/dashboard.html')
+	active_forms = []
+	data = mongo.db.evaluation.find({"is_active" : True})
+	
+	for document in data:
+		#print(document)
+		
+		active_forms.append(document)
+
+	print(active_forms)
+	return render_template('admin/dashboard.html', forms = active_forms )
 
 @dpsm_eval_blueprint.route('/admin/user-list')
 def admin_user_list():
@@ -174,7 +183,7 @@ def add_user():
 	position3 = request.form.get('position3')
 	work_title = request.form.get('work_title')
 
-	print(position1)
+	
 	if position1 == 'True':
 		is_unit_head = True
 	else:
@@ -189,7 +198,7 @@ def add_user():
 		is_dept_head = True
 	else:
 		is_dept_head = False
-	print()
+	
 	
 	user = UserAccounts.query.filter_by(email=email).first()
 
@@ -200,7 +209,8 @@ def add_user():
 	
 	# New User ID
 	new_id = UserAccounts.query.order_by(UserAccounts.id.desc()).first()
-	
+	eval_email = []
+	eval_email.append(email)
 	if request.method == 'POST':
 		new_user = UserAccounts(id = new_id.id + 1,email=email, first_name=first_name,
 		middle_name=middle_name,
@@ -210,10 +220,17 @@ def add_user():
 		is_dept_head=is_dept_head,
 		status=status,
 		work_title=work_title, 
-		unit = unit)
+		unit = unit,
+		is_evaluated_email = eval_email)
 		
+		user_reference = {
+			"_id" : uuid.uuid4().hex,
+			"email": request.form.get('email'),
+		}
+		mongo.db.users.insert_one(user_reference)
 		db.session.add(new_user)
 		db.session.commit()
+
 
 		return redirect(url_for('dpsm_eval_blueprint.admin_user_list'))
 
@@ -235,24 +252,26 @@ def delete_user(id):
 def open_form():
 	return render_template('admin/forms/renewal/open-form.html')
 
+@dpsm_eval_blueprint.route('/renewalAction', methods=['GET', 'POST'])
+def open_form_renewal():
+	title = request.form.get('title')
+	purpose_eval = request.form.get('purpose_eval')
+	start_date = request.form.get('start_date')
+	end_date = request.form.get('end_date')
+	release_date = request.form.get('release_date')
 
-#FUNCTIONS
-def build_name(first_name, middle_name, last_name):
-	name = ''
-	name += first_name
-	name += ' ' + middle_name
-	name += ' ' + last_name
-	return name
+	id = uuid.uuid4().hex
+	data = {
+		"title": title,
+		"purpose_of_evaluation": purpose_eval,
+		"start_date": start_date,
+		"end_date": end_date,
+		"release_date": release_date,
+		"is_active": True,
+		"is_done": False,
+	}
+	mongo.db.evaluation.update_one( {"_id": id}, { "$setOnInsert": data}, upsert = True)
+	
+	
+	return jsonify({"success" : "Evaluation added "}), 200
 
-@dpsm_eval_blueprint.route('/admin-dashboardt')
-def test():
-	# x = Evaluation()
-	# x.createRenewalEvaluation()
-
-	# eval = mongo.db.evaluation.find_one({"_id" : "6d36a0a55da54dfcbf9724ba5d9ce744"})
-	# print(eval["participants"]["userID1003"])
-
-	a = mongo.db.evaluation.find_one( { "participants": { "$elemMatch": { "user_id": "userID1003", "first_name" : "John"}   } })
-	#a["participants"][]
-	print(a)
-	return jsonify(a)
