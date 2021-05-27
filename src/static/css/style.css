@@ -185,3 +185,14 @@
   color: maroon;
 }
 
+.sub-heading {
+  background-color: rgb(101,101,101);
+  color: white;
+}
+
+.heading {
+  min-width: 400px;
+}
+
+
+
