@@ -18,24 +18,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for i in rubric %}
                         <tr>
                             <td>#1</td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1" checked="" style="filter: grayscale(82%) hue-rotate(148deg) saturate(200%);"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br></span></label></td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
+                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1" checked="" style="filter: grayscale(82%) hue-rotate(148deg) saturate(200%);"><span><br>{{ i.excellent }}<br><br></span></label></td>
+                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>{{ i.very_good }}<br><br></span></label></td>
+                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>{{ i.needs_improvement }}.<br><br></span></label></td>
+                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>{{ i.poor }}<br><br></span></label></td>
                         </tr>
-                        <tr>
-                            <td>#2</td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1" checked="" style="filter: grayscale(82%) hue-rotate(148deg) saturate(200%);"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br></span></label></td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>I judiciously inform the administration/ peers and students when I am absent or cannot meet my classes.<br><br></span></label></td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
-            <div class="d-flex justify-content-center mt-5"><a class="btn btn-sm text-light nxt-btn" role="button" href="user-peer-4.html"><i class="fas fa-chevron-left mr-1"></i><span>Prev</span></a><button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#self-eval-modal"><span>Submit</span></button></div>
+            <div class="d-flex justify-content-center mt-5"><a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_4') }}"><i class="fas fa-chevron-left mr-1"></i><span>Prev</span></a><button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#self-eval-modal"><span>Submit</span></button></div>
         </div>
     </div>
 </div>
