@@ -144,7 +144,7 @@ def peer_eval_page_3(evaluated_email):
 		session['peer_eval_8'] = request.form.get('peer_eval_8')
 		session['peer_eval_9'] = request.form.get('peer_eval_9')
 		print("fdfgdf")
-		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_4', evaluated_email = evaluated_email, evaluated=evaluated, rubric=rubric)) 
+		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_4', evaluated_email = evaluated_email)) 
 	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-3.html', evaluated=evaluated, rubric=rubric)
 
@@ -157,7 +157,7 @@ def peer_eval_page_4(evaluated_email):
 		session['peer_eval_10'] = request.form.get('peer_eval_10')
 		print(session['peer_eval_10'])
 	
-		return redirect('/faculty/peer-eval-page-5<string:evaluated_email>/evaluate/') 
+		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_5', evaluated_email = evaluated_email)) 
 	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-4.html', evaluated=evaluated, rubric=rubric)
 
