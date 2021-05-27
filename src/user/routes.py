@@ -9,7 +9,7 @@ from google import auth
 import google
 from google.auth import credentials
 from werkzeug.utils import cached_property
-from .models import Evaluation, UserAccounts, to_evaluate, questions_peer_eval
+from .models import Evaluation, UserAccounts, to_evaluate, questions_peer_eval, questions_self_eval
 from src import login_manager,db, mongo
 from google_auth_oauthlib.flow import Flow
 import google.oauth2.id_token as id_token
@@ -139,23 +139,33 @@ def peer_eval_page_5(evaluated_email):
 #SELF EVAL PAGES
 @dpsm_eval_blueprint.route('/faculty/self-eval-page-1')
 def self_eval_page_1():
-	return render_template('user-faculty/self-eval-pages/user-self-eval-1.html')
+	user = UserAccounts.query.filter_by(email=session["email"]).first()
+	rubric = questions_self_eval.query.filter_by(criteria='Professionalism')
+	return render_template('user-faculty/self-eval-pages/user-self-eval-1.html', evaluated=user, rubric=rubric)
 
 @dpsm_eval_blueprint.route('/faculty/self-eval-page-2')
 def self_eval_page_2():
-	return render_template('user-faculty/self-eval-pages/user-self-eval-2.html')
+	user = UserAccounts.query.filter_by(email=session["email"]).first()
+	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards students')
+	return render_template('user-faculty/self-eval-pages/user-self-eval-2.html', evaluated=user, rubric=rubric)
 
 @dpsm_eval_blueprint.route('/faculty/self-eval-page-3')
 def self_eval_page_3():
-	return render_template('user-faculty/self-eval-pages/user-self-eval-3.html')
+	user = UserAccounts.query.filter_by(email=session["email"]).first()
+	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards peers')
+	return render_template('user-faculty/self-eval-pages/user-self-eval-3.html', evaluated=user, rubric=rubric)
 
 @dpsm_eval_blueprint.route('/faculty/self-eval-page-4')
 def self_eval_page_4():
-	return render_template('user-faculty/self-eval-pages/user-self-eval-4.html')
+	user = UserAccounts.query.filter_by(email=session["email"]).first()
+	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards support and administrative staff')
+	return render_template('user-faculty/self-eval-pages/user-self-eval-4.html', evaluated=user, rubric=rubric)
 
 @dpsm_eval_blueprint.route('/faculty/self-eval-page-5')
 def self_eval_page_5():
-	return render_template('user-faculty/self-eval-pages/user-self-eval-5.html')
+	user = UserAccounts.query.filter_by(email=session["email"]).first()
+	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards the profession and administration')
+	return render_template('user-faculty/self-eval-pages/user-self-eval-5.html', evaluated=user, rubric=rubric)
 
 ###############################################################################################
 
