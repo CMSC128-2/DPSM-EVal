@@ -110,30 +110,66 @@ def faculty_list():
 def peer_eval_page_1(evaluated_email):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
 	rubric = questions_peer_eval.query.filter_by(criteria='Professionalism and work ethics')
+
+	if request.method == "POST":
+		session['peer_eval_1'] = request.form.get('peer_eval_1')
+		session['peer_eval_2'] = request.form.get('peer_eval_2')
+		session['peer_eval_3'] = request.form.get('peer_eval_3')
+		session['peer_eval_4'] = request.form.get('peer_eval_4')
+		session['peer_eval_5'] = request.form.get('peer_eval_5')
+		session['peer_eval_6'] = request.form.get('peer_eval_6')
+		print(session['peer_eval_1'])
+		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_2', evaluated_email = evaluated_email)) 
+
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-1.html', evaluated=evaluated, rubric=rubric)
 
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-2<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
 def peer_eval_page_2(evaluated_email):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
 	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards students')
+
+	if request.method == "POST":
+		session['peer_eval_7'] = request.form.get('peer_eval_7')
+		print(session['peer_eval_7'])
+		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_3', evaluated_email = evaluated_email)) 
+
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-2.html', evaluated=evaluated, rubric=rubric)
 
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-3<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
 def peer_eval_page_3(evaluated_email):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
 	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards peers')
+
+	if request.method == "POST":
+		session['peer_eval_8'] = request.form.get('peer_eval_8')
+		session['peer_eval_9'] = request.form.get('peer_eval_9')
+		print("fdfgdf")
+		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_4', evaluated_email = evaluated_email, evaluated=evaluated, rubric=rubric)) 
+	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-3.html', evaluated=evaluated, rubric=rubric)
 
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-4<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
 def peer_eval_page_4(evaluated_email):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
 	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards the support staff')
+	
+	if request.method == "POST":
+		session['peer_eval_10'] = request.form.get('peer_eval_10')
+		print(session['peer_eval_10'])
+	
+		return redirect('/faculty/peer-eval-page-5<string:evaluated_email>/evaluate/') 
+	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-4.html', evaluated=evaluated, rubric=rubric)
 
 @dpsm_eval_blueprint.route('/faculty/peer-eval-page-5<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
 def peer_eval_page_5(evaluated_email):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
 	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards University policies and regulations.')
+	
+	if request.method == "POST":
+		session['peer_eval_11'] = request.form.get('peer_eval_11')
+		print(session['peer_eval_11'])
+	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-5.html', evaluated=evaluated, rubric=rubric)
 
 #SELF EVAL PAGES
