@@ -165,8 +165,8 @@ def admin_dashboard():
 	active_forms = []
 	inactive_forms = []
 
-	active_data = mongo.db.evaluation.find({"is_active" : True, "is_done" : False})
-	inactive_data = mongo.db.evaluation.find({"is_active" : False, "is_done" : True})
+	active_data = mongo.db.evaluation.find({"is_active" : True})
+	inactive_data = mongo.db.evaluation.find({"is_active" : False})
 
 	for document in active_data:	
 		active_forms.append(document)
@@ -241,11 +241,11 @@ def add_user():
 		unit = unit,
 		is_evaluated_email = eval_email)
 		
-		user_reference = {
-			"_id" : uuid.uuid4().hex,
-			"email": request.form.get('email'),
-		}
-		mongo.db.users.insert_one(user_reference)
+		# user_reference = {
+		# 	"_id" : uuid.uuid4().hex,
+		# 	"email": request.form.get('email'),
+		# }
+		# mongo.db.users.insert_one(user_reference)
 		db.session.add(new_user)
 		db.session.commit()
 
@@ -279,6 +279,7 @@ def open_form_renewal():
 	release_date = request.form.get('release_date')
 
 	id = uuid.uuid4().hex
+
 	data = {
 		"title": title,
 		"purpose_of_evaluation": purpose_eval,
@@ -288,6 +289,7 @@ def open_form_renewal():
 		"is_active": True,
 		"is_done": False,
 	}
+
 	mongo.db.evaluation.update_one( {"_id": id}, { "$setOnInsert": data}, upsert = True)
 	
 	
