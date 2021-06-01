@@ -20,7 +20,7 @@
 </head>
 <body id="page-top">
     <nav class="navbar navbar-light navbar-dark" style="position: fixed;z-index: 1030;left: 0;right: 0;background-color: #131313;">
-        <div class="container-fluid"><a href="{{url_for('dpsm_eval_blueprint.admin_dashboard')}}">
+        <div class="container-fluid"><a href="{{url_for('dpsm_admin_blueprint.admin_dashboard')}}">
                 <div class="site-logo"></div>
             </a><button data-toggle="collapse" class="navbar-toggler" data-target="#side-to-top" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse side-to-top" id="side-to-top">
@@ -33,10 +33,10 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link active" href="{{url_for('dpsm_eval_blueprint.admin_dashboard')}}"><i class="fas fa-table"></i><span>Home</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('dpsm_eval_blueprint.admin_user_list')}}"><i class="fas fa-sign-out-alt"></i><span>Users</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url_for('dpsm_eval_blueprint.open_form')}}"><i class="fas fa-sign-out-alt"></i><span>Forms</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url_for('dpsm_eval_blueprint.logout')}}"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{url_for('dpsm_admin_blueprint.admin_dashboard')}}"><i class="fas fa-table"></i><span>Home</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('dpsm_admin_blueprint.admin_user_list')}}"><i class="fas fa-sign-out-alt"></i><span>Users</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('dpsm_admin_blueprint.open_form')}}"><i class="fas fa-sign-out-alt"></i><span>Forms</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('dpsm_admin_blueprint.logout')}}"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
                 </ul>
             </div>
         </div>
@@ -54,9 +54,9 @@
                         </div>
                     </li>
                     
-                    <li class="nav-item"><a class="nav-link text-left" href="{{url_for('dpsm_eval_blueprint.admin_dashboard')}}"><i class="material-icons">home</i><span>Home</span></a><a class="nav-link text-left" href="{{ url_for('dpsm_eval_blueprint.admin_user_list')}}"><i class="fas fa-user"></i>
-                        <span>Users</span></a><a class="nav-link text-left" href="{{ url_for('dpsm_eval_blueprint.open_form')}}"><i class="fas fa-table"></i><span>Forms</span></a></li>
-                    <li class="nav-item"><a class="nav-link text-left" href="{{url_for('dpsm_eval_blueprint.logout')}}"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
+                    <li class="nav-item"><a class="nav-link text-left" href="{{url_for('dpsm_admin_blueprint.admin_dashboard')}}"><i class="material-icons">home</i><span>Home</span></a><a class="nav-link text-left" href="{{ url_for('dpsm_admin_blueprint.admin_user_list')}}"><i class="fas fa-user"></i>
+                        <span>Users</span></a><a class="nav-link text-left" href="{{ url_for('dpsm_admin_blueprint.open_form')}}"><i class="fas fa-table"></i><span>Forms</span></a></li>
+                    <li class="nav-item"><a class="nav-link text-left" href="{{url_for('dpsm_admin_blueprint.logout')}}"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
                 </ul>
             </div>
         </nav>

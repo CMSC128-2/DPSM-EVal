@@ -4,6 +4,9 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 import psycopg2
 from flask_pymongo import PyMongo
+from apscheduler.schedulers.background import BackgroundScheduler
+import pytz
+from datetime import datetime
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -12,7 +15,16 @@ mongo = PyMongo()
 
 # Import Blueprints Here
 from src.user.routes import dpsm_eval_blueprint
+from src.user.admin_routes.routes import dpsm_admin_blueprint
 
+def checkForms():
+	tz = pytz.timezone('Asia/Shanghai')
+	if mongo.db.evaluation.find({"is_active" : True}):
+		active_forms = mongo.db.evaluation.find({"is_active" : True})
+		for document in active_forms:
+			# is the date expired?
+			if (document["end_date"] < str(datetime.now(tz).strftime('%Y-%m-%d'))):
+				mongo.db.evaluation.update_one( {"_id": document["_id"]}, { "$set": {"is_active" : False}})
 
 def create_app(config_filename=None):
     
@@ -29,5 +41,11 @@ def create_app(config_filename=None):
 
     login_manager.init_app(app)
     app.register_blueprint(dpsm_eval_blueprint)
+    app.register_blueprint(dpsm_admin_blueprint)
+
+    # Scheduler
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(checkForms, trigger='interval', days=1, misfire_grace_time=3600)
+    scheduler.start()
 
     return app
