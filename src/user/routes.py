@@ -144,7 +144,7 @@ def peer_eval_page_3(evaluated_email):
 		session['peer_eval_8'] = request.form.get('peer_eval_8')
 		session['peer_eval_9'] = request.form.get('peer_eval_9')
 		print("fdfgdf")
-		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_4', evaluated_email = evaluated_email, evaluated=evaluated, rubric=rubric)) 
+		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_4', evaluated_email = evaluated_email)) 
 	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-3.html', evaluated=evaluated, rubric=rubric)
 
@@ -157,7 +157,7 @@ def peer_eval_page_4(evaluated_email):
 		session['peer_eval_10'] = request.form.get('peer_eval_10')
 		print(session['peer_eval_10'])
 	
-		return redirect('/faculty/peer-eval-page-5<string:evaluated_email>/evaluate/') 
+		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_5', evaluated_email = evaluated_email)) 
 	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-4.html', evaluated=evaluated, rubric=rubric)
 
@@ -211,8 +211,8 @@ def admin_dashboard():
 	active_forms = []
 	inactive_forms = []
 
-	active_data = mongo.db.evaluation.find({"is_active" : True, "is_done" : False})
-	inactive_data = mongo.db.evaluation.find({"is_active" : False, "is_done" : True})
+	active_data = mongo.db.evaluation.find({"is_active" : True})
+	inactive_data = mongo.db.evaluation.find({"is_active" : False})
 
 	for document in active_data:	
 		active_forms.append(document)
@@ -287,11 +287,11 @@ def add_user():
 		unit = unit,
 		is_evaluated_email = eval_email)
 		
-		user_reference = {
-			"_id" : uuid.uuid4().hex,
-			"email": request.form.get('email'),
-		}
-		mongo.db.users.insert_one(user_reference)
+		# user_reference = {
+		# 	"_id" : uuid.uuid4().hex,
+		# 	"email": request.form.get('email'),
+		# }
+		# mongo.db.users.insert_one(user_reference)
 		db.session.add(new_user)
 		db.session.commit()
 
@@ -325,6 +325,7 @@ def open_form_renewal():
 	release_date = request.form.get('release_date')
 
 	id = uuid.uuid4().hex
+
 	data = {
 		"title": title,
 		"purpose_of_evaluation": purpose_eval,
@@ -334,6 +335,7 @@ def open_form_renewal():
 		"is_active": True,
 		"is_done": False,
 	}
+
 	mongo.db.evaluation.update_one( {"_id": id}, { "$setOnInsert": data}, upsert = True)
 	
 	

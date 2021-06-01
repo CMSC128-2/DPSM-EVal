@@ -8,12 +8,12 @@
                         <div class="card-body">
                             <h6 class="text-muted card-subtitle faculty-position mb-2" id="evaluatee-status">Evaluating</h6>
                             <h4 class="card-title faculty-name" id="evaluatee">{{evaluated.first_name}} {{evaluated.last_name}}</h4>
-                            <h6 class="text-muted card-subtitle faculty-position mb-2" id="evaluatee-status">{{evaluated.work_title}}</h6>
+                            <h6 class="text-muted card-subtitle faculty-position mb-2" id="evaluatee-status">{{evaluated.email}}</h6>
                             <p class="card-text"></p>
                         </div>
                     </div>
                 </div><strong class="text-center form-categ">Attitude towards students<br></strong>
-                <form method="POST" action="/faculty/peer-eval-page-2<string:evaluated_email>/evaluate/">
+                <form method="POST" action="/faculty/peer-eval-page-2{{evaluated.email}}/evaluate/">
                     <div class="table-responsive text-center">
                         <table class="table table-sm eval-form-table">
                             <thead>
