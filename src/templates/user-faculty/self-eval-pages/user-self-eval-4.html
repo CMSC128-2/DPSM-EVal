@@ -6,31 +6,38 @@
                 <h5 class="mb-2">Self Evaluation Rubrics <br>for Attitudes, Professionalism and Work Ethics (30%)<br></h5>
                 <div class="card evaluatee-info"></div>
             </div><strong class="text-center form-categ">Attitude towards support and administrative staff<br></strong>
-            <div class="table-responsive text-center">
-                <table class="table table-sm eval-form-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 4%;"></th>
-                            <th style="width: 24%;">Excellent</th>
-                            <th style="width: 24%;">Good</th>
-                            <th style="width: 24%;">Average</th>
-                            <th style="width: 24%;">Poor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in rubric %}
-                        <tr>
-                            <td>#1</td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1" checked="" style="filter: grayscale(82%) hue-rotate(148deg) saturate(200%);"><span><br>{{ i.excellent }}<br><br></span></label></td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>{{ i.very_good }}<br><br></span></label></td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>{{ i.needs_improvement }}.<br><br></span></label></td>
-                            <td><label class="form-option"><input type="radio" name="p-1-1" value="1"><span><br>{{ i.poor }}<br><br></span></label></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-flex justify-content-center mt-5"><a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_3') }}"><i class="fas fa-chevron-left mr-1"></i><span>Prev</span></a><a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_5') }}"><span>Next</span><i class="fas fa-chevron-right ml-1"></i></a></div>
+            <form method="POST" action="/faculty/self-eval-page-4">
+                <div class="table-responsive text-center">
+                    <table class="table table-sm eval-form-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 4%;"></th>
+                                <th style="width: 24%;">Excellent (4)</th>
+                                <th style="width: 24%;">Good (3)</th>
+                                <th style="width: 24%;">Average (2)</th>
+                                <th style="width: 24%;">Poor (1)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in rubric %}
+                            <tr>
+                                <td>{{i.id}}</td>
+                                <td><label class="form-option"><input type="radio" name="{{i.question_id}}" value="4" style="filter: grayscale(82%) hue-rotate(148deg) saturate(200%);"><span><br>{{ i.excellent }}<br><br></span></label></td>
+                                <td><label class="form-option"><input type="radio" name="{{i.question_id}}" value="3"><span>{{ i.very_good}}<br><br><br></span></label></td>
+                                <td><label class="form-option"><input type="radio" name="{{i.question_id}}" value="2"><span><br>{{ i.needs_improvement }}<br><br></span></label></td>
+                                <td><label class="form-option"><input type="radio" name="{{i.question_id}}" value="1"><span><br>{{ i.poor }}<br><br></span></label><input type="text"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-center mt-5">
+                    <a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_3') }}"><i class="fas fa-chevron-left mr-1"></i><span>Prev</span></a>
+                    <button class="btn btn-sm text-light nxt-btn" type="submit"><span>Next</span><i class="fas fa-chevron-right ml-1"></i></button>
+                    <!-- <a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_2', evaluated_email = evaluated.email) }}"><span>Next</span><i class="fas fa-chevron-right ml-1"></i></a></div> -->
+                </div>
+            </form>
+            <!-- <div class="d-flex justify-content-center mt-5"><a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_3') }}"><i class="fas fa-chevron-left mr-1"></i><span>Prev</span></a><a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_5') }}"><span>Next</span><i class="fas fa-chevron-right ml-1"></i></a></div> -->
         </div>
     </div>
 </div>

@@ -144,7 +144,7 @@ def peer_eval_page_3(evaluated_email):
 		session['peer_eval_8'] = request.form.get('peer_eval_8')
 		session['peer_eval_9'] = request.form.get('peer_eval_9')
 		print("fdfgdf")
-		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_4', evaluated_email = evaluated_email)) 
+		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_4', evaluated_email = evaluated_email, evaluated=evaluated, rubric=rubric)) 
 	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-3.html', evaluated=evaluated, rubric=rubric)
 
@@ -157,7 +157,7 @@ def peer_eval_page_4(evaluated_email):
 		session['peer_eval_10'] = request.form.get('peer_eval_10')
 		print(session['peer_eval_10'])
 	
-		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_5', evaluated_email = evaluated_email)) 
+		return redirect('/faculty/peer-eval-page-5<string:evaluated_email>/evaluate/') 
 	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-4.html', evaluated=evaluated, rubric=rubric)
 
@@ -169,38 +169,78 @@ def peer_eval_page_5(evaluated_email):
 	if request.method == "POST":
 		session['peer_eval_11'] = request.form.get('peer_eval_11')
 		print(session['peer_eval_11'])
+
+		
 	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-5.html', evaluated=evaluated, rubric=rubric)
 
 #SELF EVAL PAGES
-@dpsm_eval_blueprint.route('/faculty/self-eval-page-1')
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-1', methods=['GET', 'POST'])
 def self_eval_page_1():
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	rubric = questions_self_eval.query.filter_by(criteria='Professionalism')
+
+	if request.method == "POST":
+		session['self_eval_1'] = request.form.get('self_eval_1')
+		session['self_eval_2'] = request.form.get('self_eval_2')
+		session['self_eval_3'] = request.form.get('self_eval_3')
+		session['self_eval_4'] = request.form.get('self_eval_4')
+		print(session['self_eval_1'])
+		return redirect(url_for('dpsm_eval_blueprint.self_eval_page_2'))
+		
+
 	return render_template('user-faculty/self-eval-pages/user-self-eval-1.html', evaluated=user, rubric=rubric)
 
-@dpsm_eval_blueprint.route('/faculty/self-eval-page-2')
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-2', methods=['GET', 'POST'])
 def self_eval_page_2():
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards students')
+
+	if request.method == "POST":
+		session['self_eval_5'] = request.form.get('self_eval_5')
+		session['self_eval_6'] = request.form.get('self_eval_6')
+		print(session['self_eval_5'])
+		return redirect(url_for('dpsm_eval_blueprint.self_eval_page_3'))
+
 	return render_template('user-faculty/self-eval-pages/user-self-eval-2.html', evaluated=user, rubric=rubric)
 
-@dpsm_eval_blueprint.route('/faculty/self-eval-page-3')
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-3', methods=['GET', 'POST'])
 def self_eval_page_3():
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards peers')
+
+	if request.method == "POST":
+		session['self_eval_7'] = request.form.get('self_eval_7')
+		session['self_eval_8'] = request.form.get('self_eval_8')
+		session['self_eval_9'] = request.form.get('self_eval_9')
+		print(session['self_eval_7'])
+		return redirect(url_for('dpsm_eval_blueprint.self_eval_page_4'))
+
 	return render_template('user-faculty/self-eval-pages/user-self-eval-3.html', evaluated=user, rubric=rubric)
 
-@dpsm_eval_blueprint.route('/faculty/self-eval-page-4')
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-4', methods=['GET', 'POST'])
 def self_eval_page_4():
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards support and administrative staff')
+	
+	if request.method == "POST":
+		session['self_eval_10'] = request.form.get('self_eval_10')
+		print(session['self_eval_10'])
+		return redirect(url_for('dpsm_eval_blueprint.self_eval_page_5'))
+	
 	return render_template('user-faculty/self-eval-pages/user-self-eval-4.html', evaluated=user, rubric=rubric)
 
-@dpsm_eval_blueprint.route('/faculty/self-eval-page-5')
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-5', methods=['GET', 'POST'])
 def self_eval_page_5():
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards the profession and administration')
+	
+	if request.method == "POST":
+		session['self_eval_11'] = request.form.get('self_eval_11')
+		session['self_eval_12'] = request.form.get('self_eval_20')
+		print(session['self_eval_11'])
+		#return redirect(url_for('dpsm_eval_blueprint.self_eval_page_5'))
+	
 	return render_template('user-faculty/self-eval-pages/user-self-eval-5.html', evaluated=user, rubric=rubric)
 
 ###############################################################################################
@@ -211,8 +251,8 @@ def admin_dashboard():
 	active_forms = []
 	inactive_forms = []
 
-	active_data = mongo.db.evaluation.find({"is_active" : True})
-	inactive_data = mongo.db.evaluation.find({"is_active" : False})
+	active_data = mongo.db.evaluation.find({"is_active" : True, "is_done" : False})
+	inactive_data = mongo.db.evaluation.find({"is_active" : False, "is_done" : True})
 
 	for document in active_data:	
 		active_forms.append(document)
@@ -287,11 +327,11 @@ def add_user():
 		unit = unit,
 		is_evaluated_email = eval_email)
 		
-		# user_reference = {
-		# 	"_id" : uuid.uuid4().hex,
-		# 	"email": request.form.get('email'),
-		# }
-		# mongo.db.users.insert_one(user_reference)
+		user_reference = {
+			"_id" : uuid.uuid4().hex,
+			"email": request.form.get('email'),
+		}
+		mongo.db.users.insert_one(user_reference)
 		db.session.add(new_user)
 		db.session.commit()
 
@@ -325,7 +365,6 @@ def open_form_renewal():
 	release_date = request.form.get('release_date')
 
 	id = uuid.uuid4().hex
-
 	data = {
 		"title": title,
 		"purpose_of_evaluation": purpose_eval,
@@ -335,7 +374,6 @@ def open_form_renewal():
 		"is_active": True,
 		"is_done": False,
 	}
-
 	mongo.db.evaluation.update_one( {"_id": id}, { "$setOnInsert": data}, upsert = True)
 	
 	
