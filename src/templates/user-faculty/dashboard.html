@@ -4,7 +4,7 @@
     <div class="user-layout">
         <div class="container-fluid">
             <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
-            <h3>Available Evaluation Forms</h3>
+            <h3>Available Active Evaluation Forms</h3>
             <hr class="mt-0">
             <div class="row d-flex justify-content-center align-items-center mb-5">
                 {% for form in active_forms %}
@@ -29,7 +29,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col btn p-0"><button class="btn result-btn" type="button">View Results</button></div>
+                        <div class="col btn p-0">Results for this evaluation will be released on blabla.</div>
+                        <!-- <button class="btn result-btn" type="button">View Results</button> -->
                     </div>
                 </div>
                 {% endfor %}
@@ -92,10 +93,43 @@
         </div>
         <div class="container-fluid">
             <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
-            <h3>Results</h3>
+            <h3>History</h3>
             <hr class="mt-0">
             <div><a class="btn p-eval-btn" role="button" href="user-faculty-list.html">Unit 1</a><button class="btn p-eval-btn" type="button">Unit 2</button><button class="btn p-eval-btn" type="button">Unit 3</button></div>
+            
             <div class="row d-flex justify-content-center align-items-center mb-5">
+                {% for form in active_forms %}
+                <div class="col" style="border: 3px solid black;border-radius: 0.5rem;">
+                    <div class="row">
+                        <div class="col-auto d-flex justify-content-center align-items-center"><i class="material-icons d-flex" style="font-size: 60px;margin-top: 0.5rem;margin-bottom: 0rem;">autorenew</i></div>
+                        <div class="col-xl-7 col-auto">
+                            <div class="row">
+                                <div class="col" style="margin-top: 1rem;">
+                                    <div class="text-dark font-weight-bold mb-0"><span class="form-name">{{form.title}}</span></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="text-dark font-weight-bold"><span class="form-name" style="color: #751518">Type: {{form.purpose_of_evaluation}}</span></div>
+                                    <!-- <div class="text-dark font-weight-bold"><span class="form-name">2020-2021</span></div> -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- <div class="col pl-2" style="margin-top: 1rem;">
+                                    <div class="mb-3"><a class="btn p-eval-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.faculty_list') }}">Peer Evaluation</a><a class="btn p-eval-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_1') }}">Self Evaluation</a></div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col btn p-0"><button class="btn result-btn" type="button">View Results</button></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            
+            
+            
+            <!-- <div class="row d-flex justify-content-center align-items-center mb-5">
                 <div class="col mb-4">
                     <div class="card form-type">
                         <div class="card-body d-flex align-items-center">
@@ -142,7 +176,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
