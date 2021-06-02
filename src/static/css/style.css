@@ -28,6 +28,7 @@
   margin-bottom: 0.5rem;
   border-radius: 20px;
   font-size: small;
+  padding: 0.25rem 0.5rem;
 }
 
 .form-type {
@@ -219,3 +220,15 @@
   background-color: darkgreen;
 }
 
+.result-msg{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: small;
+  text-align: center;
+  height: 100%;
+  color: maroon;
+  background-color: #f5f5f5;
+  border-radius: 0.25rem;
+  padding: 1rem 3rem;
+}
