@@ -1,0 +1,213 @@
+{% extends "admin/layout-admin.html" %} {% block edit_user %}
+<div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+        <div class="container-fluid mt-5" style="margin-bottom: 50px;">
+            <h3 class="text-dark mb-4" style="color: rgb(90, 92, 105);">Edit Profile</h3>
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold" id="user_settings">Personal Information</p>
+                        </div>
+                        <form method="POST" action="/admin/edit_user/{{user.id}}">
+
+                        
+                        <div class="card-body">
+                            
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="first_name"><strong>Email Address</strong><br /></label><input type="text" class="form-control" id="email" placeholder="{{user.email}}" name="email" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="first_name"><strong>First Name</strong></label><input type="text" class="form-control" id="first_name" placeholder="{{user.first_name}}" name="first_name" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="username"><strong>Middle Name</strong></label><input type="text" class="form-control" id="middle_name" placeholder="{{user.middle_name}}" name="middle_name" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="first_name"><strong>Last Name</strong></label><input type="text" class="form-control" id="lastname" placeholder="{{user.last_name}}" name="last_name" /></div>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold" style = "/*color: rgb(0,0,0);*/">Work Information</p>
+                        </div>
+                        <div class="card-body">
+                           
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="city"><strong>Unit</strong></label>
+                                            <select class="form-control" name = "unit">
+                                                <optgroup label="Unit" >
+                                                    {% if user.unit == 'Mathematics and Computing Sciences Unit' %}
+                                                    <option value="Mathematics and Computing Sciences Unit" selected id="mcsu">Mathematics and Computing Sciences Unit</option>
+                                                    <option value="Chemistry Unity" id="chem">Chemistry Unity</option>
+                                                    <option value="Physics and Geology Unity" id="pgu">Physics and Geology Unity</option>
+                                                    {% elif user.unit == 'Chemistry Unity' %}
+                                                    <option value="Mathematics and Computing Sciences Unit"  id="mcsu">Mathematics and Computing Sciences Unit</option>
+                                                    <option value="Chemistry Unity" selected id="chem">Chemistry Unity</option>
+                                                    <option value="Physics and Geology Unity" id="pgu">Physics and Geology Unity</option>
+                                                    {% elif user.unit == 'Physics and Geology Unity' %}
+                                                    <option value="Mathematics and Computing Sciences Unit"  id="mcsu">Mathematics and Computing Sciences Unit</option>
+                                                    <option value="Chemistry Unity" id="chem">Chemistry Unity</option>
+                                                    <option value="Physics and Geology Unity" selected id="pgu">Physics and Geology Unity</option>
+                                                    {% else %}
+                                                    <option value="Mathematics and Computing Sciences Unit" selected id="mcsu">Mathematics and Computing Sciences Unit</option>
+                                                    <option value="Chemistry Unity" id="chem">Chemistry Unity</option>
+                                                    <option value="Physics and Geology Unity" id="pgu">Physics and Geology Unity</option>
+                                                    {% endif %}
+
+                                                </optgroup>
+                                            </select></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="city"><strong>Status</strong></label>
+                                            <select class="form-control" name = "status">
+                                            {% if user.status == 'Full Time - Permanent' %}
+                                                <optgroup label="Full Time" >
+                                                    <option value="Full Time - Permanent" selected id="permanent">Permanent (Tenured) </option>
+                                                    <option value="Full Time - Temporary" id="temporary">Temporary</option>
+                                                </optgroup>
+                                                <optgroup label="Part Time" >
+                                                    <option value="Part Time - Lecturer" id="lecturer">Lecturer</option>
+                                                </optgroup>
+                                            {% elif user.status == 'Full Time - Temporary' %}
+                                                <optgroup label="Full Time" >
+                                                    <option value="Full Time - Permanent"  id="permanent">Permanent (Tenured) </option>
+                                                    <option value="Full Time - Temporary" selected id="temporary">Temporary</option>
+                                                </optgroup>
+                                                <optgroup label="Part Time" >
+                                                    <option value="Part Time - Lecturer" id="lecturer">Lecturer</option>
+                                                </optgroup>
+                                            {% elif user.status == 'Part Time - Lecturer' %}
+                                                <optgroup label="Full Time" >
+                                                    <option value="Full Time - Permanent"  id="permanent">Permanent (Tenured) </option>
+                                                    <option value="Full Time - Temporary"  id="temporary">Temporary</option>
+                                                </optgroup>
+                                                <optgroup label="Part Time" >
+                                                    <option value="Part Time - Lecturer" selected id="lecturer">Lecturer</option>
+                                                </optgroup>
+                                            {% else %}
+                                                <optgroup label="Full Time" >
+                                                    <option value="Full Time - Permanent"  selected id="permanent">Permanent (Tenured) </option>
+                                                    <option value="Full Time - Temporary"  id="temporary">Temporary</option>
+                                                </optgroup>
+                                                <optgroup label="Part Time" >
+                                                    <option value="Part Time - Lecturer"  id="lecturer">Lecturer</option>
+                                                </optgroup>
+                                            {% endif %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="country"><strong>Position</strong></label>
+                                            
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="True" id="Unit Head" name = "position1">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Unit Head
+                                                </label>
+                                              </div>
+                                              <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="True" id="Unit APC" name = "position2">
+                                                <label class="form-check-label" for="flexCheckChecked">
+                                                  Unit APC
+                                                </label>
+                                              </div>
+                                              <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="True" id="Department Head" name = "position3">
+                                                <label class="form-check-label" for="flexCheckChecked">
+                                                  Department Head
+                                                </label>
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="city"><strong>Work Title</strong></label>
+                                            <select class="form-control" name = "work_title">
+                                                <optgroup label="Full Time">
+                                                    &nbsp;<optgroup label="Instructor">
+                                                        <option value="Instructor 1" id="Instructor 1">I1</option>
+                                                        <option value="Instructor 2" id="Instructor 2">I2</option>
+                                                        <option value="Instructor 3" id="Instructor 3">I3</option>
+                                                        <option value="Instructor 4" id="Instructor 4">I4</option>
+                                                        <option value="Instructor 5" id="Instructor 1">I5</option>
+                                                        <option value="Instructor 6" id="Instructor 6">I6</option>
+                                                        <option value="Instructor 7" id="Instructor 7">I7</option>
+                                                    </optgroup>
+                                                
+                                                    <optgroup label="Assistant Professor">
+                                                        <option value="Assistant Professor 1" id="Assistant Professor 1">AP1</option>
+                                                        <option value="Assistant Professor 2" id="Assistant Professor 2">AP2</option>
+                                                        <option value="Assistant Professor 3" id="Assistant Professor 3">AP3</option>
+                                                        <option value="Assistant Professor 4" id="Assistant Professor 4">AP4</option>
+                                                        <option value="Assistant Professor 5" id="Assistant Professor 5">AP5</option>
+                                                        <option value="Assistant Professor 6" id="Assistant Professor 1">AP6</option>
+                                                        <option value="Assistant Professor 7" id="Assistant Professor 7">AP7</option>
+                                                    </optgroup>
+                                                
+                                                    <optgroup label="Associate Professor">
+                                                        <option value="Associate Professor 1" id="Associate Professor 1">Assoc1</option>
+                                                        <option value="Associate Professor 2" id="Associate Professor 2">Assoc2</option>
+                                                        <option value="Associate Professor 3" id="Associate Professor 3">Assoc3</option>
+                                                        <option value="Associate Professor 4" id="Associate Professor 4">Assoc4</option>
+                                                        <option value="Associate Professor 5" id="Associate Professor 5">Assoc5</option>
+                                                        <option value="Associate Professor 6" id="Associate Professor 6">Assoc6</option>
+                                                        <option value="Associate Professor 7" id="Associate Professor 7">Assoc7</option>
+                                                    </optgroup>
+                                                
+                                                    <optgroup label="Professor">
+                                                        <option value="Professor 1" id="Professor 1">Prof1</option>
+                                                        <option value="Professor 2" id="Professor 2">Prof2</option>
+                                                        <option value="Professor 3" id="Professor 3">Prof3</option>
+                                                        <option value="Professor 4" id="Professor 4">Prof4</option>
+                                                        <option value="Professor 5" id="Professor 5">Prof5</option>
+                                                        <option value="Professor 6" id="Professor 6">Prof6</option>
+                                                        <option value="Professor 7" id="Professor 7">Prof7</option>
+                                                    </optgroup>
+                                                </optgroup>
+                                                
+                                                <optgroup label="Part Time">
+                                                    <optgroup label="Lecturer">
+                                                        <option value="Lecturer 1" id="Lecturer 1">Lecturer 1</option>
+                                                        <option value="Lecturer 2" id="Lecturer 2">Lecturer 2</option>
+                                                    </optgroup>
+                                                
+                                                    <optgroup label="Senior Lecturer">
+                                                        <option value="Senior Lecturer 1" id="Senior Lecturer 1">Sr. Lecturer 1</option>
+                                                        <option value="Senior Lecturer 2" id="Senior Lecturer 2">Sr. Lecturer 2</option>
+                                                    </optgroup>
+                                                
+                                                    <optgroup label="Others">
+                                                        <option value="Adjunct Professor" id="Adjunct Professor">Adjunct Prof.</option>
+                                                    </optgroup>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group text-right"><button class="btn btn-primary btn-sm" type="submit" style="color: rgb(255,255,255);background: rgb(128,0,0);border-radius: 10px;">Edit User</button></div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    {% endblock %}
