@@ -7,7 +7,6 @@
             <h3>Forms</h3>
             <hr class="mt-0">
             <div class="row d-flex justify-content-center align-items-center mb-5">
-                {% for form in active_forms %}
                 <div class="col">
                     <div class="card form-type">
                         <div class="card-body d-flex align-items-center">
@@ -16,12 +15,7 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col">
-                                            <div class="text-dark font-weight-bold mb-0"><span class="form-name">{{form.title}}</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="text-dark font-weight-bold mb-0"><span class="form-name" style="color: #751518">{{form.purpose_of_evaluation}}</span></div>
+                                            <div class="text-dark font-weight-bold mb-0"><span class="form-name">For Renewal</span></div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -35,8 +29,7 @@
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-                <!-- <div class="col">
+                <div class="col">
                     <div class="card form-type">
                         <div class="card-body d-flex align-items-center">
                             <div class="row text-left align-items-center">
@@ -59,7 +52,7 @@
                             <div class="btn-group" role="group"></div>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
         <div class="container-fluid">

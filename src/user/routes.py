@@ -86,12 +86,20 @@ def callback():
 		else:
 			return redirect('/admin-dashboard')
 	else:
-		return "Faculty Account Does not Exist in Database"
+		return "Account Does not Exist in Database. Please contact the administrator."
 
 @dpsm_eval_blueprint.route('/user-dashboard')
 #@login_required
 def dashboard():
-	return render_template('user-faculty/dashboard.html')
+	active_forms = []
+
+	active_data = mongo.db.evaluation.find({"is_active" : True, "is_done" : False})
+
+	for document in active_data:	
+		active_forms.append(document)
+		print(document)
+
+	return render_template('user-faculty/dashboard.html', active_forms = active_forms)
 
 @dpsm_eval_blueprint.route('/faculty_list')
 #@login_required
