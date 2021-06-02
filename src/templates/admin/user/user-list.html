@@ -66,19 +66,19 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 align-self-center">
-                            <a href="{{ url_for('dpsm_eval_blueprint.admin_user_list', page=users.prev_num) }}" class="btn btn-outline-dark 
+                            <a href="{{ url_for('dpsm_admin_blueprint.admin_user_list', page=users.prev_num) }}" class="btn btn-outline-dark 
                                 {% if users.page == 1 %}disabled{% endif %}">
                                 &laquo;
                             </a>
                             {% for page_num in users.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
                                 {% if page_num %}
                                     {% if users.page == page_num %}
-                                    <a href="{{ url_for('dpsm_eval_blueprint.admin_user_list', page=page_num) }}"
+                                    <a href="{{ url_for('dpsm_admin_blueprint.admin_user_list', page=page_num) }}"
                                         class="btn btn-dark">
                                         {{ page_num }}
                                     </a>
                                     {% else %}
-                                        <a href="{{ url_for('dpsm_eval_blueprint.admin_user_list', page=page_num) }}"
+                                        <a href="{{ url_for('dpsm_admin_blueprint.admin_user_list', page=page_num) }}"
                                         class="btn btn-outline-dark">
                                             {{ page_num }}
                                         </a>
@@ -87,7 +87,7 @@
                                     ...
                                 {% endif %}
                             {% endfor %}
-                            <a href="{{ url_for('dpsm_eval_blueprint.admin_user_list', page=users.next_num) }}" class="btn btn-outline-dark 
+                            <a href="{{ url_for('dpsm_admin_blueprint.admin_user_list', page=users.next_num) }}" class="btn btn-outline-dark 
                                 {% if users.page == users.pages %}disabled{% endif %}">
                                 &raquo;
                             </a>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="col-md-6">
                             <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers mr-3">
-                                <a class="btn btn-primary" type="button" style="color: rgb(255,255,255);background: rgb(117,21,24);border-radius: 10px;margin: 20px 0px;" href="{{url_for('dpsm_eval_blueprint.add_user')}}">Add New User</a>
+                                <a class="btn btn-primary" type="button" style="color: rgb(255,255,255);background: rgb(117,21,24);border-radius: 10px;margin: 20px 0px;" href="{{url_for('dpsm_admin_blueprint.add_user')}}">Add New User</a>
                             </nav>
                         </div>
                     </div>
