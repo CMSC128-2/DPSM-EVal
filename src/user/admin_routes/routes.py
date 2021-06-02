@@ -171,7 +171,7 @@ def edit_user(id):
 		if is_dept_head is not None:
 			user.is_dept_head=is_dept_head
 
-		if status is not None:
+		if status !=  "":
 			user.status=status
 
 		if work_title != "":
