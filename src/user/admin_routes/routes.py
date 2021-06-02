@@ -73,7 +73,7 @@ def add_user():
 	if user:
 		# If user exists then handle here.
 		flash('User already exists.')
-		return redirect(url_for('dpsm_eval_blueprint.add_user'))
+		return redirect(url_for('dpsm_admin_blueprint.add_user'))
 	
 	# New User ID
 	new_id = UserAccounts.query.order_by(UserAccounts.id.desc()).first()
