@@ -80,7 +80,9 @@ def add_user():
 	eval_email = []
 	eval_email.append(email)
 	if request.method == 'POST':
-		new_user = UserAccounts(id = new_id.id + 1,email=email, first_name=first_name,
+		new_user = UserAccounts(id = new_id.id + 1,
+		email=email, 
+		first_name=first_name,
 		middle_name=middle_name,
 		last_name=last_name,
 		is_unit_head=is_unit_head,
@@ -89,14 +91,15 @@ def add_user():
 		status=status,
 		work_title=work_title, 
 		unit = unit,
-		is_evaluated_email = eval_email)
+		is_evaluated_email = eval_email
+		)
 		
 	
 		db.session.add(new_user)
 		db.session.commit()
 
 
-		return redirect(url_for('dpsm_eval_blueprint.admin_user_list'))
+		return redirect(url_for('dpsm_admin_blueprint.admin_user_list'))
 
 	return render_template('admin/user/add-user.html')
 
@@ -108,9 +111,83 @@ def delete_user(id):
 		db.session.delete(user)
 		db.session.commit()
 		
-		return redirect(url_for('dpsm_eval_blueprint.admin_user_list'))
+		return redirect(url_for('dpsm_admin_blueprint.admin_user_list'))
 	except:
 		return 'Problem deleting user'
+
+@dpsm_admin_blueprint.route('/admin/edit_user/<int:id>', methods=['GET', 'POST'])
+def edit_user(id):
+	user = UserAccounts.query.get(id)
+
+	email = request.form.get('email')
+	first_name = request.form.get('first_name')
+	middle_name = request.form.get('middle_name')
+	last_name = request.form.get('last_name')
+	unit = request.form.get('unit')
+	status = request.form.get('status')
+	position1 = request.form.get('position1')
+	position2 = request.form.get('position2')
+	position3 = request.form.get('position3')
+	work_title = request.form.get('work_title')
+
+	
+	if position1 == 'True':
+		is_unit_head = True
+	else:
+		is_unit_head = False
+
+	if position2 == 'True':
+		is_unit_apc = True
+	else:
+		is_unit_apc = False
+
+	if position3 == 'True':
+		is_dept_head = True
+	else:
+		is_dept_head = False
+
+	
+	#code here
+	if request.method == 'POST':
+
+		if email != "":
+			user.email=email
+
+		if first_name != "":
+			user.first_name=first_name
+
+		if middle_name != "":
+			user.middle_name=middle_name
+
+		if last_name != "":
+			user.last_name=last_name
+
+		if is_unit_head is not None:
+			user.is_unit_head=is_unit_head
+
+		if is_unit_apc is not None:
+			user.is_unit_apc = is_unit_apc
+
+		if is_dept_head is not None:
+			user.is_dept_head=is_dept_head
+
+		if status !=  "":
+			user.status=status
+
+		if work_title != "":
+			user.work_title=work_title
+
+		if unit != "":
+			user.unit = unit
+		
+		db.session.commit()
+		return redirect(url_for('dpsm_admin_blueprint.admin_user_list'))
+		
+		
+		
+		
+	return render_template('admin/user/edit-user.html', user=user)
+
 
 @dpsm_admin_blueprint.route('/admin/add-form')
 def open_form():
@@ -176,4 +253,4 @@ def open_form_renewal():
 @dpsm_admin_blueprint.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('dpsm_eval_blueprint.index'))
+    return redirect(url_for('dpsm_admin_blueprint.index'))
