@@ -100,12 +100,22 @@ def dashboard():
 		print(document)
 	return render_template('user-faculty/dashboard.html', active_forms = active_forms)
 
-@dpsm_eval_blueprint.route('/faculty_list')
+@dpsm_eval_blueprint.route('/faculty_list/<string:form_id>/home', methods=['GET', 'POST'])
 #@login_required
-def faculty_list():
-	user = UserAccounts.query.filter_by(email=session["email"]).first()
-	evaluated = user.is_evaluated_email
-	need_to_be_evaluated = to_evaluate.query.all()
+def faculty_list(form_id):
+	this_form = mongo.db.evaluation.find({"_id" : form_id})
+	evaluatees = {}
+	evaluated = []
+	need_to_be_evaluated = []
+	current = mongo.db.evaluation.distinct('evaluatees')
+	for i in this_form:
+		evaluatees = i['evaluatees']
+	
+	for i in evaluatees:
+		need_to_be_evaluated.append(i['first_name']+ ' ' + i['middle_name']+ ' ' + i['last_name'])
+
+	# for i in current:
+		# need_to_be_evaluated.append(i['first_name']+ ' ' + i['middle_name']+ ' ' + i['last_name'])
 	
 	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated, not_evaluated=need_to_be_evaluated)
 
