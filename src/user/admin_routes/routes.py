@@ -123,18 +123,51 @@ def open_form_renewal():
 	start_date = request.form.get('start_date')
 	end_date = request.form.get('end_date')
 	release_date = request.form.get('release_date')
+	evaluatees_data = []
 
 	id = uuid.uuid4().hex
-	data = {
-		"title": title,
-		"purpose_of_evaluation": purpose_eval,
-		"start_date": start_date,
-		"end_date": end_date,
-		"release_date": release_date,
-		"is_active": True
-	}
 
-	mongo.db.evaluation.update_one( {"_id": id}, { "$setOnInsert": data}, upsert = True)
+	# Renewal Code
+	if (purpose_eval == "Peer Evaluation - Renewal"):
+		data = {
+			"title": title,
+			"purpose_of_evaluation": purpose_eval,
+			"start_date": start_date,
+			"end_date": end_date,
+			"release_date": release_date,
+			"is_active": True,
+			"evaluatees": evaluatees_data,
+			"evaluators": [],
+			"evaluation_answers": []
+		}
+		
+		evaluatees = UserAccounts.query.filter((UserAccounts.status == 'Temporary') | (UserAccounts.status == 'Lecturer') ).all()
+		for user in evaluatees:
+			evaluatee_data = {
+				"user_id" : uuid.uuid4().hex,
+				"first_name" : user.first_name,
+				"middle_name" : user.middle_name,
+				"last_name" : user.last_name,
+				"evaluation_results" : [],
+				"self_eval" : []
+			}
+			evaluatees_data.append(evaluatee_data)
+		
+		mongo.db.evaluation.update_one( {"_id": id}, { "$setOnInsert": data}, upsert = True)
+	# Tenurial Code
+	else:
+		data = {
+			"title": title,
+			"purpose_of_evaluation": purpose_eval,
+			"start_date": start_date,
+			"end_date": end_date,
+			"release_date": release_date,
+			"is_active": True,
+			"evaluatees": [],
+			"evaluators": [],
+			"evaluation_answers": []
+		}
+		mongo.db.evaluation.update_one( {"_id": id}, { "$setOnInsert": data}, upsert = True)
 
 	return jsonify({"success" : "Evaluation added "}), 200
 
