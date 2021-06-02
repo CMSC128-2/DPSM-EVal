@@ -24,7 +24,7 @@ def admin_dashboard():
 		inactive_forms.append(document)
 
 
-	#print(active_forms)
+	print(active_data)
 	return render_template('admin/dashboard.html', active_forms = active_forms, inactive_forms=inactive_forms )
 
 
@@ -128,7 +128,7 @@ def open_form_renewal():
 	id = uuid.uuid4().hex
 
 	# Renewal Code
-	if (purpose_eval == "Peer Evaluation - Renewal"):
+	if (purpose_eval == "Renewal Evaluation"):
 		data = {
 			"title": title,
 			"purpose_of_evaluation": purpose_eval,
@@ -141,10 +141,11 @@ def open_form_renewal():
 			"evaluation_answers": []
 		}
 		
-		evaluatees = UserAccounts.query.filter((UserAccounts.status == 'Temporary') | (UserAccounts.status == 'Lecturer') ).all()
+		evaluatees = UserAccounts.query.filter((UserAccounts.status == "Full Time - Temporary") | (UserAccounts.status == "Part Time - Lecturer") ).all()
 		for user in evaluatees:
 			evaluatee_data = {
 				"user_id" : uuid.uuid4().hex,
+				"email" : user.email,
 				"first_name" : user.first_name,
 				"middle_name" : user.middle_name,
 				"last_name" : user.last_name,
