@@ -107,24 +107,26 @@ def faculty_list(form_id):
 	evaluatees = {}
 	evaluated = []
 	need_to_be_evaluated = []
+	need_to_be_evaluated_email = []
 	current = mongo.db.evaluation.distinct('evaluatees')
 	for i in this_form:
 		evaluatees = i['evaluatees']
 	
 	for i in evaluatees:
 		need_to_be_evaluated.append(i['first_name']+ ' ' + i['middle_name']+ ' ' + i['last_name'])
+		need_to_be_evaluated_email.append(i['email'])
 
 	# for i in current:
 		# need_to_be_evaluated.append(i['first_name']+ ' ' + i['middle_name']+ ' ' + i['last_name'])
 	
-	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated, not_evaluated=need_to_be_evaluated)
+	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated, not_evaluated=zip(need_to_be_evaluated,need_to_be_evaluated_email), form_id=form_id)
 
 ###############################################################################################
 #USER TEMPLATES
 
 #PEER EVAL PAGES
-@dpsm_eval_blueprint.route('/faculty/peer-eval-page-1<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
-def peer_eval_page_1(evaluated_email):
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-1<string:evaluated_email><string:form_id>/evaluate/', methods=['GET', 'POST'])
+def peer_eval_page_1(evaluated_email, form_id):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
 	rubric = questions_peer_eval.query.filter_by(criteria='Professionalism and work ethics')
 
@@ -136,24 +138,24 @@ def peer_eval_page_1(evaluated_email):
 		session['peer_eval_5'] = request.form.get('peer_eval_5')
 		session['peer_eval_6'] = request.form.get('peer_eval_6')
 		print(session['peer_eval_1'])
-		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_2', evaluated_email = evaluated_email)) 
+		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_2', evaluated_email = evaluated_email, form_id=form_id)) 
 
-	return render_template('user-faculty/peer-eval-pages/user-peer-eval-1.html', evaluated=evaluated, rubric=rubric)
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-1.html', evaluated=evaluated, rubric=rubric, form_id=form_id)
 
-@dpsm_eval_blueprint.route('/faculty/peer-eval-page-2<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
-def peer_eval_page_2(evaluated_email):
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-2<string:evaluated_email><string:form_id>/evaluate/', methods=['GET', 'POST'])
+def peer_eval_page_2(evaluated_email, form_id):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
 	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards students')
 
 	if request.method == "POST":
 		session['peer_eval_7'] = request.form.get('peer_eval_7')
 		print(session['peer_eval_7'])
-		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_3', evaluated_email = evaluated_email)) 
+		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_3', evaluated_email = evaluated_email, form_id = form_id)) 
 
-	return render_template('user-faculty/peer-eval-pages/user-peer-eval-2.html', evaluated=evaluated, rubric=rubric)
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-2.html', evaluated=evaluated, rubric=rubric, form_id=form_id)
 
-@dpsm_eval_blueprint.route('/faculty/peer-eval-page-3<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
-def peer_eval_page_3(evaluated_email):
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-3<string:evaluated_email><string:form_id>/evaluate/', methods=['GET', 'POST'])
+def peer_eval_page_3(evaluated_email, form_id):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
 	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards peers')
 
@@ -161,12 +163,12 @@ def peer_eval_page_3(evaluated_email):
 		session['peer_eval_8'] = request.form.get('peer_eval_8')
 		session['peer_eval_9'] = request.form.get('peer_eval_9')
 		print("fdfgdf")
-		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_4', evaluated_email = evaluated_email, evaluated=evaluated, rubric=rubric)) 
+		return redirect(url_for('dpsm_eval_blueprint.peer_eval_page_4', evaluated_email = evaluated_email, rubric=rubric, form_id=form_id)) 
 	
-	return render_template('user-faculty/peer-eval-pages/user-peer-eval-3.html', evaluated=evaluated, rubric=rubric)
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-3.html', evaluated=evaluated, rubric=rubric, form_id=form_id)
 
-@dpsm_eval_blueprint.route('/faculty/peer-eval-page-4<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
-def peer_eval_page_4(evaluated_email):
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-4<string:evaluated_email><string:form_id>/evaluate/', methods=['GET', 'POST'])
+def peer_eval_page_4(evaluated_email, form_id):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
 	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards the support staff')
 	
@@ -174,12 +176,12 @@ def peer_eval_page_4(evaluated_email):
 		session['peer_eval_10'] = request.form.get('peer_eval_10')
 		print(session['peer_eval_10'])
 	
-		return redirect('/faculty/peer-eval-page-5<string:evaluated_email>/evaluate/') 
+		return redirect('/faculty/peer-eval-page-5<string:evaluated_email>/evaluate/', evaluated_email=evaluated_email, form_id=form_id) 
 	
-	return render_template('user-faculty/peer-eval-pages/user-peer-eval-4.html', evaluated=evaluated, rubric=rubric)
+	return render_template('user-faculty/peer-eval-pages/user-peer-eval-4.html', evaluated=evaluated, rubric=rubric, form_id=form_id)
 
-@dpsm_eval_blueprint.route('/faculty/peer-eval-page-5<string:evaluated_email>/evaluate/', methods=['GET', 'POST'])
-def peer_eval_page_5(evaluated_email):
+@dpsm_eval_blueprint.route('/faculty/peer-eval-page-5<string:evaluated_email><string:form_id>/evaluate/', methods=['GET', 'POST'])
+def peer_eval_page_5(evaluated_email, form_id):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
 	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards University policies and regulations.')
 	

@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div><strong class="text-center form-categ">Attitude towards University policies and regulations<br></strong>
-            <form method="POST" action="/faculty/peer-eval-page-5{{evaluated.email}}/evaluate/">
+            <form method="POST" action="/faculty/peer-eval-page-5{{evaluated.email}}{{form_id}}/evaluate/">
                 <div class="table-responsive text-center">
                     <table class="table table-sm eval-form-table">
                         <thead>
@@ -39,7 +39,7 @@
                     </table>
                 </div>
                 <div class="d-flex justify-content-center mt-5">
-                    <a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_4', evaluated_email = evaluated.email) }}"><i class="fas fa-chevron-left mr-1"></i><span>Prev</span></a>
+                    <a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_4', evaluated_email = evaluated.email, form_id=form_id) }}"><i class="fas fa-chevron-left mr-1"></i><span>Prev</span></a>
                     <button class="btn btn-sm text-light nxt-btn" data-toggle="modal" data-target="#peer-eval-modal" type="button"><span>Submit</span></button>
                     <!-- <button class="btn btn-sm text-light nxt-btn" type="button" data-toggle="modal"><span>Submit</span><i class="fas fa-chevron-right ml-1"></i></button> -->
                     <!-- <a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_2', evaluated_email = evaluated.email) }}"><span>Next</span><i class="fas fa-chevron-right ml-1"></i></a></div> -->
