@@ -24,7 +24,7 @@ def admin_dashboard():
 		inactive_forms.append(document)
 
 
-	print(active_data)
+	#print(active_data)
 	return render_template('admin/dashboard.html', active_forms = active_forms, inactive_forms=inactive_forms )
 
 
@@ -195,17 +195,30 @@ def open_form():
 
 @dpsm_admin_blueprint.route('/renewalAction', methods=['GET', 'POST'])
 def open_form_renewal():
+	
+	# Get input from admin - Details for the form
 	title = request.form.get('title')
 	purpose_eval = request.form.get('purpose_eval')
 	start_date = request.form.get('start_date')
 	end_date = request.form.get('end_date')
 	release_date = request.form.get('release_date')
+
+	# Contains the evaluatees in the form
 	evaluatees_data = []
 
+	# Contains the evaluators in the form
+	evaluators_data = []
+
+	# Unique ID generator for the form
 	id = uuid.uuid4().hex
+
+	# To evaluate container for Renewal 
+	to_evaluate_container = []
+	
 
 	# Renewal Code
 	if (purpose_eval == "Renewal Evaluation"):
+		
 		data = {
 			"title": title,
 			"purpose_of_evaluation": purpose_eval,
@@ -214,14 +227,15 @@ def open_form_renewal():
 			"release_date": release_date,
 			"is_active": True,
 			"evaluatees": evaluatees_data,
-			"evaluators": [],
+			"evaluators": evaluators_data,
 			"evaluation_answers": []
 		}
 		
+		# Handle Evaluatees here
 		evaluatees = UserAccounts.query.filter((UserAccounts.status == "Full Time - Temporary") | (UserAccounts.status == "Part Time - Lecturer") ).all()
 		for user in evaluatees:
 			evaluatee_data = {
-				"user_id" : uuid.uuid4().hex,
+				"user_id" : user.id,
 				"email" : user.email,
 				"first_name" : user.first_name,
 				"middle_name" : user.middle_name,
@@ -229,9 +243,48 @@ def open_form_renewal():
 				"evaluation_results" : [],
 				"self_eval" : []
 			}
+			to_evaluate_container.append(user.id)
 			evaluatees_data.append(evaluatee_data)
 		
+		# Handle Evaluators here
+		evaluators = UserAccounts.query.filter((UserAccounts.status == "Full Time - Temporary") | (UserAccounts.status == "Full Time - Permanent") ).all()
+
+		# Handle to_evaluate here
+		# Case 1 - Full Time - Permanent will evaluate all Full Time - Temporary + Part Time - Lecturer
+		# Case 2 - Full Time - Temporary  will evaluate all  Full Time - Temporary + Part Time - Lecturer (EXCEPT himself/herself)
+		# ------------------------------------------------------------
+
+		# Dictionary container for to_evaluate object
+		to_evaluate = {
+
+		}
+		for user in evaluators:
+			# case 1
+			if (user.status == "Full Time - Permanent"):
+				#list to ng i-evaluate niya. 
+				to_evaluate[user.id] = to_evaluate_container
+			# case 2
+			else:
+				cont = to_evaluate_container.copy()
+				cont.remove(user.id)
+				to_evaluate[user.id] = cont
+		# ------------------------------------------------------------
+
+		# Same for loop, but different execution in order to store the to_evaluate inside the evaluators. 
+		for user in evaluators:
+			evaluator_data = {
+				"user_id" : user.id,
+				"email" : user.email ,
+				"first_name" : user.first_name,
+				"middle_name" : user.middle_name,
+				"last_name" : user.last_name,
+				"to_evaluate" : to_evaluate[user.id],
+			}
+			
+			evaluators_data.append(evaluator_data)
+
 		mongo.db.evaluation.update_one( {"_id": id}, { "$setOnInsert": data}, upsert = True)
+		
 	# Tenurial Code
 	else:
 		data = {
