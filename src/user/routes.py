@@ -295,4 +295,20 @@ def self_eval_page_5():
 	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards the profession and administration')
 	return render_template('user-faculty/self-eval-pages/user-self-eval-5.html', evaluated=user, rubric=rubric)
 
+
+#RESULTS ROUTES
+@dpsm_eval_blueprint.route('/faculty/results-forms-list')
+def results_forms_list():
+	history = []
+
+	active_data = mongo.db.evaluation.find({"is_active" : False})
+
+	for document in active_data:	
+		history.append(document)
+		print(document)
+	return render_template('user-faculty/results-pages/results-forms-list-page.html', history=history)
+
+@dpsm_eval_blueprint.route('/faculty/results-table')
+def results_table():
+	return render_template('user-faculty/results-pages/results-table.html')
 ###############################################################################################
