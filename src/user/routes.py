@@ -184,10 +184,50 @@ def peer_eval_page_4(evaluated_email, form_id):
 def peer_eval_page_5(evaluated_email, form_id):
 	evaluated = user = UserAccounts.query.filter_by(email=evaluated_email).first()
 	rubric = questions_peer_eval.query.filter_by(criteria='Attitude towards University policies and regulations.')
-	
+	evaluator = UserAccounts.query.filter_by(email=session["email"]).first()
+
 	if request.method == "POST":
 		session['peer_eval_11'] = request.form.get('peer_eval_11')
 		print(session['peer_eval_11'])
+
+		evaluatees = {}
+		this_form = mongo.db.evaluation.find({"_id" : form_id})
+		for i in this_form:
+			evaluatees = i['evaluatees']
+		
+		for i in evaluatees:
+			evaluation_results = i['evaluation_results']
+		
+		evaluation_data = {
+			'evaluator': evaluator.first_name + ' ' + evaluator.middle_name + ' ' + evaluator.last_name,
+			'email': evaluator.email,
+			'unit': evaluator.unit,
+			'results': [
+				session['peer_eval_1'],
+				session['peer_eval_2'],
+				session['peer_eval_3'],
+				session['peer_eval_4'],
+				session['peer_eval_5'],
+				session['peer_eval_6'],
+				session['peer_eval_7'],
+				session['peer_eval_8'],
+				session['peer_eval_9'],
+				session['peer_eval_10'],
+				session['peer_eval_11']
+			]
+		}
+
+		mongo.db.evaluation.update(
+			{"_id": form_id, "evaluatees":{"email": evaluated_email}},
+			{"$addToSet": 
+				{"evaluatees": {"evaluation_results": evaluation_data}}
+			},
+			#multi = True
+			#upsert = True
+		)
+		
+		print(form_id)
+		print("successful")
 
 		
 	
