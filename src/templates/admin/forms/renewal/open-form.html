@@ -1,84 +1,192 @@
+
+
 {% extends "admin/layout-admin.html" %} {% block add_forms %}
 <div class="d-flex flex-column" id="content-wrapper">
-    <div id="content" style="margin-top: 2rem;">
-        <div class="container-fluid">
-            <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 class="text-dark mb-0">Set Form Details</h3>
-            </div>
-            <form name = "openform" method="POST"> 
+   <div id="content" style="margin-top: 2rem;">
+      <div class="container-fluid">
+         <div class="d-sm-flex justify-content-between align-items-center mb-4">
+            <h3 class="text-dark mb-0">Set Form Details</h3>
+         </div>
+         <form name = "openform" method="POST" id="openform">
             <div class="row">
-                <div class="col">
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3" style="background: rgb(128,0,0);color: rgb(255,255,255);">
-                            <h6 id="form_name-3"><strong>Title</strong></h6>
+               <div class="col">
+                  <div class="card shadow mb-3">
+                     <div class="card-header py-3" style="background: rgb(128,0,0);color: rgb(255,255,255);">
+                        <h6 id="form_name-3"><strong>Title</strong></h6>
+                     </div>
+                     <div class="card-body">
+                        <div class="form-row">
+                           <div class="col-xl-12">
+                              <div class="form-group"><input type="text" class="form-control" id="title" name="title" /></div>
+                           </div>
                         </div>
-                        <div class="card-body">
-                           
-                                <div class="form-row">
-                                    <div class="col-xl-12">
-                                        <div class="form-group"><input type="text" class="form-control" id="title" name="title" /></div>
-                                    </div>
-                                </div>
-                            
-                        </div>
-                    </div>
-                </div>
+                     </div>
+                  </div>
+               </div>
             </div>
             <div class="row">
-                <div class="col">
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3" style="background: rgb(128,0,0);color: rgb(255,255,255);">
-                            <h6 id="form_name"><strong>Purpose of Evaluation</strong></h6>
+               <div class="col">
+                  <div class="card shadow mb-3">
+                     <div class="card-header py-3" style="background: rgb(128,0,0);color: rgb(255,255,255);">
+                        <h6 id="form_name"><strong>Purpose of Evaluation</strong></h6>
+                     </div>
+                     <div class="card-body">
+                        <div class="form-row">
+                           <div class="col-xl-12">
+                              <div class="form-group">
+                                 <select class="form form-control" id="eval_purpose" style="width: 100%;" id = "selectForm" name = "purpose_eval">
+                                    <option disabled selected value style="display: none;">-- select a template --</option>
+                                    <option value="Renewal Evaluation">Renewal Evaluation</option>
+                                    <option value="Tenural Evaluation">Tenural Evaluation</option>
+                                 </select>
+                              </div>
+                           </div>
                         </div>
-                        <div class="card-body">
-                            
-                                <div class="form-row">
-                                    <div class="col-xl-12">
-                                        <div class="form-group"><select class="form-control" id="eval_purpose" style="width: 100%;" name = "purpose_eval">
-                                                
-                                                    <option disabled selected value style="display: none;">-- select a template --</option>
-                                                    <option value="Renewal Evaluation">Renewal Evaluation</option>
-                                                    <option value="Tenural Evaluation">Tenural Evaluation</option>
-                                               
-                                            </select></div>
-                                    </div>
-                                </div>
-                            
-                        </div>
-                    </div>
-                </div>
+                     </div>
+                  </div>
+               </div>
             </div>
             <div class="row">
-                <div class="col-lg-7 col-xl-4">
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3" style="background: #555555;color: rgb(255,255,255);">
-                            <h6 id="form_name-1"><strong>Start Date</strong></h6>
-                        </div>
-                        <div class="card-body"><input id="open_eval" type="date" value="open_eval" name="start_date"/></div>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-xl-4">
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3" style="background: #555555;color: rgb(255,255,255);">
-                            <h6 id="form_name-1"><strong>End Date</strong></h6>
-                        </div>
-                        <div class="card-body"><input id="close_eval" type="date" value="open_eval" style="width: 100%;" name="end_date"/></div>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-xl-4">
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3" style="background: #555555;color: rgb(255,255,255);">
-                            <h6 id="form_name-2"><strong>Send Results</strong></h6>
-                        </div>
-                        <div class="card-body"><input id="send_result" type="date" value="open_eval" style="width: 100%;" name="release_date"/></div>
-                    </div>
-                </div>
+               <div class="col-lg-7 col-xl-4">
+                  <div class="card shadow mb-3">
+                     <div class="card-header py-3" style="background: #555555;color: rgb(255,255,255);">
+                        <h6 id="form_name-1"><strong>Start Date</strong></h6>
+                     </div>
+                     <div class="card-body"><input id="open_eval" type="date" value="open_eval" name="start_date"/></div>
+                  </div>
+               </div>
+               <div class="col-lg-7 col-xl-4">
+                  <div class="card shadow mb-3">
+                     <div class="card-header py-3" style="background: #555555;color: rgb(255,255,255);">
+                        <h6 id="form_name-1"><strong>End Date</strong></h6>
+                     </div>
+                     <div class="card-body"><input id="close_eval" type="date" value="open_eval" style="width: 100%;" name="end_date"/></div>
+                  </div>
+               </div>
+               <div class="col-lg-7 col-xl-4">
+                  <div class="card shadow mb-3">
+                     <div class="card-header py-3" style="background: #555555;color: rgb(255,255,255);">
+                        <h6 id="form_name-2"><strong>Send Results</strong></h6>
+                     </div>
+                     <div class="card-body"><input id="send_result" type="date" value="open_eval" style="width: 100%;" name="release_date"/></div>
+                  </div>
+               </div>
             </div>
-            <div class="form-group text-right">
-                <button class="btn btn-primary" type="submit" style="color: rgb(255,255,255);background: rgb(117,21,24);border-radius: 10px;margin: 15px 0px;" >Save</button>
+            <div class="row" id="to_be_evaluated" >
+               <div class="col" id="for_tenurial">
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#add_user_modal" type="button" style="margin: 20px 0px;background: rgb(128,0,0);color: rgb(255,255,255);border-radius: 10px;">Add Candidate</button>
+                  <div class="card shadow mb-4">
+                     <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Faculty to be Evaluated</h6>
+                     </div>
+                     <div class="card-body">
+                        <div class="table-responsive table mt-2" id="to_be_evaluated" role="grid" aria-describedby="dataTable_info">
+                           <table class="table my-0" id="dataTableShow">
+                              <thead>
+                                 <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                 
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 
+                              </tbody>
+                              
+                           </table>
+                        </div>
+                        <!-- <div class="row">
+                           <div class="col-md-6 align-self-center">
+                              <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
+                           </div>
+                           <div class="col-md-6">
+                              <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                 <ul class="pagination">
+                                    <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                                 </ul>
+                              </nav>
+                           </div>
+                        </div> -->
+                     </div>
+                  </div>
+               </div>
             </div>
-        </form>
-        </div>
-    </div>
-</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-{% endblock %}<html>
+            <!-- Modal -->
+
+            <div class="modal fade" role="dialog" tabindex="-1" id="add_user_modal" >
+               <div class="modal-dialog modal-dialog-centered" role="document" >
+                  <div class="modal-content" style="width: 200%;">
+                     <div class="modal-header" style="background: #800000;color: rgb(255,255,255);">
+                        <h4 class="modal-title">Add Candidate</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                     </div>
+                     <div class="modal-body">
+                        <div class="card shadow mb-4">
+                           <div class="card-header py-3">
+                              <p class="text-primary m-0 font-weight-bold" style="color: rgb(128,0,0);">Faculty to Be Evaluated</p>
+                           </div>
+                           <div class="card-body">
+                              <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                 <table class="table my-0" id="dataTable">
+                                    <thead style="background-color: rgb(75, 71, 67); color: white;">
+                                       <tr>
+                                          <td><strong>Name</strong></td>
+                                          <td><strong>Unit</strong></td>
+                                          <td><strong>Email</strong></td>
+                                          <td></td>
+                                          <td><strong>Actions</strong></td>
+                                          <td></td>
+                                          <td><br></td>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       {% for user in users %}
+                                       <tr id="userid{{user.id}}">
+                                          <td>{{ user.first_name }} {{ user.middle_name }} {{ user.last_name }}</td>
+                                          <td>{{ user.unit }}</td>
+                                          <td>{{ user.email }}</td>
+                                          <td class="text-left"></td>
+                                          <td class="text-left">
+                                             <button class="userButton btn btn-primary"  type="button" style="color: rgb(255,255,255);background: var(--red);border-radius: 10px;" value="{{user.id}}" 
+                                             name="{{user.first_name}} {{user.last_name}}" id="{{user.email}}">Add</button>
+                                          </td>
+                                       </tr>
+                                       {% endfor %}
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="modal-footer">
+                        <button class="btn btn-light" type="button" data-dismiss="modal">Cancel</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group text-right" id="button1">
+               <button class="btn btn-primary" type="submit" style="color: rgb(255,255,255);background: rgb(117,21,24);border-radius: 10px;margin: 15px 0px;" >Save</button>
+            </div>
+
+            
+         </form>
+         
+         <form name = "userform" method="POST" id="userform">
+            
+            <!-- <div class="form-group text-right" id="button2" style="display: none;">
+               <button class="btn btn-primary" type="submit" style="color: rgb(255,255,255);background: rgb(117,21,24);border-radius: 10px;margin: 15px 0px;" >Save</button>
+            </div> -->
+         </form>
+      </div>
+   </div>
+</div>
+<a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+
+
+
+{% endblock %}
+
