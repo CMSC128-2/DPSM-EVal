@@ -16,7 +16,7 @@
                     </thead>
                     <tbody>
                         {% for i,j in not_evaluated: %}
-                        {% if j in evaluated %}
+                        {% if j not in evaluated %}
                         <tr>
                             <td>{{ i }}</td>
                             <td>{{ j }}</td>
