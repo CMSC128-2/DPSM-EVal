@@ -105,21 +105,32 @@ def dashboard():
 def faculty_list(form_id):
 	this_form = mongo.db.evaluation.find({"_id" : form_id})
 	evaluatees = {}
+	evaluators = {}
+	to_evaluate = []
+	to_evaluate_email = []
 	evaluated = []
 	need_to_be_evaluated = []
 	need_to_be_evaluated_email = []
 	current = mongo.db.evaluation.distinct('evaluatees')
+
 	for i in this_form:
 		evaluatees = i['evaluatees']
+		evaluators = i['evaluators']
+
+	for i in evaluators:
+		if session['email'] == i['email']:
+			to_evaluate = i['to_evaluate']
 	
 	for i in evaluatees:
 		need_to_be_evaluated.append(i['first_name']+ ' ' + i['middle_name']+ ' ' + i['last_name'])
 		need_to_be_evaluated_email.append(i['email'])
+		if i['user_id'] in to_evaluate:
+			to_evaluate_email.append(i['email'])
 
 	# for i in current:
 		# need_to_be_evaluated.append(i['first_name']+ ' ' + i['middle_name']+ ' ' + i['last_name'])
 	
-	return render_template('user-faculty/user-faculty-list.html', evaluated=evaluated, not_evaluated=zip(need_to_be_evaluated,need_to_be_evaluated_email), form_id=form_id)
+	return render_template('user-faculty/user-faculty-list.html', evaluated=to_evaluate_email, not_evaluated=zip(need_to_be_evaluated,need_to_be_evaluated_email), form_id=form_id)
 
 ###############################################################################################
 #USER TEMPLATES
