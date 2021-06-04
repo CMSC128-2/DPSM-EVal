@@ -267,9 +267,15 @@ def peer_eval_page_5(evaluated_email, form_id, user_id):
 		print(session["email"])
 		print("successful")
 
+		return(redirect(url_for('dpsm_eval_blueprint.evaluate_success', form_id=form_id)))
+
 		
 	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-5.html', evaluated=evaluated, rubric=rubric, form_id=form_id, user_id=user_id)
+
+@dpsm_eval_blueprint.route('/evaluate-success')
+def evaluate_success(form_id):
+	return render_template('user-faculty/evaluate-success.html')
 
 #SELF EVAL PAGES
 @dpsm_eval_blueprint.route('/faculty/self-eval-page-1')
