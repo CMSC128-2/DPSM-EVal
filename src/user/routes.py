@@ -254,18 +254,14 @@ def peer_eval_page_5(evaluated_email, form_id, user_id):
 			{"_id": form_id, "evaluatees.email": evaluated_email},
 			{"$push": 
 				{"evaluatees.$.evaluation_results": evaluation_data}
-			},
-			#multi = True
-			#upsert = True
+			}
 		)
 
 		mongo.db.evaluation.update(
-			{"_id": form_id, "evaluators.email": session["email"]},
+			{"_id": form_id, "evaluators.email": 'lcgarcia5@up.edu.ph'},
 			{"$pull": 
-				{"evaluators.$.to_evaluate": user_id}
-			},
-			#multi = True
-			#upsert = True
+				{"evaluators.$.to_evaluate": int(user_id)}
+			}
 		)
 		
 		print(session["email"])
@@ -280,6 +276,9 @@ def peer_eval_page_5(evaluated_email, form_id, user_id):
 def self_eval_page_1():
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	rubric = questions_self_eval.query.filter_by(criteria='Professionalism')
+
+	
+
 	return render_template('user-faculty/self-eval-pages/user-self-eval-1.html', evaluated=user, rubric=rubric)
 
 @dpsm_eval_blueprint.route('/faculty/self-eval-page-2')
