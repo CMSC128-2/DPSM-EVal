@@ -108,6 +108,7 @@ def faculty_list(form_id):
 	evaluators = {}
 	to_evaluate = []
 	to_evaluate_email = []
+	unit = []
 	evaluated = []
 	need_to_be_evaluated = []
 	need_to_be_evaluated_email = []
@@ -122,15 +123,17 @@ def faculty_list(form_id):
 			to_evaluate = i['to_evaluate']
 	
 	for i in evaluatees:
-		need_to_be_evaluated.append(i['first_name']+ ' ' + i['middle_name']+ ' ' + i['last_name'])
-		need_to_be_evaluated_email.append(i['email'])
+		if i['email'] != session["email"]:
+			need_to_be_evaluated.append(i['first_name']+ ' ' + i['middle_name']+ ' ' + i['last_name'])
+			need_to_be_evaluated_email.append(i['email'])
+			unit.append(i['unit'])
 		if i['user_id'] in to_evaluate:
 			to_evaluate_email.append(i['email'])
 
 	# for i in current:
 		# need_to_be_evaluated.append(i['first_name']+ ' ' + i['middle_name']+ ' ' + i['last_name'])
 	
-	return render_template('user-faculty/user-faculty-list.html', evaluated=to_evaluate_email, not_evaluated=zip(need_to_be_evaluated,need_to_be_evaluated_email), form_id=form_id)
+	return render_template('user-faculty/user-faculty-list.html', evaluated=to_evaluate_email, not_evaluated=zip(need_to_be_evaluated,need_to_be_evaluated_email, unit), form_id=form_id)
 
 @dpsm_eval_blueprint.route('/unit_list/<string:form_id>/home', methods=['GET', 'POST'])
 def unit_list(form_id):

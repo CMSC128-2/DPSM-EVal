@@ -10,23 +10,24 @@
                     <thead>
                         <tr>
                             <th>Faculty Member Name</th>
-                            <th>Status</th>
+                            <th>Unit</th>
                             <th>Evaluation</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for i,j in not_evaluated: %}
+                        {% for i,j,k in not_evaluated: %}
                         {% if j not in evaluated %}
                         <tr>
                             <td>{{ i }}</td>
-                            <td>{{ j }}</td>
-                            <td><a class="completed-cell">Completed</a></td>
+                            <td>{{ k }}</td>
+                            <td>Completed<i class="fa fa-check-circle ml-1"></i></td>
+                            <!-- <td><a class="completed-cell">Completed</a></td> -->
                         </tr>
                         {% else%}
                         <tr>
                             <td>{{ i }}</td>
-                            <td>{{ j }}</td>
-                            <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_1', evaluated_email = j, form_id=form_id) }}">Click here to evaluate</a><i class="fa fa-check-circle ml-1"></i></td>
+                            <td>{{ k }}</td>
+                            <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_1', evaluated_email = j, form_id=form_id) }}">Click here to evaluate</a></td>
                         </tr>
                         {% endif %}
                         {% endfor %}

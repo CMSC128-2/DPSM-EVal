@@ -244,6 +244,9 @@ def open_form_renewal():
 				"first_name" : user.first_name,
 				"middle_name" : user.middle_name,
 				"last_name" : user.last_name,
+				"unit": user.unit,
+				"is_unit_head": user.is_unit_head,
+				"is_dept_head": user.is_dept_head,
 				"evaluation_results" : [],
 				"self_eval" : []
 			}
@@ -282,6 +285,9 @@ def open_form_renewal():
 				"first_name" : user.first_name,
 				"middle_name" : user.middle_name,
 				"last_name" : user.last_name,
+				"unit": user.unit,
+				"is_unit_head": user.is_unit_head,
+				"is_dept_head": user.is_dept_head,
 				"to_evaluate" : to_evaluate[user.id],
 			}
 			
@@ -323,6 +329,9 @@ def open_form_renewal():
 						"first_name" : user.first_name,
 						"middle_name" : user.middle_name,
 						"last_name" : user.last_name,
+						"unit": user.unit,
+						"is_unit_head": user.is_unit_head,
+						"is_dept_head": user.is_dept_head,
 						"evaluation_results" : [],
 						"self_eval" : []
 					}
@@ -345,6 +354,9 @@ def open_form_renewal():
 				"first_name" : user.first_name,
 				"middle_name" : user.middle_name,
 				"last_name" : user.last_name,
+				"unit": user.unit,
+				"is_unit_head": user.is_unit_head,
+				"is_dept_head": user.is_dept_head,
 				"to_evaluate" : user_list,
 			}
 			evaluators_data.append(evaluator_data)
