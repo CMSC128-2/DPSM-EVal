@@ -4,8 +4,8 @@ from src import login_manager,db, mongo
 from flask import Blueprint, render_template, session, redirect, abort, request, url_for, flash,jsonify
 from src.user.models import Evaluation, UserAccounts
 from flask_login import logout_user
-
-
+import json
+import urllib.parse
 # Set up a Blueprint
 dpsm_admin_blueprint = Blueprint('dpsm_admin_blueprint', __name__)
 
@@ -26,7 +26,6 @@ def admin_dashboard():
 
 	#print(active_data)
 	return render_template('admin/dashboard.html', active_forms = active_forms, inactive_forms=inactive_forms )
-
 
 ROWS_PER_PAGE = 10
 @dpsm_admin_blueprint.route('/admin/user-list')
@@ -191,10 +190,14 @@ def edit_user(id):
 
 @dpsm_admin_blueprint.route('/admin/add-form')
 def open_form():
-	return render_template('admin/forms/renewal/open-form.html')
+	
+	possible_evaluatees = UserAccounts.query.filter((UserAccounts.status == "Full Time - Temporary"))
+	
+	return render_template('admin/forms/renewal/open-form.html', users = possible_evaluatees)
 
 @dpsm_admin_blueprint.route('/renewalAction', methods=['GET', 'POST'])
 def open_form_renewal():
+	
 	
 	# Get input from admin - Details for the form
 	title = request.form.get('title')
@@ -203,6 +206,7 @@ def open_form_renewal():
 	end_date = request.form.get('end_date')
 	release_date = request.form.get('release_date')
 
+	
 	# Contains the evaluatees in the form
 	evaluatees_data = []
 
@@ -210,7 +214,7 @@ def open_form_renewal():
 	evaluators_data = []
 
 	# Unique ID generator for the form
-	id = uuid.uuid4().hex
+	form_id = uuid.uuid4().hex
 
 	# To evaluate container for Renewal 
 	to_evaluate_container = []
@@ -283,10 +287,20 @@ def open_form_renewal():
 			
 			evaluators_data.append(evaluator_data)
 
-		mongo.db.evaluation.update_one( {"_id": id}, { "$setOnInsert": data}, upsert = True)
+		mongo.db.evaluation.update_one( {"_id": form_id}, { "$setOnInsert": data}, upsert = True)
 		
 	# Tenurial Code
 	else:
+		# Handle Evaluatees here
+		possible_evaluatees = UserAccounts.query.filter(
+			(UserAccounts.status == "Full Time - Temporary")
+			).all()
+		
+		# user chosen by the admin
+		# RETURN: ex. user ids [1,2,3,4]
+		form_data = request.form.get('user_list')
+		user_list = [int(x) for x in form_data.split(',')]
+		
 		data = {
 			"title": title,
 			"purpose_of_evaluation": purpose_eval,
@@ -294,12 +308,53 @@ def open_form_renewal():
 			"end_date": end_date,
 			"release_date": release_date,
 			"is_active": True,
-			"evaluatees": [],
-			"evaluators": [],
+			"evaluatees": evaluatees_data,
+			"evaluators": evaluators_data,
 			"evaluation_answers": []
 		}
-		mongo.db.evaluation.update_one( {"_id": id}, { "$setOnInsert": data}, upsert = True)
 
+		# Handle Evaluatees of Tenural here
+		for user in possible_evaluatees:
+			for id in user_list:
+				if (id == user.id):
+					evaluatee_data = {
+						"user_id" : user.id,
+						"email" : user.email,
+						"first_name" : user.first_name,
+						"middle_name" : user.middle_name,
+						"last_name" : user.last_name,
+						"evaluation_results" : [],
+						"self_eval" : []
+					}
+					evaluatees_data.append(evaluatee_data)
+
+		# Handle Evaluators of Tenural here
+		evaluators = UserAccounts.query.filter(
+			(UserAccounts.is_unit_apc == True)  | 
+			(UserAccounts.is_unit_head == True) |
+			(UserAccounts.is_dept_head == True) |
+			(UserAccounts.status == "Full Time - Permanent") 
+			).all()
+
+		# Handle evaluators + to_evaluate here 
+		# to_evaluate = ids of users
+		for user in evaluators:
+			evaluator_data = {
+				"user_id" : user.id,
+				"email" : user.email ,
+				"first_name" : user.first_name,
+				"middle_name" : user.middle_name,
+				"last_name" : user.last_name,
+				"to_evaluate" : user_list,
+			}
+			evaluators_data.append(evaluator_data)
+		
+		
+
+		mongo.db.evaluation.update_one( {"_id": form_id}, { "$setOnInsert": data}, upsert = True)
+
+		
+		
 	return jsonify({"success" : "Evaluation added "}), 200
 
 
