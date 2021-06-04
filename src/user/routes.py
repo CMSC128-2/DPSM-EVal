@@ -132,6 +132,23 @@ def faculty_list(form_id):
 	
 	return render_template('user-faculty/user-faculty-list.html', evaluated=to_evaluate_email, not_evaluated=zip(need_to_be_evaluated,need_to_be_evaluated_email), form_id=form_id)
 
+@dpsm_eval_blueprint.route('/unit_list/<string:form_id>/home', methods=['GET', 'POST'])
+def unit_list(form_id):
+	this_form = mongo.db.evaluation.find({"_id" : form_id})
+	evaluatees = {}
+	unit_evaluatees_names = []
+	unit_evaluatees_unit = []
+	
+	for i in this_form:
+		evaluatees = i['evaluatees']
+
+	for i in evaluatees:
+		if session['unit'] == i['unit']: 
+			unit_evaluatees_names.append(i['first_name']+ ' ' + i['middle_name']+ ' ' + i['last_name'])
+			unit_evaluatees_unit.append(i['unit'])
+
+	return render_template('user-faculty/user-unit-list.html', evaluated=zip(unit_evaluatees_names, unit_evaluatees_unit))
+
 ###############################################################################################
 #USER TEMPLATES
 
