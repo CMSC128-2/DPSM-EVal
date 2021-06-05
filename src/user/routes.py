@@ -137,7 +137,13 @@ def faculty_list(form_id):
 	
 	return render_template('user-faculty/user-faculty-list.html', evaluated=to_evaluate_email, not_evaluated=zip(need_to_be_evaluated,need_to_be_evaluated_email, unit, user_id), form_id=form_id)
 
-@dpsm_eval_blueprint.route('/unit_list/<string:form_id>/<string:unit>/home', methods=['GET', 'POST'])
+@dpsm_eval_blueprint.route('/dept_list/<string:form_id>/', methods=['GET', 'POST'])
+def dept_list(form_id):
+	
+	return render_template('user-faculty/user-dept-list.html', form_id=form_id)
+
+
+@dpsm_eval_blueprint.route('/unit_list/<string:form_id>/<string:unit>/home/', methods=['GET', 'POST'])
 def unit_list(form_id, unit):
 	this_form = mongo.db.evaluation.find({"_id" : form_id})
 	evaluatees = {}
@@ -385,6 +391,7 @@ def evaluate_success_self(form_id):
 @dpsm_eval_blueprint.route('/faculty/results-forms-list')
 def results_forms_list():
 	is_unit_head = session['is_unit_head']
+	is_dept_head = session['is_dept_head']
 	unit = session['unit']
 	history = []
 
@@ -393,7 +400,7 @@ def results_forms_list():
 	for document in active_data:	
 		history.append(document)
 		print(document)
-	return render_template('user-faculty/results-pages/results-forms-list-page.html', history=history, is_unit_head=is_unit_head, unit=unit)
+	return render_template('user-faculty/results-pages/results-forms-list-page.html', history=history, is_unit_head=is_unit_head, is_dept_head=is_dept_head, unit=unit)
 
 @dpsm_eval_blueprint.route('/faculty/results-table/<string:evaluated_email>/<string:form_id>')
 def results_table(evaluated_email, form_id):
