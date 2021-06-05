@@ -390,8 +390,9 @@ def evaluate_success_self(form_id):
 #RESULTS ROUTES
 @dpsm_eval_blueprint.route('/faculty/results-forms-list')
 def results_forms_list():
-	is_unit_head = session['is_unit_head']
-	is_dept_head = session['is_dept_head']
+	user =  UserAccounts.query.filter_by(email=session["email"]).first()
+	is_unit_head = user.is_unit_head
+	is_dept_head = user.is_dept_head
 	unit = session['unit']
 	history = []
 
