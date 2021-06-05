@@ -393,10 +393,6 @@ def results_forms_list():
 	user =  UserAccounts.query.filter_by(email=session["email"]).first()
 	is_unit_head = user.is_unit_head
 	is_dept_head = user.is_dept_head
-<<<<<<< HEAD
-	unit = user.unit
-=======
->>>>>>> 19999b291dc0901f524dd6a9bffb1c9292235220
 	history = []
 
 	active_data = mongo.db.evaluation.find({"is_active" : False})
@@ -414,6 +410,7 @@ def results_table(evaluated_email, form_id):
 	evaluator = []
 	unit = []
 	answers = []
+	tableNumbering = []
 	title = ''
 	for i in this_form:
 		evaluatees = i['evaluatees']
@@ -427,7 +424,11 @@ def results_table(evaluated_email, form_id):
 		evaluator.append(i['evaluator'])
 		unit.append(i['unit'])
 		answers.append(i['results'])
+		print(answers)
+
+	for i in range(1, len(answers)+1):
+		tableNumbering.append(i)
 
 
-	return render_template('user-faculty/results-pages/results-table.html', evaluatee_data=zip(evaluator, unit, answers), i=evaluated_email, title=title)
+	return render_template('user-faculty/results-pages/results-table.html', evaluatee_data=zip(evaluator, unit, answers, tableNumbering), i=evaluated_email, title=title)
 ###############################################################################################
