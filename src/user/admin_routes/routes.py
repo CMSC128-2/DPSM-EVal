@@ -36,6 +36,11 @@ def admin_user_list():
 	user_list = UserAccounts.query.paginate(page=page, per_page=ROWS_PER_PAGE)
 	return render_template('admin/user/user-list.html', users = user_list)
 
+@dpsm_admin_blueprint.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('dpsm_admin_blueprint.index'))
+
 @dpsm_admin_blueprint.route('/admin/add-user', methods=['GET', 'POST'])
 def add_user():
 
@@ -102,7 +107,7 @@ def add_user():
 
 	return render_template('admin/user/add-user.html')
 
-@dpsm_admin_blueprint.route('/admin/delete/<int:id>')
+@dpsm_admin_blueprint.route('/admin/delete_user/<int:id>')
 def delete_user(id):
 	user = UserAccounts.query.get(id)
 
@@ -113,6 +118,14 @@ def delete_user(id):
 		return redirect(url_for('dpsm_admin_blueprint.admin_user_list'))
 	except:
 		return 'Problem deleting user'
+
+@dpsm_admin_blueprint.route('/admin/delete_form/<form_id>')
+def delete_form(form_id):
+	try:
+		mongo.db.evaluation.delete_one({"_id" : form_id})
+		return redirect(url_for('dpsm_admin_blueprint.admin_dashboard'))
+	except:
+		return 'Problem deleting form'
 
 @dpsm_admin_blueprint.route('/admin/edit_user/<int:id>', methods=['GET', 'POST'])
 def edit_user(id):
@@ -145,7 +158,6 @@ def edit_user(id):
 	else:
 		is_dept_head = False
 
-	
 	#code here
 	if request.method == 'POST':
 
@@ -181,10 +193,7 @@ def edit_user(id):
 		
 		db.session.commit()
 		return redirect(url_for('dpsm_admin_blueprint.admin_user_list'))
-		
-		
-		
-		
+	
 	return render_template('admin/user/edit-user.html', user=user)
 
 
@@ -193,7 +202,7 @@ def open_form():
 	
 	possible_evaluatees = UserAccounts.query.filter((UserAccounts.status == "Full Time - Temporary"))
 	
-	return render_template('admin/forms/renewal/open-form.html', users = possible_evaluatees)
+	return render_template('admin/forms/open-form.html', users = possible_evaluatees)
 
 @dpsm_admin_blueprint.route('/renewalAction', methods=['GET', 'POST'])
 def open_form_renewal():
@@ -370,7 +379,22 @@ def open_form_renewal():
 	return jsonify({"success" : "Evaluation added "}), 200
 
 
-@dpsm_admin_blueprint.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('dpsm_admin_blueprint.index'))
+@dpsm_admin_blueprint.route('/admin/edit_form/<form_id>', methods=['GET', 'POST'])
+def edit_form(form_id):
+	form = mongo.db.evaluation.find_one({"_id" : form_id})
+	
+	if request.method == 'POST':
+		title = request.form.get('title')
+		end_date = request.form.get('end_date')
+		release_date = request.form.get('release_date')
+		
+		mongo.db.evaluation.update_one( {"_id": form_id}, { "$set": 
+		{ "title" : title,
+		  "end_date" : end_date,
+		  "release_date" : release_date,
+		}
+		}, upsert = True)
+		
+		return redirect(url_for('dpsm_admin_blueprint.admin_dashboard'))
+
+	return render_template('admin/forms/edit-form.html', form=form)

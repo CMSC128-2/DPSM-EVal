@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - Brand</title>
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -35,7 +35,7 @@
                     </li>
                     <li class="nav-item"><a class="nav-link active" href="{{url_for('dpsm_admin_blueprint.admin_dashboard')}}"><i class="fas fa-table"></i><span>Home</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('dpsm_admin_blueprint.admin_user_list')}}"><i class="fas fa-sign-out-alt"></i><span>Users</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url_for('dpsm_admin_blueprint.open_form')}}"><i class="fas fa-sign-out-alt"></i><span>Forms</span></a></li>
+                   
                     <li class="nav-item"><a class="nav-link" href="{{url_for('dpsm_admin_blueprint.logout')}}"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
                 </ul>
             </div>
@@ -54,8 +54,10 @@
                         </div>
                     </li>
                     
-                    <li class="nav-item"><a class="nav-link text-left" href="{{url_for('dpsm_admin_blueprint.admin_dashboard')}}"><i class="material-icons">home</i><span>Home</span></a><a class="nav-link text-left" href="{{ url_for('dpsm_admin_blueprint.admin_user_list')}}"><i class="fas fa-user"></i>
-                        <span>Users</span></a><a class="nav-link text-left" href="{{ url_for('dpsm_admin_blueprint.open_form')}}"><i class="fas fa-table"></i><span>Forms</span></a></li>
+                    <li class="nav-item">
+                        <a class="nav-link text-left" href="{{url_for('dpsm_admin_blueprint.admin_dashboard')}}"><i class="material-icons">home</i><span>Home</span></a>
+                        <a class="nav-link text-left" href="{{ url_for('dpsm_admin_blueprint.admin_user_list')}}"><i class="fas fa-user"></i><span>Users</span></a>
+                    </li>
                     <li class="nav-item"><a class="nav-link text-left" href="{{url_for('dpsm_admin_blueprint.logout')}}"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
                 </ul>
             </div>
@@ -75,7 +77,8 @@
     {% block users %}      {% endblock %}
     {% block add_user %}   {% endblock %}
     {% block add_forms %}  {% endblock %}
-    {% block edit_user %}{% endblock %}
+    {% block edit_form %}  {% endblock %}
+    {% block edit_user %}  {% endblock %}
     </div>
 
 <script src="{{ url_for('static', filename='js/jquery-3.6.0.js') }}"></script>
