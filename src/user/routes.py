@@ -284,7 +284,7 @@ def peer_eval_page_5(evaluated_email, form_id, user_id):
 
 @dpsm_eval_blueprint.route('/evaluate-success-peer/<string:form_id>')
 def evaluate_success_peer(form_id):
-	return render_template('user-faculty/peer-eval-pages/evaluate-success.html', form_id=form_id)
+	return render_template('user-faculty/peer-eval-pages/evaluate-success-peer.html', form_id=form_id)
 
 ##########################################################################################
 
