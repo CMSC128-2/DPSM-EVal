@@ -26,7 +26,15 @@
                                
                             </div>
                         </div>
-                        <div class="col btn p-0"><a href="/faculty/results-table"><button class="btn result-btn" type="button">View Results</button></a></div>
+                        {% if is_dept_head %}
+                            <div class="col btn p-0"><a href="{{ url_for('dpsm_eval_blueprint.dept_list', form_id=form._id) }}"><button class="btn result-btn" type="button">View Results</button></a></div>
+
+                        {% elif is_unit_head %}
+                            <div class="col btn p-0"><a href="{{ url_for('dpsm_eval_blueprint.unit_list', form_id=form._id, unit=unit) }}"><button class="btn result-btn" type="button">View Results</button></a></div>
+
+                        {% else %}
+                            <div class="col btn p-0"><a href="{{ url_for('dpsm_eval_blueprint.results_table', evaluated_email=current_user.email, form_id=form._id) }}"><button class="btn result-btn" type="button">View Results</button></a></div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
