@@ -1,0 +1,38 @@
+{% extends "user-faculty/layout-user.html" %} {% block dept_list %}
+
+<div class="d-flex flex-column" id="content-wrapper">
+    <div class="user-layout">
+        <div class="container-fluid mb-5">
+            <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
+            <h4>Choose faculty to evaluate</h4>
+            <div class="table-responsive text-center">
+                <table class="table table-sm fac-table">
+                    <thead>
+                        <tr>
+                            <th>Faculty Member Name</th>
+                            <th>Status</th>
+                            <th>Evaluation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Chemistry Unit Results</td>
+                            <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.unit_list', form_id=form_id, unit='Chemistry Unit') }}">View</a><i class="fa fa-check-circle ml-1"></i></td>
+                        </tr> 
+                        <tr>
+                            <td>Physics and Geology Unit Results</td>
+                            <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.unit_list', form_id=form_id, unit='Physics and Geology Unit') }}">View</a><i class="fa fa-check-circle ml-1"></i></td>
+                        </tr> 
+                        <tr>
+                            <td>Mathematics and Computing Sciences Unit Results</td>
+                            <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.unit_list', form_id=form_id, unit='Mathematics and Computing Sciences') }}">View</a><i class="fa fa-check-circle ml-1"></i></td>
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div></div>
+    </div>
+</div>
+<div></div>
+{% endblock %}
