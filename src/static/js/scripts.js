@@ -21,48 +21,19 @@ $("form[name=openform]").submit(function(e) {
 
 });
 
-
-$("form[name=userform]").submit(function(e) {
-    var $form = $(this);
-    var data = $form.serialize();
-
-    $('#openform').trigger('submit');
-
-    $.ajax({
-        url: "/renewalAction",
-        type: 'POST',
-        data: {"users" : to_evaluate},
-        success: function(data) {
-            window.location = '/admin-dashboard';
-        },
-        error: function(data) {
-            window.location = '/admin-dashboard';
-        }
-    })
-   
-    e.preventDefault();
-
-});
-
-
 $(document).ready(function(){
     $("select.form").change(function(){
 
         var selectedForm = $(this).children("option:selected").val();
-        //console.log(selectedForm);
         if (selectedForm == "Renewal Evaluation") {
             $("#to_be_evaluated").hide();
-            //$("#button2").hide();
         } 
         else if (selectedForm == "Tenural Evaluation") {
             $("#to_be_evaluated").show();
-            //$("#button1").hide();
-            //$("#button2").show();
         }
-        //alert("You have selected the country - " + selectedCountry);
+
     });
 });
-
 
 $(document).ready(function() {
     $('.userButton').click(function() {
@@ -78,14 +49,9 @@ $(document).ready(function() {
 
         to_evaluate.push(id);
 
-        //var cont = info.split(" ");
-        //console.log(email)
         $('#dataTableShow > tbody:last-child').append('<tr><td>' + name + '</td><td>' + email +'</td></tr>');
         
-
-
         $(res).hide();
-        //console.log("container: " + to_evaluate);
     });
 });
 
