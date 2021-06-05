@@ -2,50 +2,10 @@
 
 <div class="d-flex flex-column" id="content-wrapper">
     <div class="user-layout">
-        <!-- <div class="container-fluid">
-            <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
-            <h3>Available Active Evaluation Forms</h3>
-            <hr class="mt-0">
-            {% for form in history %}
-            <div class="row d-flex justify-content-center align-items-center mb-5">
-                <div class="col-12" style="border: 3px solid black;border-radius: 0.5rem;">
-                    <div class="row">
-                        <div class="col-auto d-flex justify-content-center align-items-center"><i class="material-icons d-flex" style="font-size: 60px;">autorenew</i></div>
-                        <div class="col-7 col-auto mt-3 mb-3">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="text-dark font-weight-bold mb-0"><span class="form-name">{{form.title}}</span></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="text-dark font-weight-bold"><span class="form-name" style="color: #751518">Type: {{form.purpose_of_evaluation}}</span></div>
-                                    <div class="text-dark font-weight-bold"><span class="form-name">2020-2021</span></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div><a class="btn p-eval-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.faculty_list', form_id=form._id) }}">Peer Evaluation</a><a class="btn p-eval-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_1') }}">Self Evaluation</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col p-0" style="border:1px solid transparent;min-width:200px;">
-                            <div class="result-msg">
-                                <span>This evaluation is available until May 30, 2021. The results will be released on June 5, 2021.</span>
-                            </div>
-                        </div>
-                        <button class="btn result-btn" type="button">View Results</button>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-            
-        </div> -->
         <div class="container-fluid">
             <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
             <h3>History</h3>
             <hr class="mt-0">
-            <!-- <div><a class="btn p-eval-btn" role="button" href="user-faculty-list.html">Unit 1</a><button class="btn p-eval-btn" type="button">Unit 2</button><button class="btn p-eval-btn" type="button">Unit 3</button></div> -->
             {% for form in history %}
             <div class="row d-flex justify-content-center align-items-center mb-5">
                 <div class="col" style="border: 3px solid black;border-radius: 0.5rem;">
@@ -60,7 +20,6 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="text-dark font-weight-bold"><span class="form-name" style="color: #751518">Type: {{form.purpose_of_evaluation}}</span></div>
-                                    <!-- <div class="text-dark font-weight-bold"><span class="form-name">2020-2021</span></div> -->
                                 </div>
                             </div>
                             <div class="row">
