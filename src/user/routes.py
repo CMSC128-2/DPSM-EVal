@@ -284,7 +284,7 @@ def peer_eval_page_5(evaluated_email, form_id, user_id):
 
 @dpsm_eval_blueprint.route('/evaluate-success-peer/<string:form_id>')
 def evaluate_success_peer(form_id):
-	return render_template('user-faculty/peer-eval-pages/evaluate-success.html', form_id=form_id)
+	return render_template('user-faculty/peer-eval-pages/evaluate-success-peer.html', form_id=form_id)
 
 ##########################################################################################
 
@@ -390,9 +390,13 @@ def evaluate_success_self(form_id):
 #RESULTS ROUTES
 @dpsm_eval_blueprint.route('/faculty/results-forms-list')
 def results_forms_list():
-	is_unit_head = session['is_unit_head']
-	is_dept_head = session['is_dept_head']
-	unit = session['unit']
+	user =  UserAccounts.query.filter_by(email=session["email"]).first()
+	is_unit_head = user.is_unit_head
+	is_dept_head = user.is_dept_head
+<<<<<<< HEAD
+	unit = user.unit
+=======
+>>>>>>> 19999b291dc0901f524dd6a9bffb1c9292235220
 	history = []
 
 	active_data = mongo.db.evaluation.find({"is_active" : False})
@@ -400,7 +404,7 @@ def results_forms_list():
 	for document in active_data:	
 		history.append(document)
 		print(document)
-	return render_template('user-faculty/results-pages/results-forms-list-page.html', history=history, is_unit_head=is_unit_head, is_dept_head=is_dept_head, unit=unit)
+	return render_template('user-faculty/results-pages/results-forms-list-page.html', history=history, is_unit_head=is_unit_head, is_dept_head=is_dept_head, unit=user.unit)
 
 @dpsm_eval_blueprint.route('/faculty/results-table/<string:evaluated_email>/<string:form_id>')
 def results_table(evaluated_email, form_id):
