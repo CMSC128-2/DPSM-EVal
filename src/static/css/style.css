@@ -233,12 +233,17 @@
   padding: 1rem 3rem;
 }
 
-
-
+.modal-dialogaa {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  
+}
 
 .modal-content-add-user {
-	max-height: calc(100vh - 1rem);
-	overflow: hidden
+	max-height: calc(60vh - 1rem);
+  width: 1000px;
+	overflow-y: auto
 }
 
 .modal-dialog-scrollable .modal-footer,

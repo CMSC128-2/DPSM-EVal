@@ -6,7 +6,7 @@
                 <h5 class="mb-2">Self Evaluation Rubrics <br>for Attitudes, Professionalism and Work Ethics (30%)<br></h5>
                 <div class="card evaluatee-info"></div>
             </div><strong class="text-center form-categ">Attitude towards support and administrative staff<br></strong>
-            <form method="POST" action="/faculty/self-eval-page-4">
+            <form method="POST" action="/faculty/self-eval-page-4/{{form_id}}">
                 <div class="table-responsive text-center">
                     <table class="table table-sm eval-form-table">
                         <thead>
@@ -32,12 +32,10 @@
                     </table>
                 </div>
                 <div class="d-flex justify-content-center mt-5">
-                    <a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_3') }}"><i class="fas fa-chevron-left mr-1"></i><span>Prev</span></a>
+                    <a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_3', form_id=form_id) }}"><i class="fas fa-chevron-left mr-1"></i><span>Prev</span></a>
                     <button class="btn btn-sm text-light nxt-btn" type="submit"><span>Next</span><i class="fas fa-chevron-right ml-1"></i></button>
-                    <!-- <a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.peer_eval_page_2', evaluated_email = evaluated.email) }}"><span>Next</span><i class="fas fa-chevron-right ml-1"></i></a></div> -->
                 </div>
             </form>
-            <!-- <div class="d-flex justify-content-center mt-5"><a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_3') }}"><i class="fas fa-chevron-left mr-1"></i><span>Prev</span></a><a class="btn btn-sm text-light nxt-btn" role="button" href="{{ url_for('dpsm_eval_blueprint.self_eval_page_5') }}"><span>Next</span><i class="fas fa-chevron-right ml-1"></i></a></div> -->
         </div>
     </div>
 </div>

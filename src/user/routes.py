@@ -270,50 +270,116 @@ def peer_eval_page_5(evaluated_email, form_id, user_id):
 		print(session["email"])
 		print("successful")
 
-		return(redirect(url_for('dpsm_eval_blueprint.evaluate_success', form_id=form_id)))
+		return redirect(url_for('dpsm_eval_blueprint.evaluate_success_peer', form_id=form_id))
 
 		
 	
 	return render_template('user-faculty/peer-eval-pages/user-peer-eval-5.html', evaluated=evaluated, rubric=rubric, form_id=form_id, user_id=user_id)
 
-@dpsm_eval_blueprint.route('/evaluate-success')
-def evaluate_success(form_id):
-	return render_template('user-faculty/evaluate-success.html')
+@dpsm_eval_blueprint.route('/evaluate-success-peer/<string:form_id>')
+def evaluate_success_peer(form_id):
+	return render_template('user-faculty/peer-eval-pages/evaluate-success.html', form_id=form_id)
+
+##########################################################################################
 
 #SELF EVAL PAGES
-@dpsm_eval_blueprint.route('/faculty/self-eval-page-1')
-def self_eval_page_1():
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-1/<string:form_id>', methods=['GET', 'POST'])
+def self_eval_page_1(form_id):
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	rubric = questions_self_eval.query.filter_by(criteria='Professionalism')
 
-	
+	if request.method == "POST":
+		session['self_eval_1'] = request.form.get('self_eval_1')
+		session['self_eval_2'] = request.form.get('self_eval_2')
+		session['self_eval_3'] = request.form.get('self_eval_3')
+		session['self_eval_4'] = request.form.get('self_eval_4')
+		print(session['self_eval_1'])
+		return redirect(url_for('dpsm_eval_blueprint.self_eval_page_2', form_id=form_id))
 
-	return render_template('user-faculty/self-eval-pages/user-self-eval-1.html', evaluated=user, rubric=rubric)
+	return render_template('user-faculty/self-eval-pages/user-self-eval-1.html', evaluated=user, rubric=rubric, form_id=form_id)
 
-@dpsm_eval_blueprint.route('/faculty/self-eval-page-2')
-def self_eval_page_2():
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-2/<string:form_id>', methods=['GET', 'POST'])
+def self_eval_page_2(form_id):
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards students')
-	return render_template('user-faculty/self-eval-pages/user-self-eval-2.html', evaluated=user, rubric=rubric)
 
-@dpsm_eval_blueprint.route('/faculty/self-eval-page-3')
-def self_eval_page_3():
+	if request.method == "POST":
+		session['self_eval_5'] = request.form.get('self_eval_5')
+		session['self_eval_6'] = request.form.get('self_eval_6')
+		print(session['self_eval_5'])
+		return redirect(url_for('dpsm_eval_blueprint.self_eval_page_3', form_id=form_id))
+
+	return render_template('user-faculty/self-eval-pages/user-self-eval-2.html', evaluated=user, rubric=rubric, form_id=form_id)
+
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-3/<string:form_id>', methods=['GET', 'POST'])
+def self_eval_page_3(form_id):
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards peers')
-	return render_template('user-faculty/self-eval-pages/user-self-eval-3.html', evaluated=user, rubric=rubric)
 
-@dpsm_eval_blueprint.route('/faculty/self-eval-page-4')
-def self_eval_page_4():
+	if request.method == "POST":
+		session['self_eval_7'] = request.form.get('self_eval_7')
+		session['self_eval_8'] = request.form.get('self_eval_8')
+		session['self_eval_9'] = request.form.get('self_eval_9')
+		print(session['self_eval_7'])
+		return redirect(url_for('dpsm_eval_blueprint.self_eval_page_4', form_id=form_id))
+
+	return render_template('user-faculty/self-eval-pages/user-self-eval-3.html', evaluated=user, rubric=rubric, form_id=form_id)
+
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-4/<string:form_id>', methods=['GET', 'POST'])
+def self_eval_page_4(form_id):
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards support and administrative staff')
-	return render_template('user-faculty/self-eval-pages/user-self-eval-4.html', evaluated=user, rubric=rubric)
 
-@dpsm_eval_blueprint.route('/faculty/self-eval-page-5')
-def self_eval_page_5():
+	if request.method == "POST":
+		session['self_eval_10'] = request.form.get('self_eval_10')
+		print(session['self_eval_10'])
+		return redirect(url_for('dpsm_eval_blueprint.self_eval_page_5', form_id=form_id))
+
+	return render_template('user-faculty/self-eval-pages/user-self-eval-4.html', evaluated=user, rubric=rubric, form_id=form_id)
+
+@dpsm_eval_blueprint.route('/faculty/self-eval-page-5/<string:form_id>', methods=['GET', 'POST'])
+def self_eval_page_5(form_id):
 	user = UserAccounts.query.filter_by(email=session["email"]).first()
 	rubric = questions_self_eval.query.filter_by(criteria='Attitude towards the profession and administration')
-	return render_template('user-faculty/self-eval-pages/user-self-eval-5.html', evaluated=user, rubric=rubric)
 
+	if request.method == "POST":
+		session['self_eval_11'] = request.form.get('self_eval_11')
+		session['self_eval_12'] = request.form.get('self_eval_12')
+		print(session['self_eval_10'])
+
+		evaluation_data = [
+			session['self_eval_1'],
+			session['self_eval_2'],
+			session['self_eval_3'],
+			session['self_eval_4'],
+			session['self_eval_5'],
+			session['self_eval_6'],
+			session['self_eval_7'],
+			session['self_eval_8'],
+			session['self_eval_9'],
+			session['self_eval_10'],
+			session['self_eval_11'],
+			session['self_eval_12']
+		]
+
+		mongo.db.evaluation.update(
+			{"_id": form_id, "evaluatees.email": session['email']},
+			{"$push": 
+				{"evaluatees.$.self_eval": {'$each': evaluation_data}}
+			}
+		)
+
+
+
+		return redirect(url_for('dpsm_eval_blueprint.evaluate_success_self', form_id=form_id))
+
+	return render_template('user-faculty/self-eval-pages/user-self-eval-5.html', evaluated=user, rubric=rubric, form_id=form_id)
+
+@dpsm_eval_blueprint.route('/evaluate-success-self/<string:form_id>')
+def evaluate_success_self(form_id):
+	return render_template('user-faculty/self-eval-pages/evaluate-success-self.html', form_id=form_id)
+
+##############################################################
 
 #RESULTS ROUTES
 @dpsm_eval_blueprint.route('/faculty/results-forms-list')
