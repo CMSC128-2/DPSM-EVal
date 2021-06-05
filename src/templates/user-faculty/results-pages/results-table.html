@@ -4,20 +4,39 @@
     <div class="d-flex flex-column" id="content-wrapper">
         <div class="user-layout">
             <div class="container-fluid mb-5">
-                <h4>&lt;{{title}}&gt;</h4>
-                <h5>Results</h5>
-                {{i}}
+                <h1>{{title}} Results</h1>
+                <hr class="mt-0">
+                <h2><strong>Evaluatee: {{evaluatee_name}}</strong></h2>
+                <div class="table-responsive text-center" style="margin: 5% 12%;width: 75%;">
+                    <table class="table">
+                        <thead>
+                            <tr style="background: #014421;color: rgb(255,255,255);">
+                                <th style="text-align: center;width: 100px;font-size: 20px;">Average Peer Evaluation Score</th>
+                                <th style="text-align: center;width: 100px;font-size: 20px;">Average Self Evaluation Score</th>
+                                <th style="text-align: center;width: 100px;font-size: 20px;">Total Score</th>
+                            </tr>
+                        </thead>
+                        <tbody style="background: #e3e3e3;">
+                            <tr>
+                                <td style="text-align: center;width: 100px;color: rgb(0,0,0);font-size: 30px;"><strong>{{peer_average_score}}</strong></td>
+                                <td style="text-align: center;width: 100px;color: rgb(0,0,0);font-size: 30px;"><strong>{{self_score}}</strong></td>
+                                <td style="text-align: center;width: 100px;color: rgb(0,0,0);font-size: 30px;"><strong>{{totalScore}}</td></strong>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="table-responsive text-center">
                     <table class="table table-sm fac-table">
                         <thead>
                             <tr>
                                 <th style="min-width: 100px;">Evaluator</th>
                                 <th style="min-width: 100px;">Unit</th>
-                                <th class="heading" colspan="6">Professionalism and Work Ethics</th>
-                                <th class="heading">Attitude Towards Students</th>
-                                <th class="heading" colspan="2">Attitude Towards Peers</th>
-                                <th class="heading">Attitude Towards Support Staff</th>
-                                <th class="heading">Attitude Towards University Policies and Regulations</th>
+                                <th colspan="6">Professionalism and Work Ethics</th>
+                                <th>Attitude Towards Students</th>
+                                <th colspan="2">Attitude Towards Peers</th>
+                                <th>Attitude Towards Support Staff</th>
+                                <th>Attitude Towards University Policies and Regulations</th>
+                                <th style="min-width: 100px;">Total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,9 +54,10 @@
                                 <td>9</td>
                                 <td>10</td>
                                 <td>11</td>
+                                <td></td>
                             </tr>
                             <tr>
-                                {% for i,j,k,l in evaluatee_data %}
+                                {% for i,j,k,l,m in evaluatee_data %}
                                 <td>{{l}}</td>
                                 <td>{{j}}</td>
                                 <td>{{k[0]}}</td>
@@ -51,6 +71,7 @@
                                 <td>{{k[8]}}</td>
                                 <td>{{k[9]}}</td>
                                 <td>{{k[10]}}</td>
+                                <td>{{m}}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

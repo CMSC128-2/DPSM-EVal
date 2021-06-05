@@ -4,14 +4,15 @@
     <div class="user-layout">
         <div class="container-fluid mb-5">
             <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
-            <h4>Choose faculty to evaluate</h4>
+            <h1>Professors List</h1>
+            <hr class="mt-0">
             <div class="table-responsive text-center">
                 <table class="table table-sm fac-table">
                     <thead>
                         <tr>
                             <th>Faculty Member Name</th>
-                            <th>Status</th>
-                            <th>Evaluation</th>
+                            <th>Unit</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -19,7 +20,7 @@
                         <tr>
                             <td>{{ i }}</td>
                             <td>{{ j }}</td>
-                            <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.results_table', evaluated_email = k, form_id=form_id) }}">View</a><i class="fa fa-check-circle ml-1"></i></td>
+                            <td><a class="click-to-eval" href="{{ url_for('dpsm_eval_blueprint.results_table', evaluated_email = k, form_id=form_id) }}">View</a></td>
                         </tr>
                         {% endfor %}
                         

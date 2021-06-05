@@ -79,14 +79,15 @@ def callback():
 
 	#print(session["picture"])
 	user = UserAccounts.query.filter_by(email=id_info.get("email")).first()
-	login_user(user)
+	
 	if user is not None:
+		login_user(user)
 		if user.is_admin == False:
 			return redirect('/user-dashboard')
 		else:
 			return redirect('/admin-dashboard')
 	else:
-		return "Faculty Account Does not Exist in Database"
+		return "Faculty Account Does not Exist in Database. If you think this is a mistake, please contact the administrator"
 
 @dpsm_eval_blueprint.route('/user-dashboard')
 #@login_required
@@ -407,10 +408,12 @@ def results_table(evaluated_email, form_id):
 	this_form = mongo.db.evaluation.find({"_id" : form_id})
 	evaluatees = {}
 	evaluation_results = {}
+	self_eval_results = []
 	evaluator = []
 	unit = []
 	answers = []
 	tableNumbering = []
+	totalScoresList = []
 	title = ''
 	for i in this_form:
 		evaluatees = i['evaluatees']
@@ -418,7 +421,9 @@ def results_table(evaluated_email, form_id):
 
 	for i in evaluatees:
 		if evaluated_email == i['email']:
-			evaluation_results = i['evaluation_results'] 
+			evaluation_results = i['evaluation_results']
+			evaluatee_name = i['first_name'] + ' ' + i['middle_name'] + ' ' + i['last_name']
+			self_eval_results = i['self_eval']
 
 	for i in evaluation_results:
 		evaluator.append(i['evaluator'])
@@ -429,6 +434,28 @@ def results_table(evaluated_email, form_id):
 	for i in range(1, len(answers)+1):
 		tableNumbering.append(i)
 
+	for result in answers:
+		sum = 0
+		for j in result:
+			sum += int(j)
+		totalScoresList.append(sum)
+	
+	peer_average_score = 0
+	for total in totalScoresList:
+		peer_average_score += total
+	
+	peer_average_score /= len(totalScoresList)
 
-	return render_template('user-faculty/results-pages/results-table.html', evaluatee_data=zip(evaluator, unit, answers, tableNumbering), i=evaluated_email, title=title)
+	print(peer_average_score)
+
+	self_score = 0
+	for i in self_eval_results:
+		self_score += int(i)
+	
+	print(self_score)
+
+	totalScore = (peer_average_score*0.7) + (self_score*0.3)
+
+	return render_template('user-faculty/results-pages/results-table.html', evaluatee_data=zip(evaluator, unit, answers, tableNumbering, totalScoresList), i=evaluated_email, title=title, 
+		evaluatee_name=evaluatee_name, peer_average_score=peer_average_score, self_score=self_score, totalScore=totalScore)
 ###############################################################################################
