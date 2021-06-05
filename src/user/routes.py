@@ -393,6 +393,10 @@ def results_forms_list():
 	user =  UserAccounts.query.filter_by(email=session["email"]).first()
 	is_unit_head = user.is_unit_head
 	is_dept_head = user.is_dept_head
+<<<<<<< HEAD
+	unit = user.unit
+=======
+>>>>>>> 19999b291dc0901f524dd6a9bffb1c9292235220
 	history = []
 
 	active_data = mongo.db.evaluation.find({"is_active" : False})
