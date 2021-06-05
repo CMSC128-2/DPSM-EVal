@@ -21,7 +21,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for i,j,k in evaluatee_data %}
                             <tr class="sub-heading">
                                 <td><br></td>
                                 <td></td>
@@ -38,19 +37,20 @@
                                 <td>11</td>
                             </tr>
                             <tr>
-                                <td>{{i}}</td>
+                                {% for i,j,k in evaluatee_data %}
+                                <td>Adonis gay bar dancer</td>
                                 <td>{{j}}</td>
-                                <td>{{k["0"]}}</td>
-                                <td>{{k["1"]}}</td>
-                                <td>{{k["2"]}}</td>
-                                <td>{{k["3"]}}</td>
-                                <td>{{k["4"]}}</td>
-                                <td>{{k["5"]}}</td>
-                                <td>{{k["6"]}}</td>
-                                <td>{{k["7"]}}</td>
-                                <td>{{k["8"]}}</td>
-                                <td>{{k["9"]}}</td>
-                                <td>{{k["10"]}}</td>
+                                <td>{{k[0]}}</td>
+                                <td>{{k[1]}}</td>
+                                <td>{{k[2]}}</td>
+                                <td>{{k[3]}}</td>
+                                <td>{{k[4]}}</td>
+                                <td>{{k[5]}}</td>
+                                <td>{{k[6]}}</td>
+                                <td>{{k[7]}}</td>
+                                <td>{{k[8]}}</td>
+                                <td>{{k[9]}}</td>
+                                <td>{{k[10]}}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
