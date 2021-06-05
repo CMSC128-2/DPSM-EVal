@@ -4,8 +4,9 @@
     <div class="d-flex flex-column" id="content-wrapper">
         <div class="user-layout">
             <div class="container-fluid mb-5">
-                <h4>&lt;Evaluation Name&gt;</h4>
+                <h4>&lt;{{title}}&gt;</h4>
                 <h5>Results</h5>
+                {{i}}
                 <div class="table-responsive text-center">
                     <table class="table table-sm fac-table">
                         <thead>
@@ -20,6 +21,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for i,j,k in evaluatee_data %}
                             <tr class="sub-heading">
                                 <td><br></td>
                                 <td></td>
@@ -36,20 +38,21 @@
                                 <td>11</td>
                             </tr>
                             <tr>
-                                <td>Prof ID</td>
-                                <td>MCSU</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                                <td>11</td>
+                                <td>{{i}}</td>
+                                <td>{{j}}</td>
+                                <td>{{k["0"]}}</td>
+                                <td>{{k["1"]}}</td>
+                                <td>{{k["2"]}}</td>
+                                <td>{{k["3"]}}</td>
+                                <td>{{k["4"]}}</td>
+                                <td>{{k["5"]}}</td>
+                                <td>{{k["6"]}}</td>
+                                <td>{{k["7"]}}</td>
+                                <td>{{k["8"]}}</td>
+                                <td>{{k["9"]}}</td>
+                                <td>{{k["10"]}}</td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
