@@ -93,13 +93,69 @@ def callback():
 #@login_required
 def dashboard():
 	active_forms = []
-
+	final_active_forms = []
 	active_data = mongo.db.evaluation.find({"is_active" : True})
+	evaluatees = {}
+	evaluators = {}
+	
+	evaluatee = False
+	evaluator = False
 
-	for document in active_data:	
-		active_forms.append(document)
-		print(document)
-	return render_template('user-faculty/dashboard.html', active_forms = active_forms)
+	
+	done = False
+	for document in active_data:
+		evaluatees = document['evaluatees']
+		evaluators = document['evaluators']
+		for i in evaluatees:
+			if session['email'] == i['email']:
+				final_active_forms.append(document)
+				done = True
+			if not done:
+				done = False
+		for i in evaluators:
+			#print(evaluator)
+			if session['email'] == i['email']:
+				if document not in final_active_forms:
+					final_active_forms.append(document)
+			if not done:
+				done = False
+
+	evaluateeStatus = [None] * len(final_active_forms)
+	evaluatorStatus = [None] * len(final_active_forms)
+
+	round = 0
+	done = False
+	for document in final_active_forms:
+		evaluatees = document['evaluatees']
+		evaluators = document['evaluators']
+		for i in evaluatees:
+			if session['email'] == i['email']:
+				evaluateeStatus[round] = True
+				done = True
+			if not done:
+				evaluateeStatus[round] = False
+				done = False
+		for i in evaluators:
+			#print(evaluator)
+			if session['email'] == i['email']:
+				evaluatorStatus[round] = True
+				done = True
+			if not done:
+				evaluatorStatus[round] = False
+				done = False
+		round += 1
+		
+	print(evaluateeStatus)
+	print(evaluatorStatus)
+	
+	# if evaluator and evaluatee:
+	# 	both = True
+
+	# for document in active_data:	
+		
+	# 	active_forms.append(document)
+	# 	print(document)
+	return render_template('user-faculty/dashboard.html', final=zip(final_active_forms, evaluateeStatus, evaluatorStatus))
 
 @dpsm_eval_blueprint.route('/faculty_list/<string:form_id>/home', methods=['GET', 'POST'])
 #@login_required
@@ -415,6 +471,7 @@ def results_table(evaluated_email, form_id):
 	tableNumbering = []
 	totalScoresList = []
 	title = ''
+	evaluatee_name = ""
 	for i in this_form:
 		evaluatees = i['evaluatees']
 		title = i['title']
@@ -439,22 +496,30 @@ def results_table(evaluated_email, form_id):
 		for j in result:
 			sum += int(j)
 		totalScoresList.append(sum)
-	
 	peer_average_score = 0
-	for total in totalScoresList:
-		peer_average_score += total
-	
-	peer_average_score /= len(totalScoresList)
-
-	print(peer_average_score)
-
 	self_score = 0
-	for i in self_eval_results:
-		self_score += int(i)
-	
-	print(self_score)
+	totalScore = 0
+	if len(totalScoresList) > 0:
+		
+		for total in totalScoresList:
+			peer_average_score += total
+		
+		peer_average_score /= len(totalScoresList)
 
-	totalScore = (peer_average_score*0.7) + (self_score*0.3)
+		print(peer_average_score)
+
+		
+		for i in self_eval_results:
+			self_score += int(i)
+		
+		print(self_score)
+
+		totalScore = (peer_average_score*0.7) + (self_score*0.3)
+	
+	else:
+		peer_average_score = 0
+		self_score = 0
+		totalScore = 0
 
 	return render_template('user-faculty/results-pages/results-table.html', evaluatee_data=zip(evaluator, unit, answers, tableNumbering, totalScoresList), i=evaluated_email, title=title, 
 		evaluatee_name=evaluatee_name, peer_average_score=peer_average_score, self_score=self_score, totalScore=totalScore)
