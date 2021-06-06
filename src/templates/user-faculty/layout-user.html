@@ -17,9 +17,42 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/overrides.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-in.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <script>
+            var radioID = $('#4').name()
+            document.getElementById("4").onclick = function() {setSessionVar4()};
+            document.getElementById("3").onclick = function() {setSessionVar3()};
+            document.getElementById("2").onclick = function() {setSessionVar2()};
+            document.getElementById("1").onclick = function() {setSessionVar1()};
+
+            function setSessionVar4(radioName){
+                var radioID = $('#4').name()
+                sessionStorage.setItem(radioID, 4)
+            }
+
+            function setSessionVar3(){
+                var radioID = $('#3').name()
+                sessionStorage.setItem(radioID, 3)
+            }
+
+            function setSessionVar2(){
+                var radioID = $('#2').name()
+                sessionStorage.setItem(radioID, 2)
+            }
+
+            function setSessionVar1(){
+                var radioID = $('#1').name()
+                sessionStorage.setItem(radioID, 1)
+            }
+
+            function setChecked(){
+                document.peer_eval_form.radioID[radioID.getItem('key')].checked=true;
+            }
+
+            
+        </script>
     </head>
 
-    <body id="page-top">
+    <body id="page-top"  onload="setChecked()">
         <nav class="navbar navbar-light navbar-dark" style="position: fixed;z-index: 1030;left: 0;right: 0;background-color: #131313;">
             <div class="container-fluid"><a href="/user-dashboard">
                     <div class="site-logo"></div>
