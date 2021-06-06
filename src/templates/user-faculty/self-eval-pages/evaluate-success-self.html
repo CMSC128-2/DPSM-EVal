@@ -1,6 +1,6 @@
 {% extends "user-faculty/layout-user.html" %} {% block evaluate_success_self %}
 
-<body id="page-top">
+<body id="page-top" onload="clear()">
     <div class="d-flex flex-column" id="content-wrapper">
         <div class="user-layout">
             <div class="container-fluid">
@@ -15,5 +15,11 @@
             </div>
         </div>
     </div>
+
+<script>
+    function clear(){
+        sessionStorage.clear();
+    }
+</script>
 
 {% endblock %}
