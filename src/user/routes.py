@@ -324,7 +324,7 @@ def peer_eval_page_5(evaluated_email, form_id, user_id):
 		)
 
 		mongo.db.evaluation.update(
-			{"_id": form_id, "evaluators.email": 'lcgarcia5@up.edu.ph'},
+			{"_id": form_id, "evaluators.email": session['email']},
 			{"$pull": 
 				{"evaluators.$.to_evaluate": int(user_id)}
 			}
@@ -515,18 +515,27 @@ def results_table(evaluated_email, form_id):
 
 		print(peer_average_score)
 
-		
 		for i in self_eval_results:
 			self_score += int(i)
 		
 		print(self_score)
 
 		totalScore = (peer_average_score*0.7) + (self_score*0.3)
+		
 	
 	else:
 		peer_average_score = 0
-		self_score = 0
-		totalScore = 0
+		for i in self_eval_results:
+			self_score += int(i)
+		
+		print(self_score)
+
+		totalScore = (peer_average_score*0.7) + (self_score*0.3)
+
+	peer_average_score = round(peer_average_score, 3)
+	# self_score = round(self_score, 3)
+	totalScore = round(totalScore, 3)
+		
 
 	return render_template('user-faculty/results-pages/results-table.html', evaluatee_data=zip(evaluator, unit, answers, tableNumbering, totalScoresList), i=evaluated_email, title=title, 
 		evaluatee_name=evaluatee_name, peer_average_score=peer_average_score, self_score=self_score, totalScore=totalScore)
