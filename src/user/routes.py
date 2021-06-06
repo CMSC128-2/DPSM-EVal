@@ -451,12 +451,19 @@ def results_forms_list():
 	is_unit_head = user.is_unit_head
 	is_dept_head = user.is_dept_head
 	history = []
-
+	evaluatee = {}
 	active_data = mongo.db.evaluation.find({"is_active" : False})
 
-	for document in active_data:	
-		history.append(document)
-		print(document)
+	for document in active_data:
+		evaluatee = document['evaluatees']
+
+		for i in evaluatee:
+			if session['email'] == i['email']:
+				history.append(document)
+
+	# for document in active_data:	
+	# 	history.append(document)
+	# 	print(document)
 	return render_template('user-faculty/results-pages/results-forms-list-page.html', history=history, is_unit_head=is_unit_head, is_dept_head=is_dept_head, unit=user.unit)
 
 @dpsm_eval_blueprint.route('/faculty/results-table/<string:evaluated_email>/<string:form_id>')
