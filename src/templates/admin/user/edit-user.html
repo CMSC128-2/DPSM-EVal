@@ -17,22 +17,22 @@
                             
                                 <div class="form-row">
                                     <div class="col">
-                                        <div class="form-group"><label for="first_name"><strong>Email Address</strong><br /></label><input type="text" class="form-control" id="email" placeholder="{{user.email}}" name="email" /></div>
+                                        <div class="form-group"><label for="first_name"><strong>Email Address</strong><br /></label><input type="text" class="form-control" id="email" value="{{user.email}}" name="email" /></div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col">
-                                        <div class="form-group"><label for="first_name"><strong>First Name</strong></label><input type="text" class="form-control" id="first_name" placeholder="{{user.first_name}}" name="first_name" /></div>
+                                        <div class="form-group"><label for="first_name"><strong>First Name</strong></label><input type="text" class="form-control" id="first_name" value="{{user.first_name}}" name="first_name" /></div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col">
-                                        <div class="form-group"><label for="username"><strong>Middle Name</strong></label><input type="text" class="form-control" id="middle_name" placeholder="{{user.middle_name}}" name="middle_name" /></div>
+                                        <div class="form-group"><label for="username"><strong>Middle Name</strong></label><input type="text" class="form-control" id="middle_name" value="{{user.middle_name}}" name="middle_name" /></div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col">
-                                        <div class="form-group"><label for="first_name"><strong>Last Name</strong></label><input type="text" class="form-control" id="lastname" placeholder="{{user.last_name}}" name="last_name" /></div>
+                                        <div class="form-group"><label for="first_name"><strong>Last Name</strong></label><input type="text" class="form-control" id="lastname" value="{{user.last_name}}" name="last_name" /></div>
                                     </div>
                                 </div>
                             
@@ -115,19 +115,31 @@
                                         <div class="form-group"><label for="country"><strong>Position</strong></label>
                                             
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="True" id="Unit Head" name = "position1">
+                                                {% if user.is_unit_head == true %}
+                                                <input class="form-check-input" type="checkbox" value="True" id="Unit Head" name = "position1" Checked>
+                                                {% else %}
+                                                <input class="form-check-input" type="checkbox" value="True" id="Unit Head" name = "position1" >
+                                                {% endif %}
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                   Unit Head
                                                 </label>
                                               </div>
                                               <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="True" id="Unit APC" name = "position2">
+                                                {% if user.is_unit_apc == true %} 
+                                                <input class="form-check-input" type="checkbox" value="True" id="Unit APC" name = "position2" Checked>
+                                                {% else %}
+                                                <input class="form-check-input" type="checkbox" value="True" id="Unit APC" name = "position2" >
+                                                {% endif %}
                                                 <label class="form-check-label" for="flexCheckChecked">
                                                   Unit APC
                                                 </label>
                                               </div>
                                               <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="True" id="Department Head" name = "position3">
+                                                {% if user.is_dept_head == true %} 
+                                                <input class="form-check-input" type="checkbox" value="True" id="Department Head" name = "position3" Checked>
+                                                {% else %}
+                                                <input class="form-check-input" type="checkbox" value="True" id="Department Head" name = "position3" >
+                                                {% endif %}
                                                 <label class="form-check-label" for="flexCheckChecked">
                                                   Department Head
                                                 </label>
@@ -141,59 +153,204 @@
                                             <select class="form-control" name = "work_title">
                                                 <optgroup label="Full Time">
                                                     &nbsp;<optgroup label="Instructor">
+                                                        {% if user.work_title == 'Instructor 1' %} 
+                                                        <option value="Instructor 1" selected id="Instructor 1">I1</option>
+                                                        {% else %}
                                                         <option value="Instructor 1" id="Instructor 1">I1</option>
+                                                        {% endif %}
+
+                                                        {% if user.work_title == 'Instructor 2' %} 
+                                                        <option value="Instructor 2" selected id="Instructor 2">I2</option>
+                                                        {% else %}
                                                         <option value="Instructor 2" id="Instructor 2">I2</option>
+                                                        {% endif %}
+
+                                                        {% if user.work_title == 'Instructor 3' %} 
+                                                        <option value="Instructor 3" selected id="Instructor 3">I3</option>
+                                                        {% else %}
                                                         <option value="Instructor 3" id="Instructor 3">I3</option>
+                                                        {% endif %}
+
+                                                        {% if user.work_title == 'Instructor 4' %} 
+                                                        <option value="Instructor 4" selected id="Instructor 4">I4</option>
+                                                        {% else %}
                                                         <option value="Instructor 4" id="Instructor 4">I4</option>
+                                                        {% endif %}
+
+                                                        {% if user.work_title == 'Instructor 5' %} 
+                                                        <option value="Instructor 5" selected id="Instructor 1">I5</option>
+                                                        {% else %}
                                                         <option value="Instructor 5" id="Instructor 1">I5</option>
+                                                        {% endif %}
+
+                                                        {% if user.work_title == 'Instructor 6' %} 
+                                                        <option value="Instructor 6" selected id="Instructor 6">I6</option>
+                                                        {% else %}
                                                         <option value="Instructor 6" id="Instructor 6">I6</option>
+                                                        {% endif %}
+
+                                                        {% if user.work_title == 'Instructor 7' %} 
+                                                        <option value="Instructor 7" selected id="Instructor 7">I7</option>
+                                                        {% else %}
                                                         <option value="Instructor 7" id="Instructor 7">I7</option>
+                                                        {% endif %}                            
                                                     </optgroup>
                                                 
                                                     <optgroup label="Assistant Professor">
+                                                        {% if user.work_title == 'Assistant Professor 1' %} 
+                                                        <option value="Assistant Professor 1" selected id="Assistant Professor 1">AP1</option>
+                                                        {% else %}
                                                         <option value="Assistant Professor 1" id="Assistant Professor 1">AP1</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Assistant Professor 2' %} 
+                                                        <option value="Assistant Professor 2" selected id="Assistant Professor 2">AP2</option>
+                                                        {% else %}
                                                         <option value="Assistant Professor 2" id="Assistant Professor 2">AP2</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Assistant Professor 3' %} 
+                                                        <option value="Assistant Professor 3" selected id="Assistant Professor 3">AP3</option>
+                                                        {% else %}
                                                         <option value="Assistant Professor 3" id="Assistant Professor 3">AP3</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Assistant Professor 4' %} 
+                                                        <option value="Assistant Professor 4" selected id="Assistant Professor 4">AP4</option>
+                                                        {% else %}
                                                         <option value="Assistant Professor 4" id="Assistant Professor 4">AP4</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Assistant Professor 5' %} 
+                                                        <option value="Assistant Professor 5" selected id="Assistant Professor 5">AP5</option>
+                                                        {% else %}
                                                         <option value="Assistant Professor 5" id="Assistant Professor 5">AP5</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Assistant Professor 6' %} 
+                                                        <option value="Assistant Professor 6" selected id="Assistant Professor 1">AP6</option>
+                                                        {% else %}
                                                         <option value="Assistant Professor 6" id="Assistant Professor 1">AP6</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Assistant Professor 7' %} 
+                                                        <option value="Assistant Professor 7" selected id="Assistant Professor 7">AP7</option>
+                                                        {% else %}
                                                         <option value="Assistant Professor 7" id="Assistant Professor 7">AP7</option>
+                                                        {% endif %}         
+                                                        
                                                     </optgroup>
                                                 
                                                     <optgroup label="Associate Professor">
+                                                        {% if user.work_title == 'Associate Professor 1' %} 
+                                                        <option value="Associate Professor 1" selected id="Associate Professor 1">Assoc1</option>
+                                                        {% else %}
                                                         <option value="Associate Professor 1" id="Associate Professor 1">Assoc1</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Associate Professor 2' %} 
+                                                        <option value="Associate Professor 2" selected id="Associate Professor 2">Assoc2</option>
+                                                        {% else %}
                                                         <option value="Associate Professor 2" id="Associate Professor 2">Assoc2</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Associate Professor 3' %} 
+                                                        <option value="Associate Professor 3" selected id="Associate Professor 3">Assoc3</option>
+                                                        {% else %}
                                                         <option value="Associate Professor 3" id="Associate Professor 3">Assoc3</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Associate Professor 4' %} 
+                                                        <option value="Associate Professor 4" selected id="Associate Professor 4">Assoc4</option>
+                                                        {% else %}
                                                         <option value="Associate Professor 4" id="Associate Professor 4">Assoc4</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Associate Professor 5' %} 
+                                                        <option value="Associate Professor 5" selected id="Associate Professor 5">Assoc5</option>
+                                                        {% else %}
                                                         <option value="Associate Professor 5" id="Associate Professor 5">Assoc5</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Associate Professor 6' %} 
+                                                        <option value="Associate Professor 6" selected id="Associate Professor 6">Assoc6</option>
+                                                        {% else %}
                                                         <option value="Associate Professor 6" id="Associate Professor 6">Assoc6</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Associate Professor 7' %} 
+                                                        <option value="Associate Professor 7" selected id="Associate Professor 7">Assoc7</option>
+                                                        {% else %}
                                                         <option value="Associate Professor 7" id="Associate Professor 7">Assoc7</option>
+                                                        {% endif %}
+                                                        
                                                     </optgroup>
                                                 
                                                     <optgroup label="Professor">
+                                                        {% if user.work_title == 'Professor 1' %} 
+                                                        <option value="Professor 1" selected id="Professor 1">Prof1</option>
+                                                        {% else %}
                                                         <option value="Professor 1" id="Professor 1">Prof1</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Professor 2' %} 
+                                                        <option value="Professor 2" selected id="Professor 2">Prof2</option>
+                                                        {% else %}
                                                         <option value="Professor 2" id="Professor 2">Prof2</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Professor 3' %} 
+                                                        <option value="Professor 3" selected id="Professor 3">Prof3</option>
+                                                        {% else %}
                                                         <option value="Professor 3" id="Professor 3">Prof3</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Professor 4' %} 
+                                                        <option value="Professor 4" selected id="Professor 4">Prof4</option>
+                                                        {% else %}
                                                         <option value="Professor 4" id="Professor 4">Prof4</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Professor 5' %} 
+                                                        <option value="Professor 5" selected id="Professor 5">Prof5</option>
+                                                        {% else %}
                                                         <option value="Professor 5" id="Professor 5">Prof5</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Professor 6' %} 
+                                                        <option value="Professor 6" selected id="Professor 6">Prof6</option>
+                                                        {% else %}
                                                         <option value="Professor 6" id="Professor 6">Prof6</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Professor 7' %} 
+                                                        <option value="Professor 7" selected id="Professor 7">Prof7</option>
+                                                        {% else %}
                                                         <option value="Professor 7" id="Professor 7">Prof7</option>
+                                                        {% endif %}   
                                                     </optgroup>
                                                 </optgroup>
                                                 
                                                 <optgroup label="Part Time">
                                                     <optgroup label="Lecturer">
+                                                        {% if user.work_title == 'Lecturer 1' %} 
+                                                        <option value="Lecturer 1" selected id="Lecturer 1">Lecturer 1</option>
+                                                        {% else %}
                                                         <option value="Lecturer 1" id="Lecturer 1">Lecturer 1</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Lecturer 2' %} 
+                                                        <option value="Lecturer 2" selected id="Lecturer 2">Lecturer 2</option>
+                                                        {% else %}
                                                         <option value="Lecturer 2" id="Lecturer 2">Lecturer 2</option>
+                                                        {% endif %}
+                                                        
+                                                        
                                                     </optgroup>
                                                 
                                                     <optgroup label="Senior Lecturer">
+                                                        {% if user.work_title == 'Senior Lecturer 1' %} 
+                                                        <option value="Senior Lecturer 1" selected id="Senior Lecturer 1">Sr. Lecturer 1</option>
+                                                        {% else %}
                                                         <option value="Senior Lecturer 1" id="Senior Lecturer 1">Sr. Lecturer 1</option>
+                                                        {% endif %}
+                                                        {% if user.work_title == 'Senior Lecturer 2' %} 
+                                                        <option value="Senior Lecturer 2" selected id="Senior Lecturer 2">Sr. Lecturer 2</option>
+                                                        {% else %}
                                                         <option value="Senior Lecturer 2" id="Senior Lecturer 2">Sr. Lecturer 2</option>
+                                                        {% endif %}
+                                                        
+                                                        
                                                     </optgroup>
                                                 
                                                     <optgroup label="Others">
+                                                        {% if user.work_title == 'Adjunct Professor' %} 
+                                                        <option value="Adjunct Professor" selected id="Adjunct Professor">Adjunct Prof.</option>
+                                                        {% else %}
                                                         <option value="Adjunct Professor" id="Adjunct Professor">Adjunct Prof.</option>
+                                                        {% endif %}
+                                                        
                                                     </optgroup>
                                                 </optgroup>
                                             </select>
