@@ -17,7 +17,7 @@ import os
 import pip._vendor.cachecontrol as cacheControl
 import uuid
 GOOGLE_CLIENT_ID = "509870006288-jrkbji4gr3bsu9qmk9990f39uop3545c.apps.googleusercontent.com"
-client_secrets_file = "src/user/google-oauth-creds.json"
+client_secrets_file = "google-oauth-creds.json"
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
