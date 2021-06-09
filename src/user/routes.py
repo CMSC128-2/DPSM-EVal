@@ -24,18 +24,12 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 flow = Flow.from_client_secrets_file(
 	client_secrets_file = client_secrets_file,
 	scopes = ["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
-<<<<<<< HEAD
-	redirect_uri = "https://dpsm-eval.herokuapp.com/callback")
-	
-	#http://127.0.0.1:5000/callback
-=======
 	# Heroku
 	redirect_uri = "https://dpsm-eval.herokuapp.com/callback")
 	
 	#redirect_uri = "http://127.0.0.1:5000/callback")
 
 
->>>>>>> ab2971799163ec0f7444f9616b4d9746033b04d1
 # Set up a Blueprint
 dpsm_eval_blueprint = Blueprint('dpsm_eval_blueprint', __name__)
 
