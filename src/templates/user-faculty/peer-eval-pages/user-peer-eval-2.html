@@ -40,10 +40,10 @@
                                 </script>
                                 <tr>
                                     <td>{{i.id}}</td>
-                                    <td><label class="form-option"><input id="{{i.question_id}}4" onclick="setAnswer('{{i.question_id}}', 4)" type="radio" name="{{i.question_id}}" value="4" style="filter: grayscale(82%) hue-rotate(148deg) saturate(200%);"><span><br>{{ i.excellent }}<br><br></span></label></td>
-                                    <td><label class="form-option"><input id="{{i.question_id}}3" onclick="setAnswer('{{i.question_id}}', 3)" type="radio" name="{{i.question_id}}" value="3"><span>{{ i.very_good}}<br><br><br></span></label></td>
-                                    <td><label class="form-option"><input id="{{i.question_id}}2" onclick="setAnswer('{{i.question_id}}', 2)" type="radio" name="{{i.question_id}}" value="2"><span><br>{{ i.needs_improvement }}<br><br></span></label></td>
-                                    <td><label class="form-option"><input id="{{i.question_id}}1" onclick="setAnswer('{{i.question_id}}', 1)" type="radio" name="{{i.question_id}}" value="1"><span><br>{{ i.poor }}<br><br></span></label></td>
+                                    <td><label class="form-option"><input id="{{i.question_id}}4" onclick="setAnswer('{{i.question_id}}', 4)" type="radio" name="{{i.question_id}}" value="4" style="filter: grayscale(82%) hue-rotate(148deg) saturate(200%);" required><span><br>{{ i.excellent }}<br><br></span></label></td>
+                                    <td><label class="form-option"><input id="{{i.question_id}}3" onclick="setAnswer('{{i.question_id}}', 3)" type="radio" name="{{i.question_id}}" value="3" required><span>{{ i.very_good}}<br><br><br></span></label></td>
+                                    <td><label class="form-option"><input id="{{i.question_id}}2" onclick="setAnswer('{{i.question_id}}', 2)" type="radio" name="{{i.question_id}}" value="2" required><span><br>{{ i.needs_improvement }}<br><br></span></label></td>
+                                    <td><label class="form-option"><input id="{{i.question_id}}1" onclick="setAnswer('{{i.question_id}}', 1)" type="radio" name="{{i.question_id}}" value="1" required><span><br>{{ i.poor }}<br><br></span></label></td>
                                 </tr>
                                 <style onload="set('{{ i.question_id }}');"></style>
                                 <script>
